@@ -33,8 +33,8 @@ package com.mhschmieder.fxcharttoolkit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mhschmieder.commonstoolkit.math.GridResolution;
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
-import com.mhschmieder.fxguitoolkit.GridResolution;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
 
 import javafx.application.Platform;
