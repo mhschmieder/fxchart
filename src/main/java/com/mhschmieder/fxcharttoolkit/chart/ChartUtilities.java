@@ -33,18 +33,137 @@ package com.mhschmieder.fxcharttoolkit.chart;
 import java.text.NumberFormat;
 
 import com.mhschmieder.commonstoolkit.text.StringUtilities;
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.layout.ChartLegend;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 
 /**
- * This is a utility class for common chart methods that are agnostic to chart
- * type.
+ * This is a utility class for common chart methods, agnostic to chart type.
  */
 public final class ChartUtilities {
+
+    /**
+     * The default constructor is disabled, as this is a static utilities class.
+     */
+    private ChartUtilities() {}
+
+    public static NumberAxis getFrequencyDomainAmplitudeAxis( final double lowerBound,
+                                                              final double upperBound,
+                                                              final double tickUnit ) {
+        final NumberAxis frequencyAmplitudeAxis =
+                                                new NumberAxis( lowerBound, upperBound, tickUnit );
+        frequencyAmplitudeAxis.setLabel( "Amplitude (dB)" ); //$NON-NLS-1$
+
+        frequencyAmplitudeAxis
+                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyAmplitudeAxis ) );
+
+        return frequencyAmplitudeAxis;
+    }
+
+    public static NumberAxis getFrequencyDomainGainAxis( final double lowerBound,
+                                                         final double upperBound,
+                                                         final double tickUnit ) {
+        final NumberAxis frequencyGainAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        frequencyGainAxis.setLabel( "Gain (dB)" ); //$NON-NLS-1$
+
+        frequencyGainAxis
+                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyGainAxis ) );
+
+        return frequencyGainAxis;
+    }
+
+    public static NumberAxis getFrequencyDomainPhaseAxis( final double tickUnit,
+                                                          final int minorTickCount ) {
+        final NumberAxis frequencyPhaseAxis = new NumberAxis( -180d, 180d, tickUnit );
+
+        frequencyPhaseAxis.setTickMarkVisible( true );
+        frequencyPhaseAxis.setTickLabelsVisible( true );
+        frequencyPhaseAxis.setMinorTickCount( minorTickCount );
+        frequencyPhaseAxis.setMinorTickVisible( true );
+
+        frequencyPhaseAxis.setLabel( "Phase (degrees)" ); //$NON-NLS-1$
+
+        // NOTE: We might have to support other angle formats at some point.
+        frequencyPhaseAxis
+                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyPhaseAxis,
+                                                                         null,
+                                                                         StringUtilities.DEGREES_SYMBOL ) );
+
+        return frequencyPhaseAxis;
+    }
+
+    @SuppressWarnings("nls")
+    public static NumberAxis getFrequencyDomainSplAxis( final double lowerBound,
+                                                        final double upperBound,
+                                                        final double tickUnit ) {
+        final NumberAxis frequencySplAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        frequencySplAxis.setLabel( "SPL (dBSPL)" );
+
+        frequencySplAxis
+                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencySplAxis ) );
+
+        return frequencySplAxis;
+
+    }
+
+    public static NumberAxis getNormalizedAmplitudeAxis() {
+        final NumberAxis normalizedAmplitudeAxis = new NumberAxis( -1d, 1d, 0.25d );
+        normalizedAmplitudeAxis.setLabel( "Amplitude (Normalized)" ); //$NON-NLS-1$
+
+        return normalizedAmplitudeAxis;
+    }
+
+    public static FrequencySeriesAxis getFrequencySeriesAxis( final double lowerBound,
+                                                              final double upperBound,
+                                                              final double[] centerFrequencies,
+                                                              final ClientProperties pClientProperties ) {
+        final FrequencySeriesAxis frequencySeriesAxis =
+                                                      new FrequencySeriesAxis( Math
+                                                              .round( lowerBound ),
+                                                                               Math.round( upperBound ),
+                                                                               centerFrequencies,
+                                                                               pClientProperties );
+
+        return frequencySeriesAxis;
+    }
+
+    public static NumberAxis getAnalysisTimeSeriesAxis( final double lowerBound,
+                                                        final double upperBound,
+                                                        final double tickUnit ) {
+        final NumberAxis timeSeriesAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+
+        // Default to milliseconds as the Time Unit, or pass this in. In either
+        // case, make sure we change it in real-time via a Time Unit drop-list.
+        timeSeriesAxis.setLabel( "Time (ms)" ); //$NON-NLS-1$
+
+        // Use rotated tick labels, as they tend to cram into each other due to
+        // most time increments being more than just a couple of digits.
+        // NOTE: We experimented with tagging the unit string to the tick
+        // labels, but this made them harder to read (at least when rotated).
+        timeSeriesAxis.setTickLabelRotation( 90d );
+
+        return timeSeriesAxis;
+    }
+
+    public static NumberAxis getSplAxis( final double lowerBound,
+                                         final double upperBound,
+                                         final double tickUnit ) {
+        final NumberAxis splAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+
+        // Can't auto-range as there are no actual data points to plot, and
+        // minor ticks are not wanted for SPL-specific features either.
+        splAxis.setAutoRanging( false );
+        splAxis.setMinorTickVisible( false );
+
+        splAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter( splAxis ) );
+
+        return splAxis;
+    }
 
     public static String getDataPointValue( final double xValueShared,
                                             final double yValueBottom,
