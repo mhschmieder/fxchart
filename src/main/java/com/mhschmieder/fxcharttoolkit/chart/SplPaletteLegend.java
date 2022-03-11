@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -76,11 +76,11 @@ import javafx.scene.text.FontWeight;
 public final class SplPaletteLegend extends StackPane {
 
     // Declare default constants.
-    private static final double DIV_DEFAULT            = 6d;
+    private static final double DIV_DEFAULT            = 6.0d;
     private static final int    NUMBER_OF_DIVS_DEFAULT = 7;
     private static final double DYNAMIC_RANGE_DEFAULT  = DIV_DEFAULT * NUMBER_OF_DIVS_DEFAULT;
 
-    private static final double MAG_MAX_DEFAULT        = 0d;
+    private static final double MAG_MAX_DEFAULT        = 0.0d;
     private static final double MAG_MIN_DEFAULT        = MAG_MAX_DEFAULT - DYNAMIC_RANGE_DEFAULT;
 
     // Declare a blanker pane for when the SPL Palette isn't applicable.
@@ -104,7 +104,7 @@ public final class SplPaletteLegend extends StackPane {
     // private int _numberOfDivs;
     private double              _dynamicRange;
 
-    // Declare minimum and maximum magnitudes (must be valid 6dB divs)
+    // Declare minimum and maximum magnitudes (must be valid 6.0dB divs)
     private double              _magMax;
     private double              _magMin;
 
@@ -166,8 +166,8 @@ public final class SplPaletteLegend extends StackPane {
 
         // Make a group for the label so that it is easy to center.
         final Group splPaletteLabelGroup = new Group( _splPaletteLabel );
-        splPaletteLabelGroup.translateXProperty().bind( widthProperty().divide( 2d )
-                .subtract( _splPaletteLabel.widthProperty().divide( 2d ) ) );
+        splPaletteLabelGroup.translateXProperty().bind( widthProperty().divide( 2.0d )
+                .subtract( _splPaletteLabel.widthProperty().divide( 2.0d ) ) );
 
         // Make a grid pane to "glue" the y-axis and palette image together.
         final GridPane splPaletteBox = new GridPane();
@@ -183,10 +183,10 @@ public final class SplPaletteLegend extends StackPane {
         _splPaletteBox.getChildren().addAll( splPaletteLabelGroup, splPaletteBox );
 
         // Prevent the label from slamming into the chart, by providing a gap.
-        _splPaletteBox.setSpacing( 6d );
+        _splPaletteBox.setSpacing( 6.0d );
 
         // Provide some padding for legibility and to avoid overlap at borders.
-        _splPaletteBox.setPadding( new Insets( 6d ) );
+        _splPaletteBox.setPadding( new Insets( 6.0d ) );
 
         // Make sure that the SPL Palette Image and y-axis, and not the SPL
         // Palette Label, grow to fill empty space, but only when necessary.
@@ -348,7 +348,7 @@ public final class SplPaletteLegend extends StackPane {
         _dynamicRange = Math.abs( _magMax - _magMin );
 
         // Recalculate the divisions to be sane based on the new Dynamic Range.
-        _div = ( _dynamicRange <= 66f ) ? ( _dynamicRange <= 27f ) ? 3d : 6d : 12d;
+        _div = ( _dynamicRange <= 66f ) ? ( _dynamicRange <= 27f ) ? 3.0d : 6.0d : 12d;
 
         // Update the axes from the current Dynamic Range and Scale Factor.
         // NOTE: Might need to rescale the SPL Palette image to fit after

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
      */
     private static void validateBounds( final double lowerBound, final double upperBound )
             throws IllegalLogarithmicRangeException {
-        if ( ( lowerBound < 0d ) || ( upperBound < 0d ) || ( lowerBound > upperBound ) ) {
+        if ( ( lowerBound < 0.0d ) || ( upperBound < 0.0d ) || ( lowerBound > upperBound ) ) {
             throw new IllegalLogarithmicRangeException( "The logarithmic range should be limited to [0,Double.MAX_VALUE] and the lower bound should be less than the upper bound" ); //$NON-NLS-1$
         }
     }
@@ -190,9 +190,9 @@ public class LogarithmicAxis extends ValueAxis< Number > {
             final int minorTickMarkCount = getMinorTickCount();
             final int minorTickMarkCountAdjusted = minorTickMarkCount - 1;
 
-            for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1d ) {
+            for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1.0d ) {
                 for ( int j = 0; j <= 10; j++ ) {
-                    final double tickValue = j * Math.pow( 10d, i );
+                    final double tickValue = j * Math.pow( 10.0d, i );
                     for ( int k = 1; k < minorTickMarkCountAdjusted; k++ ) {
                         final double minorTickMarkPosition = ( k + 1 ) * tickValue;
                         minorTickMarksPositions.add( minorTickMarkPosition );
@@ -224,9 +224,9 @@ public class LogarithmicAxis extends ValueAxis< Number > {
             final double lowerBoundLog10 = Math.log10( lowerBound.doubleValue() );
             final double upperBoundLog10 = Math.log10( upperBound.doubleValue() );
 
-            for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1d ) {
+            for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1.0d ) {
                 for ( int j = 1; j <= 10; j++ ) {
-                    final double tickValue = j * Math.pow( 10d, i );
+                    final double tickValue = j * Math.pow( 10.0d, i );
                     tickValues.add( tickValue );
                 }
             }
@@ -242,7 +242,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
         final double deltaV = Math.log10( value.doubleValue() ) - logLowerBound.get();
         final double deltaRatio = deltaV / delta;
 
-        return getSide().isVertical() ? ( 1d - deltaRatio ) * getHeight() : deltaRatio * getWidth();
+        return getSide().isVertical() ? ( 1.0d - deltaRatio ) * getHeight() : deltaRatio * getWidth();
     }
 
     // This method provides the current range of the axis. A basic
@@ -266,10 +266,10 @@ public class LogarithmicAxis extends ValueAxis< Number > {
     public Number getValueForDisplay( final double displayPosition ) {
         final double delta = logUpperBound.get() - logLowerBound.get();
         return getSide().isVertical()
-            ? Math.pow( 10d,
+            ? Math.pow( 10.0d,
                         ( ( ( displayPosition - getHeight() ) / -getHeight() ) * delta )
                                 + logLowerBound.get() )
-            : Math.pow( 10d,
+            : Math.pow( 10.0d,
                         ( ( ( displayPosition / getWidth() ) * delta ) + logLowerBound.get() ) );
     }
 
@@ -292,8 +292,8 @@ public class LogarithmicAxis extends ValueAxis< Number > {
     }
 
     public void setLogarithmizedUpperBound( final double upperBound ) {
-        final double nd = Math.pow( 10d, Math.ceil( Math.log10( upperBound ) ) );
-        setUpperBound( nd == upperBound ? nd * 10d : nd );
+        final double nd = Math.pow( 10.0d, Math.ceil( Math.log10( upperBound ) ) );
+        setUpperBound( nd == upperBound ? nd * 10.0d : nd );
     }
 
     /**

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
             // assign a new variable each time as a ratio of the major tick's
             // center frequency using the numerator/denominator formula vs.
             // applying a cached ratio to the previous minor tick's frequency.
-            final double fractionalOctaveRatio = Math.pow( 2d, 1d / minorTickMarkCount );
+            final double fractionalOctaveRatio = Math.pow( 2.0d, 1.0d / minorTickMarkCount );
             for ( final double centerFrequency : _centerFrequencies ) {
                 if ( !Double.isNaN( centerFrequency ) && ( centerFrequency >= lowerBoundValue )
                         && ( centerFrequency <= upperBoundValue ) ) {

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,7 +70,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
      * is needed. This default effectively sets 16 user distance units to 1
      * pixel.
      */
-    public static final double  DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR = 1d / 16d;
+    public static final double  DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR = 1.0d / 16d;
 
     /**
      * Grid Line opacity level is defined a constant, in case we switch to a
@@ -110,7 +110,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     /**
      * Declare variable to keep track of the current grid resolution.
      * <p>
-     * :TODO: Eliminate this in favor of changing the tic mark spacing.
+     * TODO: Eliminate this in favor of changing the tic mark spacing.
      */
     private GridResolution      _gridResolution;
 
@@ -139,12 +139,12 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         _topAxis.setVisible( false );
         _rightAxis.setVisible( false );
 
-        _venueToDisplayScaleFactor = 1d / DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR;
+        _venueToDisplayScaleFactor = 1.0d / DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR;
 
         _showAxisZeroLines = true;
 
         _gridOn = true;
-        _gridScale = 1d;
+        _gridScale = 1.0d;
         _gridResolution = GridResolution.defaultValue();
         _gridColor = GRID_COLOR_DEFAULT;
         _foreColor = Color.GRAY;
@@ -173,7 +173,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         final double tickValueDouble = tickValue.doubleValue();
 
         // Make sure this isn't the Zero Line, if it is set to be visible.
-        if ( !_showAxisZeroLines || ( tickValueDouble != 0d ) ) {
+        if ( !_showAxisZeroLines || ( tickValueDouble != 0.0d ) ) {
             final Line gridLine = new Line();
             switch ( gridLineOrientation ) {
             case HORIZONTAL:
@@ -208,9 +208,9 @@ public class XYChartOverlayGroup extends ChartContentGroup {
      */
     public final double getDisplayToVenueScaleFactor() {
         final double venueToDisplayScaleFactor = getVenueToDisplayScaleFactor();
-        final double displayToVenueScaleFactor = ( venueToDisplayScaleFactor <= 0d )
-            ? 1d
-            : 1d / venueToDisplayScaleFactor;
+        final double displayToVenueScaleFactor = ( venueToDisplayScaleFactor <= 0.0d )
+            ? 1.0d
+            : 1.0d / venueToDisplayScaleFactor;
         return displayToVenueScaleFactor;
     }
 
@@ -338,10 +338,10 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // Try and work out width and height of axes, making four passes.
         // NOTE: The multiple passes to stabilize, are probably no longer
         // needed, as we no longer make any dynamic calls in this loop.
-        final double xAxisWidth = Math.max( 0d, contentWidthSnap );
-        double xAxisHeight = 0d;
-        double yAxisWidth = 0d;
-        final double yAxisHeight = Math.max( 0d, contentHeightSnap );
+        final double xAxisWidth = Math.max( 0.0d, contentWidthSnap );
+        double xAxisHeight = 0.0d;
+        double yAxisWidth = 0.0d;
+        final double yAxisHeight = Math.max( 0.0d, contentHeightSnap );
         for ( int count = 0; count < 4; count++ ) {
             final double newYAxisWidth = yAxis.prefWidth( yAxisHeight );
             final double newXAxisHeight = xAxis.prefHeight( xAxisWidth );
@@ -390,7 +390,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // It seems that the usage of this variable is in pixels vs. user
         // Distance Units and thus should need to be inverted vs. the cached
         // scale factor.
-        final double displayToVenueScaleFactor = 1d / _venueToDisplayScaleFactor;
+        final double displayToVenueScaleFactor = 1.0d / _venueToDisplayScaleFactor;
         final double strokeWidth = 0.75d * displayToVenueScaleFactor;
         final Double[] dashArray = new Double[] {
                                                   0.75d * displayToVenueScaleFactor,
@@ -438,19 +438,19 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     public final void rescaleGrid() {
         switch ( _gridResolution ) {
         case OFF:
-            setGridScale( 1d );
+            setGridScale( 1.0d );
             break;
         case COARSE:
-            setGridScale( 2d );
+            setGridScale( 2.0d );
             break;
         case MEDIUM:
-            setGridScale( 1d );
+            setGridScale( 1.0d );
             break;
         case FINE:
             setGridScale( 0.5d );
             break;
         default:
-            setGridScale( 1d );
+            setGridScale( 1.0d );
             break;
         }
     }
@@ -665,14 +665,14 @@ public class XYChartOverlayGroup extends ChartContentGroup {
             switch ( zeroLineOrientation ) {
             case HORIZONTAL:
                 zeroLine.setStartX( otherAxis.getLowerBound() );
-                zeroLine.setStartY( 0d );
+                zeroLine.setStartY( 0.0d );
                 zeroLine.setEndX( otherAxis.getUpperBound() );
-                zeroLine.setEndY( 0d );
+                zeroLine.setEndY( 0.0d );
                 break;
             case VERTICAL:
-                zeroLine.setStartX( 0d );
+                zeroLine.setStartX( 0.0d );
                 zeroLine.setStartY( otherAxis.getLowerBound() );
-                zeroLine.setEndX( 0d );
+                zeroLine.setEndX( 0.0d );
                 zeroLine.setEndY( otherAxis.getUpperBound() );
                 break;
             default:

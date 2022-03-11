@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -121,8 +121,8 @@ public class ChartControlFactory {
                                                                   if ( legend != null ) {
                                                                       final boolean shouldShowLegend =
                                                                                                      isLegendVisible();
-                                                                      double legendWidth = 0d;
-                                                                      double legendHeight = 0d;
+                                                                      double legendWidth = 0.0d;
+                                                                      double legendHeight = 0.0d;
                                                                       if ( shouldShowLegend ) {
                                                                           switch ( getLegendSide() ) {
                                                                           case BOTTOM:
@@ -136,7 +136,7 @@ public class ChartControlFactory {
                                                                               legendHeight = MathExt
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
-                                                                                                     0d,
+                                                                                                     0.0d,
                                                                                                      height - top
                                                                                                              - bottom );
                                                                               legend.resizeRelocate( left,
@@ -153,7 +153,7 @@ public class ChartControlFactory {
                                                                               legendHeight = MathExt
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
-                                                                                                     0d,
+                                                                                                     0.0d,
                                                                                                      height - top
                                                                                                              - bottom );
                                                                               legend.resizeRelocate( width
@@ -229,7 +229,7 @@ public class ChartControlFactory {
                                                                       // series
                                                                       // );
                                                                       final DoubleProperty seriesYAnimMultiplier =
-                                                                                                                 new SimpleDoubleProperty( 1d );
+                                                                                                                 new SimpleDoubleProperty( 1.0d );
 
                                                                       final ObservableList< Node > children =
                                                                                                             ( ( Group ) series
@@ -532,7 +532,7 @@ public class ChartControlFactory {
                                                                           // the
                                                                           // minimum
                                                                           // value.
-                                                                          // :NOTE:
+                                                                          // NOTE:
                                                                           // As
                                                                           // we
                                                                           // are
@@ -829,8 +829,8 @@ public class ChartControlFactory {
                                                                   if ( legend != null ) {
                                                                       final boolean shouldShowLegend =
                                                                                                      isLegendVisible();
-                                                                      double legendWidth = 0d;
-                                                                      double legendHeight = 0d;
+                                                                      double legendWidth = 0.0d;
+                                                                      double legendHeight = 0.0d;
                                                                       if ( shouldShowLegend ) {
                                                                           switch ( getLegendSide() ) {
                                                                           case BOTTOM:
@@ -844,7 +844,7 @@ public class ChartControlFactory {
                                                                               legendHeight = MathExt
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
-                                                                                                     0d,
+                                                                                                     0.0d,
                                                                                                      height - top
                                                                                                              - bottom );
                                                                               legend.resizeRelocate( left,
@@ -861,7 +861,7 @@ public class ChartControlFactory {
                                                                               legendHeight = MathExt
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
-                                                                                                     0d,
+                                                                                                     0.0d,
                                                                                                      height - top
                                                                                                              - bottom );
                                                                               legend.resizeRelocate( width

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -177,7 +177,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                                                                                                                         new CssMetaData< CartesianAxis, Number >( "-fx-tick-unit",
                                                                                                                                                                   SizeConverter
                                                                                                                                                                           .getInstance(),
-                                                                                                                                                                  5d ) {
+                                                                                                                                                                  5.0d ) {
 
                                                                                                                                                                                                                                             @Override
                                                                                                                                                                                                                                             public StyleableProperty< Number > getStyleableProperty( final CartesianAxis n ) {
@@ -272,7 +272,7 @@ public class CartesianAxis extends ValueAxis< Number > {
 
         setSide( pAxisSide );
 
-        tickUnit = new StyleableDoubleProperty( 6d ) {
+        tickUnit = new StyleableDoubleProperty( 6.0d ) {
             @Override
             public Object getBean() {
                 return CartesianAxis.this;
@@ -402,7 +402,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                 if ( ( lowerBound + tickUnitValue ) < upperBound ) {
                     // If the origin is inside the range, start with it and work
                     // outwards. Otherwise, use Oracle's original algorithm.
-                    if ( ( lowerBound < 0d ) && ( upperBound > 0d ) ) {
+                    if ( ( lowerBound < 0.0d ) && ( upperBound > 0.0d ) ) {
                         // Detect the x-axis, as it requires additional logic.
                         final Side axisSide = getSide();
                         final boolean isXAxis = axisSide.isHorizontal();
@@ -443,7 +443,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                         final double scale =
                                            calculateNewScale( axisLength, lowerBound, upperBound );
                         final double majorTickDistancePixels = scale * tickUnitValue;
-                        final double yAxisRatio = majorTickDistancePixels <= 20d ? 0.45d : 0.2d;
+                        final double yAxisRatio = majorTickDistancePixels <= 20.0d ? 0.45d : 0.2d;
 
                         // NOTE: The x-axis needs to leave room for the minus
                         // sign, on the negative side of the origin.
@@ -452,7 +452,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                             ? majorTickDistancePixels <= 48d ? 1.9d : 0.5d
                             : nominalBound >= 100d
                                 ? majorTickDistancePixels <= 40d ? 1.5d : 0.5d
-                                : nominalBound >= 10d
+                                : nominalBound >= 10.0d
                                     ? majorTickDistancePixels <= 32d ? 1.2d : 0.5d
                                     : majorTickDistancePixels <= 24d ? 0.9d : 0.5d;
                         double fudgeFactor = isXAxis
@@ -482,7 +482,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                         // the x-axis, and there's not enough room to show it.
                         // NOTE: The fudge factor is smaller here, as it only
                         // takes one character to represent zero as an integer.
-                        tickValue = 0d;
+                        tickValue = 0.0d;
                         if ( !isXAxis || ( tickValues.size() > 1 )
                                 || ( tickValue >= ( lowerBound + ( 0.5d * fudgeFactor ) ) ) ) {
                             if ( !tickValues.contains( tickValue ) ) {
@@ -501,7 +501,7 @@ public class CartesianAxis extends ValueAxis< Number > {
                             ? majorTickDistancePixels <= 40d ? 1.95d : 0.55d
                             : nominalBound >= 100d
                                 ? majorTickDistancePixels <= 32d ? 1.55d : 0.55d
-                                : nominalBound >= 10d
+                                : nominalBound >= 10.0d
                                     ? majorTickDistancePixels <= 24d ? 1.25d : 0.55d
                                     : majorTickDistancePixels <= 16d ? 0.95d : 0.55d;
                         fudgeFactor = isXAxis

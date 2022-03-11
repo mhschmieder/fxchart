@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -205,7 +205,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // _dataTrackingLabelGroup.getLayoutBounds().getWidth() as with the
         // right edge checking in the clipping algorithm below this code?
         final double offsetX = -0.5d * getWidth();
-        final double fudgeX = 10d;
+        final double fudgeX = 10.0d;
         final double lineX = clickLocation.x + offsetX + fudgeX;
         _dataTrackingMarkerGroup.setTranslateX( lineX );
 
@@ -218,8 +218,8 @@ public abstract class DualAxisChartPane extends StackPane {
             : ( ( -0.5d * ( getHeight() - _yAxisBottom.getHeight() ) )
                     + _yAxisBottom.getLayoutY() );
         final double fudgeY = ( hasTitle || ( legendVisible && Side.TOP.equals( legendSide ) ) )
-            ? ( numberOfDataSets > 8 ) ? hasTitle ? 3d : 4d : hasTitle ? -10d : -12d
-            : 8d;
+            ? ( numberOfDataSets > 8 ) ? hasTitle ? 3.0d : 4.0d : hasTitle ? -10d : -12d
+            : 8.0d;
         final double lineY = midY + offsetY + fudgeY;
         _dataTrackingMarkerGroup.setTranslateY( lineY );
         if ( !_dataTrackingMarkerGroup.isVisible() ) {
@@ -230,7 +230,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // reaching the right edge of the chart, by placing them to the left of
         // the Data Tracker if they would clip, and to the right otherwise.
         final double rightEdgePx = _xAxisBottom.getDisplayPosition( _xAxisBottom.getUpperBound() )
-                + _xAxisBottom.getLayoutX() + 4d;
+                + _xAxisBottom.getLayoutX() + 4.0d;
         final boolean beyondRightEdge = ( clickLocation.x
                 + _dataTrackingLabelGroup.getLayoutBounds().getMaxX()
                 + _yAxisTop.getWidth() ) > rightEdgePx;
@@ -239,7 +239,7 @@ public abstract class DualAxisChartPane extends StackPane {
             : lineX + ( 0.55d * _dataTrackingLabelBox.getWidth() );
         final double labelsY = ( legendVisible && Side.TOP.equals( legendSide ) )
             ? 50d
-            : hasTitle ? 0d : -10d;
+            : hasTitle ? 0.0d : -10d;
         if ( beyondRightEdge ) {
             _dataTrackingLabelBox.setAlignment( Pos.CENTER_LEFT );
         }
@@ -387,7 +387,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // return the lower bound index if so.
         final int firstIndex = 0;
         final Data< Number, Number > firstDataPoint = chartSeriesData.get( firstIndex );
-        if ( ( xvalue - firstDataPoint.getXValue().doubleValue() ) <= 0d ) {
+        if ( ( xvalue - firstDataPoint.getXValue().doubleValue() ) <= 0.0d ) {
             return firstIndex;
         }
 
@@ -395,7 +395,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // return the upper bound index if so.
         final int lastIndex = chartSeriesData.size() - 1;
         final Data< Number, Number > lastDataPoint = chartSeriesData.get( lastIndex );
-        if ( ( xvalue - lastDataPoint.getXValue().doubleValue() ) >= 0d ) {
+        if ( ( xvalue - lastDataPoint.getXValue().doubleValue() ) >= 0.0d ) {
             return lastIndex;
         }
 
@@ -411,7 +411,7 @@ public abstract class DualAxisChartPane extends StackPane {
             final Data< Number, Number > dataPoint2 = chartSeriesData.get( dataPointIndex2 );
             final double diff2 = dataPoint2.getXValue().doubleValue() - xvalue;
 
-            if ( ( diff1 >= 0d ) && ( diff2 >= 0d ) ) {
+            if ( ( diff1 >= 0.0d ) && ( diff2 >= 0.0d ) ) {
                 return ( diff1 <= diff2 ) ? dataPointIndex1 : dataPointIndex2;
             }
         }
@@ -480,7 +480,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // Get the click location in terms of its offset from the lower bound of
         // the X-axis. We also fudge a bit to compensate for later rounding.
         // NOTE: The compensation factor might actually relate to the insets?
-        final double displayPositionOnAxis = clickLocation.x - _xAxisBottom.getLayoutX() - 4d;
+        final double displayPositionOnAxis = clickLocation.x - _xAxisBottom.getLayoutX() - 4.0d;
 
         return displayPositionOnAxis;
     }
@@ -504,16 +504,16 @@ public abstract class DualAxisChartPane extends StackPane {
         // NOTE: We fudge the height a bit to account for the thickness of the
         // Axis bounds, but it is better to provide a clipping bounds instead.
         _dataTrackingMarker = new Line();
-        _dataTrackingMarker.setStartX( 0d );
+        _dataTrackingMarker.setStartX( 0.0d );
         _dataTrackingMarker.startYProperty()
-                .bind( _yAxisBottom.heightProperty().negate().divide( 2d ).add( 1d ) );
-        _dataTrackingMarker.setEndX( 0d );
+                .bind( _yAxisBottom.heightProperty().negate().divide( 2.0d ).add( 1.0d ) );
+        _dataTrackingMarker.setEndX( 0.0d );
         _dataTrackingMarker.endYProperty()
-                .bind( _yAxisBottom.heightProperty().divide( 2d ).subtract( 1d ) );
+                .bind( _yAxisBottom.heightProperty().divide( 2.0d ).subtract( 1.0d ) );
 
         _dataTrackingMarker.setStroke( _dataTrackerColor );
-        _dataTrackingMarker.setStrokeWidth( 2d );
-        _dataTrackingMarker.getStrokeDashArray().addAll( 5d, 5d );
+        _dataTrackingMarker.setStrokeWidth( 2.0d );
+        _dataTrackingMarker.getStrokeDashArray().addAll( 5.0d, 5.0d );
 
         // Hide the Data Tracking Marker Group until it is needed.
         _dataTrackingMarkerGroup = new Group( _dataTrackingMarker );
@@ -536,10 +536,10 @@ public abstract class DualAxisChartPane extends StackPane {
         // _yAxisTop.setSide( Side.RIGHT );
 
         // Make sure there is room for the dual y-axis on the right.
-        setPadding( new Insets( 2d, 12d, 2d, 6d ) );
+        setPadding( new Insets( 2.0d, 12d, 2.0d, 6.0d ) );
 
         // Center the grid for the most balanced layout.
-        // :NOTE: The invoker must specify the paint order for the two charts,
+        // NOTE: The invoker must specify the paint order for the two charts,
         // as it affects what data might get obscured or hidden.
         final ObservableList< Node > layoutNodes = getChildren();
         layoutNodes.addAll( _xyChartBottom,
@@ -557,7 +557,7 @@ public abstract class DualAxisChartPane extends StackPane {
         // one pixel from the dual x-axis's vertical positioning.
         _xAxisTop.translateXProperty().bind( _xAxisBottom.translateXProperty() );
         _xAxisTop.translateYProperty().bind( _xAxisBottom.translateYProperty()
-                .subtract( _yAxisBottom.heightProperty().subtract( 1d ) ) );
+                .subtract( _yAxisBottom.heightProperty().subtract( 1.0d ) ) );
         _yAxisTop.translateXProperty()
                 .bind( _xAxisBottom.translateXProperty().add( _xAxisBottom.widthProperty() ) );
         _yAxisTop.translateYProperty().bind( _yAxisBottom.translateYProperty() );
@@ -735,9 +735,9 @@ public abstract class DualAxisChartPane extends StackPane {
         // come yet, with the main thing being that layout bounds are slightly
         // unstable by a few pixels now and then; helped by the fudge factor.
         final double leftEdgePx = _xAxisBottom.getDisplayPosition( _xAxisBottom.getLowerBound() )
-                + _xAxisBottom.getLayoutX() + 4d;
+                + _xAxisBottom.getLayoutX() + 4.0d;
         final double rightEdgePx = _xAxisBottom.getDisplayPosition( _xAxisBottom.getUpperBound() )
-                + _xAxisBottom.getLayoutX() + 4d;
+                + _xAxisBottom.getLayoutX() + 4.0d;
         if ( ( clickLocation.x < leftEdgePx ) || ( clickLocation.x > rightEdgePx ) ) {
             // If the user actively clicked outside the chart, remove tracking.
             if ( mouseClicked ) {

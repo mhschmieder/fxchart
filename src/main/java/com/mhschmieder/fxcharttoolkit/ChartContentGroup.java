@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -179,7 +179,7 @@ public class ChartContentGroup extends Group {
         // Although this only affects auto-sized Groups (which ours are not), it
         // is safer to go ahead and request the content of each Group to
         // re-layout anyway, in case of future changes to the layout scheme.
-        // :NOTE: Removed for now as it seems to cause lag during screen resize.
+        // NOTE: Removed for now as it seems to cause lag during screen resize.
         // layoutChildren();
     }
 

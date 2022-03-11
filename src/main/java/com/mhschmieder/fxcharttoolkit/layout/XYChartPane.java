@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -146,27 +146,27 @@ public abstract class XYChartPane extends StackPane {
 
     protected final void adjustDataTrackingLocation( final ClickLocation clickLocation ) {
         // Update the data tracking marker location and "X" data point markers.
-        // :TODO: Draw the "X", but that needs to happen inside the data set
+        // TODO: Draw the "X", but that needs to happen inside the data set
         // looper, so we need to have this path element reference available for
         // use inside that loop and to remember the x-axis tracker location.
-        // :NOTE: As the vertical line is centered in the shared layout parent,
+        // NOTE: As the vertical line is centered in the shared layout parent,
         // mouse coordinates must subtract half the layout width to accommodate.
-        // :NOTE: Similarly, we need to adjust vertically by half the difference
+        // NOTE: Similarly, we need to adjust vertically by half the difference
         // between the overall layout height and the actual chart height.
-        // :NOTE: We add a fudge factor of 4 pixels to account for stroke width.
-        // :NOTE: The vertical offset is conditionally faked out, as it's too
+        // NOTE: We add a fudge factor of 4 pixels to account for stroke width.
+        // NOTE: The vertical offset is conditionally faked out, as it's too
         // tricky to figure out how to account for the legend when at the top.
-        // :TODO: Get this worked out better, even though it's perfect now, as
+        // TODO: Get this worked out better, even though it's perfect now, as
         // otherwise future changes could break it, and take note that the mid
         // position is exactly half of the height so cancels out that part.
-        // :NOTE: This will break if a chart has both a title and a legend.
+        // NOTE: This will break if a chart has both a title and a legend.
         final int numberOfDataSets = _xyChart.getData().size();
         final String title = _xyChart.getTitle();
         final boolean hasTitle = ( title != null ) && !title.trim().isEmpty();
         final boolean legendVisible = _xyChart.isLegendVisible();
         final Side legendSide = _xyChart.getLegendSide();
         final double offsetX = -0.5d * clickLocation.sourceBoundsInLocal.getWidth();
-        final double fudgeX = 0d;
+        final double fudgeX = 0.0d;
         final double lineX = clickLocation.x + offsetX + fudgeX;
         _dataTrackingMarkerGroup.setTranslateX( lineX );
         final double midY = ( hasTitle || ( legendVisible && Side.TOP.equals( legendSide ) ) )
@@ -177,8 +177,8 @@ public abstract class XYChartPane extends StackPane {
             ? -0.5d * _yAxis.getHeight()
             : ( -0.5d * ( getHeight() - _yAxis.getHeight() ) ) + _yAxis.getLayoutY();
         final double fudgeY = ( hasTitle || ( legendVisible && Side.TOP.equals( legendSide ) ) )
-            ? ( numberOfDataSets > 8 ) ? hasTitle ? 3d : 4d : hasTitle ? -10d : -12d
-            : 8d;
+            ? ( numberOfDataSets > 8 ) ? hasTitle ? 3.0d : 4.0d : hasTitle ? -10d : -12d
+            : 8.0d;
         final double lineY = midY + offsetY + fudgeY;
         _dataTrackingMarkerGroup.setTranslateY( lineY );
         if ( !_dataTrackingMarkerGroup.isVisible() ) {
@@ -189,13 +189,13 @@ public abstract class XYChartPane extends StackPane {
         // reaching the right edge of the chart, by placing them to the left of
         // the Data Tracker if they would clip, and to the right otherwise.
         final double rightEdgePx = _xAxis.getDisplayPosition( _xAxis.getUpperBound() )
-                + _xAxis.getLayoutX() + 4d;
+                + _xAxis.getLayoutX() + 4.0d;
         final boolean beyondRightEdge = ( clickLocation.x
                 + _dataTrackingLabelGroup.getLayoutBounds().getMaxX() ) > rightEdgePx;
         final double labelsX = beyondRightEdge
             ? lineX - ( 0.55d * _dataTrackingLabelBox.getWidth() )
             : lineX + ( 0.55d * _dataTrackingLabelBox.getWidth() );
-        final double labelsY = ( legendVisible && Side.TOP.equals( legendSide ) ) ? 40d : 0d;
+        final double labelsY = ( legendVisible && Side.TOP.equals( legendSide ) ) ? 40d : 0.0d;
         if ( beyondRightEdge ) {
             _dataTrackingLabelBox.setAlignment( Pos.CENTER_LEFT );
         }
@@ -233,7 +233,7 @@ public abstract class XYChartPane extends StackPane {
         updateDataTracking();
 
         // Now it is safe to conditionally re-animate chart updates.
-        // :NOTE: Avoid side effects by only setting when we need to.
+        // NOTE: Avoid side effects by only setting when we need to.
         if ( animateChartUpdates ) {
             setAnimateChartUpdates( animateChartUpdates );
         }
@@ -333,7 +333,7 @@ public abstract class XYChartPane extends StackPane {
         // return the lower bound index if so.
         final int firstIndex = 0;
         final Data< Number, Number > firstDataPoint = chartSeriesData.get( firstIndex );
-        if ( ( xvalue - firstDataPoint.getXValue().doubleValue() ) <= 0d ) {
+        if ( ( xvalue - firstDataPoint.getXValue().doubleValue() ) <= 0.0d ) {
             return firstIndex;
         }
 
@@ -341,7 +341,7 @@ public abstract class XYChartPane extends StackPane {
         // return the upper bound index if so.
         final int lastIndex = chartSeriesData.size() - 1;
         final Data< Number, Number > lastDataPoint = chartSeriesData.get( lastIndex );
-        if ( ( xvalue - lastDataPoint.getXValue().doubleValue() ) >= 0d ) {
+        if ( ( xvalue - lastDataPoint.getXValue().doubleValue() ) >= 0.0d ) {
             return lastIndex;
         }
 
@@ -357,7 +357,7 @@ public abstract class XYChartPane extends StackPane {
             final Data< Number, Number > dataPoint2 = chartSeriesData.get( dataPointIndex2 );
             final double diff2 = dataPoint2.getXValue().doubleValue() - xvalue;
 
-            if ( ( diff1 >= 0d ) && ( diff2 >= 0d ) ) {
+            if ( ( diff1 >= 0.0d ) && ( diff2 >= 0.0d ) ) {
                 return ( diff1 <= diff2 ) ? dataPointIndex1 : dataPointIndex2;
             }
         }
@@ -425,7 +425,7 @@ public abstract class XYChartPane extends StackPane {
     protected final double getDisplayPositionOnXAxis( final ClickLocation clickLocation ) {
         // Get the click location in terms of its offset from the lower bound of
         // the X-axis. We also fudge a bit to compensate for later rounding.
-        final double displayPositionOnAxis = clickLocation.x - _xAxis.getLayoutX() - 4d;
+        final double displayPositionOnAxis = clickLocation.x - _xAxis.getLayoutX() - 4.0d;
 
         return displayPositionOnAxis;
     }
@@ -443,19 +443,19 @@ public abstract class XYChartPane extends StackPane {
     protected void initChart( final boolean isOverlayChart, final Side legendSide ) {
         // Construct an initially empty data tracking marker, so that it can be
         // placed in a layout container without having path elements yet.
-        // :NOTE: We fudge the height a bit to account for the thickness of the
+        // NOTE: We fudge the height a bit to account for the thickness of the
         // axis bounds, but it is better to provide a clipping bounds instead.
         _dataTrackingMarker = new Line();
-        _dataTrackingMarker.setStartX( 0d );
+        _dataTrackingMarker.setStartX( 0.0d );
         _dataTrackingMarker.startYProperty()
-                .bind( _yAxis.heightProperty().negate().divide( 2d ).add( 1d ) );
-        _dataTrackingMarker.setEndX( 0d );
+                .bind( _yAxis.heightProperty().negate().divide( 2.0d ).add( 1.0d ) );
+        _dataTrackingMarker.setEndX( 0.0d );
         _dataTrackingMarker.endYProperty()
-                .bind( _yAxis.heightProperty().divide( 2d ).subtract( 1d ) );
+                .bind( _yAxis.heightProperty().divide( 2.0d ).subtract( 1.0d ) );
 
         _dataTrackingMarker.setStroke( _dataTrackerColor );
-        _dataTrackingMarker.setStrokeWidth( 2d );
-        _dataTrackingMarker.getStrokeDashArray().addAll( 5d, 5d );
+        _dataTrackingMarker.setStrokeWidth( 2.0d );
+        _dataTrackingMarker.getStrokeDashArray().addAll( 5.0d, 5.0d );
 
         // Hide the Data Tracking Marker Group until it is needed.
         _dataTrackingMarkerGroup = new Group( _dataTrackingMarker );
@@ -505,10 +505,10 @@ public abstract class XYChartPane extends StackPane {
         _xyChart.setAnimated( animateChartUpdates );
     }
 
-    // :NOTE: Only the derived classes know which data set indices are in use.
+    // NOTE: Only the derived classes know which data set indices are in use.
     protected abstract void setDataSet( final int dataSetIndex );
 
-    // :NOTE: Derived classes might need different strategies, as the chart type
+    // NOTE: Derived classes might need different strategies, as the chart type
     // is not enforced at this level; only the axes types.
     public abstract void setDataSet( final int dataSetIndex,
                                      final double x[],
@@ -561,9 +561,9 @@ public abstract class XYChartPane extends StackPane {
         _xyChart.setLegendSide( legendSide );
 
         // Update the data tracking marker location and "X" data point markers.
-        // :NOTE: This is run on a deferred thread, as the chart needs some time
+        // NOTE: This is run on a deferred thread, as the chart needs some time
         // to internally update everything affected by changing the legend side.
-        // :NOTE: That helped but not quite enough, so now we run it twice.
+        // NOTE: That helped but not quite enough, so now we run it twice.
         if ( _clickLocation != null ) {
             Platform.runLater( () -> {
                 updateDataTracking( _clickLocation, false );
@@ -618,18 +618,18 @@ public abstract class XYChartPane extends StackPane {
         // Cache the current click location in case we need to update the data
         // values after a change to the underlying data sets while the data
         // tracker is already active but not being dragged.
-        // :TODO: Determine whether this should happen after the final early
+        // TODO: Determine whether this should happen after the final early
         // exit criteria have been examined.
         _clickLocation = new ClickLocation( clickLocation );
 
         // Do not update the Data Tracker if we are outside the axis bounds.
-        // :NOTE: This is not quite an exact match, but is the closest we've
+        // NOTE: This is not quite an exact match, but is the closest we've
         // come yet, with the main thing being that layout bounds are slightly
         // unstable by a few pixels now and then; helped by the fudge factor.
         final double leftEdgePx = _xAxis.getDisplayPosition( _xAxis.getLowerBound() )
-                + _xAxis.getLayoutX() + 4d;
+                + _xAxis.getLayoutX() + 4.0d;
         final double rightEdgePx = _xAxis.getDisplayPosition( _xAxis.getUpperBound() )
-                + _xAxis.getLayoutX() + 4d;
+                + _xAxis.getLayoutX() + 4.0d;
         if ( ( clickLocation.x < leftEdgePx ) || ( clickLocation.x > rightEdgePx ) ) {
             // If the user actively clicked outside the chart, remove tracking.
             if ( mouseClicked ) {
@@ -661,23 +661,23 @@ public abstract class XYChartPane extends StackPane {
 
         // For all valid data sets, show the data values at the data value index
         // closest to the x-axis click location, starting from a clean slate.
-        // :TODO: Make a method for this, once the details are implemented and
+        // TODO: Make a method for this, once the details are implemented and
         // fully verified as correct and in the right presentation style.
-        // :NOTE: We separately track the current data tracking label index, to
+        // NOTE: We separately track the current data tracking label index, to
         // make sure we only use vertically consecutive labels vs. leaving gaps.
-        // :NOTE: We also separately track the data set index, as we use an
+        // NOTE: We also separately track the data set index, as we use an
         // iterator form of the "for" loop to cycle the data sets.
         int dataTrackingLabelIndex = 0;
         // int dataSetIndex = 0;
         boolean validData = false;
         for ( final XYChart.Series< Number, Number > chartSeries : chartSeriesList ) {
-            // :NOTE: It is unlikely we can get a null reference here.
+            // NOTE: It is unlikely we can get a null reference here.
             if ( chartSeries == null ) {
                 continue;
             }
 
             // Check for missing or empty data, or data overruns from index.
-            // :TODO: Find out how to exclude hidden data sets.
+            // TODO: Find out how to exclude hidden data sets.
             final ObservableList< Data< Number, Number > > chartSeriesData = chartSeries.getData();
             if ( ( chartSeriesData == null ) || chartSeriesData.isEmpty()
                     || ( dataPointIndexAtXValue >= chartSeriesData.size() ) ) {
@@ -709,11 +709,11 @@ public abstract class XYChartPane extends StackPane {
             dataPoint.append( dataPointValue );
 
             // Use the CSS tag to lookup the text fill color per data set.
-            // :NOTE: Commented out, as the stroke color settings for the
+            // NOTE: Commented out, as the stroke color settings for the
             // referenced CSS tags do not appear to affect text fill color, and
             // this means we would have to resort to the Reflection API for CSS
             // attributes, which is non-trivial so should be deferred for now.
-            // :NOTE: Unfortunately, as we can have holes in the data groups for
+            // NOTE: Unfortunately, as we can have holes in the data groups for
             // unused chart indices, the label list might sometimes be smaller
             // than the chart series list. Therefore we check against list size.
             if ( dataTrackingLabelIndex < _dataTrackingLabels.size() ) {

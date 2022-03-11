@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2021 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -112,7 +112,7 @@ public final class ChartUtilities {
     }
 
     public static NumberAxis getNormalizedAmplitudeAxis() {
-        final NumberAxis normalizedAmplitudeAxis = new NumberAxis( -1d, 1d, 0.25d );
+        final NumberAxis normalizedAmplitudeAxis = new NumberAxis( -1d, 1.0d, 0.25d );
         normalizedAmplitudeAxis.setLabel( "Amplitude (Normalized)" ); //$NON-NLS-1$
 
         return normalizedAmplitudeAxis;
