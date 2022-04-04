@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxcharttoolkit;
 
-import com.mhschmieder.commonstoolkit.physics.DistanceUnit;
 import com.mhschmieder.fxgraphicstoolkit.geometry.ShapeContainer;
+import com.mhschmieder.physicstoolkit.DistanceUnit;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;

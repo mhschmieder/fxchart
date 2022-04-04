@@ -32,9 +32,9 @@ package com.mhschmieder.fxcharttoolkit.chart;
 
 import java.nio.IntBuffer;
 
-import com.mhschmieder.commonstoolkit.physics.PaletteUtilities;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
+import com.mhschmieder.physicstoolkit.PaletteUtilities;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
