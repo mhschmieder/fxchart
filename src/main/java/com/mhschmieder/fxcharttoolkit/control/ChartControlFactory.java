@@ -34,11 +34,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import com.mhschmieder.commonstoolkit.math.MathExt;
+import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
+import com.mhschmieder.mathtoolkit.MathExt;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
@@ -941,6 +943,62 @@ public class ChartControlFactory {
                                                           };
 
         return numberLineChart;
+    }
+
+    public static LineChart< Number, Number > getAnalysisTimeSeriesLineChart( final ValueAxis< Number > xAxis,
+                                                                              final ValueAxis< Number > yAxis,
+                                                                              final boolean isOverlayChart,
+                                                                              final boolean showLegend,
+                                                                              final Side legendSide ) {
+        final LineChart< Number, Number > analysisTimeSeriesChart = getNumberLineChart( xAxis,
+                                                                                        yAxis );
+
+        // NOTE: Exactly the same as the Frequency Series Line Chart, for now.
+        ChartUtilities.applyNumberChartAttributes( analysisTimeSeriesChart,
+                                                   isOverlayChart,
+                                                   showLegend,
+                                                   legendSide );
+
+        analysisTimeSeriesChart.setCreateSymbols( false );
+
+        return analysisTimeSeriesChart;
+    }
+
+    public static LineChart< Number, Number > getFrequencySeriesLineChart( final ValueAxis< Number > xAxis,
+                                                                           final ValueAxis< Number > yAxis,
+                                                                           final boolean isOverlayChart,
+                                                                           final boolean showLegend,
+                                                                           final Side legendSide ) {
+        final LineChart< Number, Number > frequencySeriesChart = getNumberLineChart( xAxis, yAxis );
+
+        // NOTE: Exactly the same as the Frequency Series Area Chart, for now.
+        ChartUtilities.applyNumberChartAttributes( frequencySeriesChart,
+                                                   isOverlayChart,
+                                                   showLegend,
+                                                   legendSide );
+
+        frequencySeriesChart.setCreateSymbols( false );
+
+        return frequencySeriesChart;
+    }
+
+    // NOTE: Exactly the same as the Frequency Series Line Chart, for now.
+    public static AreaChart< Number, Number > getFrequencySeriesAreaChart( final ValueAxis< Number > xAxis,
+                                                                           final ValueAxis< Number > yAxis,
+                                                                           final boolean isOverlayChart,
+                                                                           final boolean showLegend,
+                                                                           final Side legendSide ) {
+        final AreaChart< Number, Number > frequencySeriesChart = getNumberAreaChart( xAxis, yAxis );
+
+        // NOTE: Exactly the same as the Frequency Series Line Chart, for now.
+        ChartUtilities.applyNumberChartAttributes( frequencySeriesChart,
+                                                   isOverlayChart,
+                                                   showLegend,
+                                                   legendSide );
+
+        frequencySeriesChart.setCreateSymbols( false );
+
+        return frequencySeriesChart;
     }
 
 }

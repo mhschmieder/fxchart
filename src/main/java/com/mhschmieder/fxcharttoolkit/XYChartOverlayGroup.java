@@ -33,9 +33,9 @@ package com.mhschmieder.fxcharttoolkit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mhschmieder.commonstoolkit.math.GridResolution;
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
+import com.mhschmieder.mathtoolkit.GridResolution;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
