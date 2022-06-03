@@ -32,7 +32,8 @@ package com.mhschmieder.fxcharttoolkit.chart;
 
 import java.text.NumberFormat;
 
-import com.mhschmieder.commonstoolkit.text.StringUtilities;
+import com.mhschmieder.commonstoolkit.lang.StringConstants;
+import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.layout.ChartLegend;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
@@ -130,7 +131,7 @@ public final class ChartUtilities {
         frequencyPhaseAxis
                 .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyPhaseAxis,
                                                                          null,
-                                                                         StringUtilities.DEGREES_SYMBOL ) );
+                                                                         StringConstants.DEGREES_SYMBOL ) );
 
         return frequencyPhaseAxis;
     }
@@ -213,21 +214,21 @@ public final class ChartUtilities {
                                             final String yUnitLabelBottom,
                                             final String yUnitLabelTop ) {
         final String dataPointValue = Double.isNaN( yValueTop )
-            ? StringUtilities.getFormattedQuantityPair( xValueShared,
-                                                        yValueBottom,
-                                                        xValueSharedNumberFormat,
-                                                        yValueBottomNumberFormat,
-                                                        xUnitLabelShared,
-                                                        yUnitLabelBottom )
-            : StringUtilities.getFormattedQuantityTriplet( xValueShared,
-                                                           yValueBottom,
-                                                           yValueTop,
-                                                           xValueSharedNumberFormat,
-                                                           yValueBottomNumberFormat,
-                                                           yValueTopNumberFormat,
-                                                           xUnitLabelShared,
-                                                           yUnitLabelBottom,
-                                                           yUnitLabelTop );
+            ? TextUtilities.getFormattedQuantityPair( xValueShared,
+                                                      yValueBottom,
+                                                      xValueSharedNumberFormat,
+                                                      yValueBottomNumberFormat,
+                                                      xUnitLabelShared,
+                                                      yUnitLabelBottom )
+            : TextUtilities.getFormattedQuantityTriplet( xValueShared,
+                                                         yValueBottom,
+                                                         yValueTop,
+                                                         xValueSharedNumberFormat,
+                                                         yValueBottomNumberFormat,
+                                                         yValueTopNumberFormat,
+                                                         xUnitLabelShared,
+                                                         yUnitLabelBottom,
+                                                         yUnitLabelTop );
         return dataPointValue;
     }
 

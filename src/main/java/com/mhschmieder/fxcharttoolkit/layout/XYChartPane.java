@@ -32,7 +32,7 @@ package com.mhschmieder.fxcharttoolkit.layout;
 
 import java.text.NumberFormat;
 
-import com.mhschmieder.commonstoolkit.text.StringUtilities;
+import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorConstants;
@@ -697,12 +697,12 @@ public abstract class XYChartPane extends StackPane {
 
             // Add a new line in the text area for this data point, by name.
             final String dataSetName = chartSeries.getName();
-            final String dataPointValue = StringUtilities.getFormattedQuantityPair( xvalue,
-                                                                                    yvalue,
-                                                                                    _numberFormat,
-                                                                                    _numberFormat,
-                                                                                    _xUnitLabel,
-                                                                                    _yUnitLabel );
+            final String dataPointValue = TextUtilities.getFormattedQuantityPair( xvalue,
+                                                                                  yvalue,
+                                                                                  _numberFormat,
+                                                                                  _numberFormat,
+                                                                                  _xUnitLabel,
+                                                                                  _yUnitLabel );
             final StringBuilder dataPoint = new StringBuilder();
             dataPoint.append( dataSetName );
             dataPoint.append( ": " );
