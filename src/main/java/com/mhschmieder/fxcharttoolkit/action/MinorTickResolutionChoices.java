@@ -37,7 +37,7 @@ import org.controlsfx.control.action.Action;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.action.XAction;
-import com.mhschmieder.mathtoolkit.GridResolution;
+import com.mhschmieder.mathtoolkit.geometry.GridResolution;
 
 /**
  * This is a struct-like container for generic Minor Tick Resolution choices,
