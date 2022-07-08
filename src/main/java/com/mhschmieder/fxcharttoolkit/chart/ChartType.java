@@ -21,21 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxGuiToolkit Library
+ * This file is part of the FxChartToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxChartToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxguitoolkit
+ * Project: https://github.com/mhschmieder/fxcharttoolkit
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
 /**
- * The <code>ChartType</code> enum is an enumeration of chart types.
+ * {@code ChartType} is an enumeration of basic Chart Types; primarily to
+ * distinguish charts that connect data points via lines (i.e. Data Vectors) vs.
+ * ones that compute a Center Band in both directions from the given data points
+ * (as is frequently the case with certain types of Bar Charts and Line Charts).
+ *
+ * @version 1.0
+ *
+ * @author Mark Schmieder
  */
 public enum ChartType {
-    DATA_VECTOR, CENTER_BAND;
+    /**
+     * Data Vector charts are the most common, and simply connect the data
+     * points with individual lines.
+     */
+    DATA_VECTOR,
+    /**
+     * Center Bands are common in Bar Charts and Line Charts, where the given
+     * data points often need to be drawn out in both directions until the
+     * mid-point between neighboring data points.
+     */
+    CENTER_BAND;
 
+    /**
+     * Returns the default Chart Type, for safe initialization and for clients
+     * that don't care or don't know what they want or need and thus probably
+     * will be doing standard Data Vector charts.
+     *
+     * @return The most common preferred Chart Type, which is Data Vector
+     *
+     * @since 1.0
+     */
     public static ChartType defaultValue() {
         return DATA_VECTOR;
     }

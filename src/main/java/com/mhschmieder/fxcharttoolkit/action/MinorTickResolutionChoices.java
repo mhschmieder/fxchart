@@ -36,8 +36,8 @@ import java.util.Collection;
 import org.controlsfx.control.action.Action;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.fxcharttoolkit.chart.GridResolution;
 import com.mhschmieder.fxguitoolkit.action.XAction;
-import com.mhschmieder.mathtoolkit.geometry.GridResolution;
 
 /**
  * This is a struct-like container for generic Minor Tick Resolution choices,

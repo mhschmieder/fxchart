@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
-import com.mhschmieder.mathtoolkit.MathExt;
+import com.mhschmieder.mathtoolkit.MathUtilities;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -135,7 +135,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathExt
+                                                                              legendHeight = MathUtilities
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -152,7 +152,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathExt
+                                                                              legendHeight = MathUtilities
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -843,7 +843,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathExt
+                                                                              legendHeight = MathUtilities
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -860,7 +860,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathExt
+                                                                              legendHeight = MathUtilities
                                                                                       .boundedValue( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,

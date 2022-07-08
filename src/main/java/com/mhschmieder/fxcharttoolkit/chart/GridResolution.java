@@ -28,11 +28,33 @@
  *
  * Project: https://github.com/mhschmieder/fxcharttoolkit
  */
+package com.mhschmieder.fxcharttoolkit.chart;
+
+import java.util.Locale;
+
 /**
- * This package contains the FxChartToolkit Library's core layout utilities.
+ * The <code>GridResolution</code> enum is an enumeration of supported chart
+ * grid resolutions for grid lines (major ticks) and/or minor ticks.
  *
- * @version 0.1
+ * @version 1.0
  *
  * @author Mark Schmieder
  */
-package com.mhschmieder.fxcharttoolkit.layout;
+public enum GridResolution {
+    OFF, COARSE, MEDIUM, FINE;
+
+    public static final GridResolution defaultValue() {
+        return MEDIUM;
+    }
+
+    public static final GridResolution fromCanonicalString( final String gridResolutionCanonicalString ) {
+        return ( gridResolutionCanonicalString != null )
+            ? valueOf( gridResolutionCanonicalString.toUpperCase( Locale.ENGLISH ) )
+            : defaultValue();
+    }
+
+    public final String toCanonicalString() {
+        return toString().toLowerCase( Locale.ENGLISH );
+    }
+
+}
