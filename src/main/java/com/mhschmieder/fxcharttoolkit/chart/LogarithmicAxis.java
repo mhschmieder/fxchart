@@ -34,6 +34,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.IllegalLogarithmicRangeException;
 
@@ -147,7 +149,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
 
             @Override
             protected double computeValue() {
-                return StrictMath.log10( lowerBoundProperty().get() );
+                return FastMath.log10( lowerBoundProperty().get() );
             }
         } );
 
@@ -158,7 +160,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
 
             @Override
             protected double computeValue() {
-                return StrictMath.log10( upperBoundProperty().get() );
+                return FastMath.log10( upperBoundProperty().get() );
             }
         } );
     }
@@ -180,8 +182,8 @@ public class LogarithmicAxis extends ValueAxis< Number > {
         if ( range != null ) {
             final Number lowerBound = range[ 0 ];
             final Number upperBound = range[ 1 ];
-            final double lowerBoundLog10 = StrictMath.log10( lowerBound.doubleValue() );
-            final double upperBoundLog10 = StrictMath.log10( upperBound.doubleValue() );
+            final double lowerBoundLog10 = FastMath.log10( lowerBound.doubleValue() );
+            final double upperBoundLog10 = FastMath.log10( upperBound.doubleValue() );
 
             // NOTE: This refers to the major to minor tick ratio vs. the
             // actual number of minor ticks.
@@ -192,7 +194,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
 
             for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1.0d ) {
                 for ( int j = 0; j <= 10; j++ ) {
-                    final double tickValue = j * StrictMath.pow( 10.0d, i );
+                    final double tickValue = j * FastMath.pow( 10.0d, i );
                     for ( int k = 1; k < minorTickMarkCountAdjusted; k++ ) {
                         final double minorTickMarkPosition = ( k + 1 ) * tickValue;
                         minorTickMarksPositions.add( minorTickMarkPosition );
@@ -221,12 +223,12 @@ public class LogarithmicAxis extends ValueAxis< Number > {
         if ( range != null ) {
             final Number lowerBound = ( ( Number[] ) range )[ 0 ];
             final Number upperBound = ( ( Number[] ) range )[ 1 ];
-            final double lowerBoundLog10 = StrictMath.log10( lowerBound.doubleValue() );
-            final double upperBoundLog10 = StrictMath.log10( upperBound.doubleValue() );
+            final double lowerBoundLog10 = FastMath.log10( lowerBound.doubleValue() );
+            final double upperBoundLog10 = FastMath.log10( upperBound.doubleValue() );
 
             for ( double i = lowerBoundLog10; i <= upperBoundLog10; i += 1.0d ) {
                 for ( int j = 1; j <= 10; j++ ) {
-                    final double tickValue = j * StrictMath.pow( 10.0d, i );
+                    final double tickValue = j * FastMath.pow( 10.0d, i );
                     tickValues.add( tickValue );
                 }
             }
@@ -239,7 +241,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
     @Override
     public double getDisplayPosition( final Number value ) {
         final double delta = logUpperBound.get() - logLowerBound.get();
-        final double deltaV = StrictMath.log10( value.doubleValue() ) - logLowerBound.get();
+        final double deltaV = FastMath.log10( value.doubleValue() ) - logLowerBound.get();
         final double deltaRatio = deltaV / delta;
 
         return getSide().isVertical()
@@ -268,10 +270,10 @@ public class LogarithmicAxis extends ValueAxis< Number > {
     public Number getValueForDisplay( final double displayPosition ) {
         final double delta = logUpperBound.get() - logLowerBound.get();
         return getSide().isVertical()
-            ? StrictMath.pow( 10.0d,
+            ? FastMath.pow( 10.0d,
                               ( ( ( displayPosition - getHeight() ) / -getHeight() ) * delta )
                                       + logLowerBound.get() )
-            : StrictMath
+            : FastMath
                     .pow( 10.0d,
                           ( ( ( displayPosition / getWidth() ) * delta ) + logLowerBound.get() ) );
     }
@@ -296,7 +298,7 @@ public class LogarithmicAxis extends ValueAxis< Number > {
 
     public void setLogarithmizedUpperBound( final double upperBound ) {
         final double nd =
-                        StrictMath.pow( 10.0d, StrictMath.ceil( StrictMath.log10( upperBound ) ) );
+                        FastMath.pow( 10.0d, FastMath.ceil( FastMath.log10( upperBound ) ) );
         setUpperBound( nd == upperBound ? nd * 10.0d : nd );
     }
 

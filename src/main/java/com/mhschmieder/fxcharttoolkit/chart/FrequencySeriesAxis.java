@@ -33,6 +33,8 @@ package com.mhschmieder.fxcharttoolkit.chart;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 
 public class FrequencySeriesAxis extends LogarithmicAxis {
@@ -79,7 +81,7 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
             // assign a new variable each time as a ratio of the major tick's
             // center frequency using the numerator/denominator formula vs.
             // applying a cached ratio to the previous minor tick's frequency.
-            final double fractionalOctaveRatio = StrictMath.pow( 2.0d, 1.0d / minorTickMarkCount );
+            final double fractionalOctaveRatio = FastMath.pow( 2.0d, 1.0d / minorTickMarkCount );
             for ( final double centerFrequency : _centerFrequencies ) {
                 if ( !Double.isNaN( centerFrequency ) && ( centerFrequency >= lowerBoundValue )
                         && ( centerFrequency <= upperBoundValue ) ) {
