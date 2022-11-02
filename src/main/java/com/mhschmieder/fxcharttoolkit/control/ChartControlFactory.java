@@ -136,7 +136,7 @@ public class ChartControlFactory {
                                                                                                           - top
                                                                                                           - bottom ) );
                                                                               legendHeight = MathUtilities
-                                                                                      .boundedValue( snapSize( legend
+                                                                                      .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
                                                                                                      height - top
@@ -153,7 +153,7 @@ public class ChartControlFactory {
                                                                                                           - top
                                                                                                           - bottom ) );
                                                                               legendHeight = MathUtilities
-                                                                                      .boundedValue( snapSize( legend
+                                                                                      .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
                                                                                                      height - top
@@ -844,7 +844,7 @@ public class ChartControlFactory {
                                                                                                           - top
                                                                                                           - bottom ) );
                                                                               legendHeight = MathUtilities
-                                                                                      .boundedValue( snapSize( legend
+                                                                                      .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
                                                                                                      height - top
@@ -861,7 +861,7 @@ public class ChartControlFactory {
                                                                                                           - top
                                                                                                           - bottom ) );
                                                                               legendHeight = MathUtilities
-                                                                                      .boundedValue( snapSize( legend
+                                                                                      .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
                                                                                                      height - top
