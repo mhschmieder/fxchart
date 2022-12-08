@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxGuiToolkit Library
+ * This file is part of the FxChartToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxChartToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxguitoolkit
+ * Project: https://github.com/mhschmieder/fxchartoolkit
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
@@ -171,20 +171,22 @@ public final class ChartUtilities {
         return frequencySeriesAxis;
     }
 
-    public static NumberAxis getAnalysisTimeSeriesAxis( final double lowerBound,
-                                                        final double upperBound,
-                                                        final double tickUnit ) {
+    public static NumberAxis getTimeSeriesAxis( final double lowerBound,
+                                                final double upperBound,
+                                                final double tickUnit,
+                                                final String timeUnit,
+                                                final boolean rotateTickLabels ) {
         final NumberAxis timeSeriesAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        timeSeriesAxis.setLabel( "Time (" + timeUnit + ")" ); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // Default to milliseconds as the Time Unit, or pass this in. In either
-        // case, make sure we change it in real-time via a Time Unit drop-list.
-        timeSeriesAxis.setLabel( "Time (ms)" ); //$NON-NLS-1$
-
-        // Use rotated tick labels, as they tend to cram into each other due to
-        // most time increments being more than just a couple of digits.
+        // Conditionally use rotated tick labels, as they tend to cram into each
+        // other due to most time increments being more than just a couple of
+        // digits. It is up to the caller to decide if time scale requires this.
         // NOTE: We experimented with tagging the unit string to the tick
-        // labels, but this made them harder to read (at least when rotated).
-        timeSeriesAxis.setTickLabelRotation( 90d );
+        //  labels, but this made them harder to read (at least when rotated).
+        if ( rotateTickLabels ) {
+            timeSeriesAxis.setTickLabelRotation( 90d );
+        }
 
         return timeSeriesAxis;
     }
