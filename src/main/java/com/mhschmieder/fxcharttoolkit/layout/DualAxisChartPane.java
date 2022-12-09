@@ -304,7 +304,7 @@ public abstract class DualAxisChartPane extends StackPane {
      * @return The closest available data point, or NaN if not computable at
      *         this level
      */
-    public Double getClosestDataPointToXValue( final double clickLocationXValue ) {
+    public double getClosestDataPointToXValue( final double clickLocationXValue ) {
         return Double.NaN;
     }
 
@@ -498,7 +498,35 @@ public abstract class DualAxisChartPane extends StackPane {
      * must be invoked after the axes have been instantiated. Only the axes
      * differ by subclass, and only the subclasses need to know legend side.
      */
-    protected void initChart() {
+    protected void initChartLayout() {
+        // Make the Data Tracker right away, as it affects sizings and bindings.
+        makeDataTracker();
+        
+        // Make sure to set the top chart's y-axis on the right side, so it
+        // doesn't overpaint the bottom chart's y-axis and so that the ticks and
+        // labels are to the right vs. the left of the axis itself.
+        // NOTE: This unfortunately decouples the top and bottom charts so that
+        //  they are no longer co-located on-screen, so it is backed out for now.
+        // _yAxisTop.setSide( Side.RIGHT );
+
+        // Make sure there is room for the dual y-axis on the right.
+        setPadding( new Insets( 2.0d, 12d, 2.0d, 6.0d ) );
+
+        // Center the grid for the most balanced layout.
+        // NOTE: The invoker must specify the paint order for the two charts,
+        // as it affects what data might get obscured or hidden.
+        final ObservableList< Node > layoutNodes = getChildren();
+        layoutNodes.addAll( _xyChartBottom,
+                            _xyChartTop,
+                            _dataTrackingMarkerGroup,
+                            _dataTrackingLabelGroup );
+        setAlignment( this, Pos.CENTER );
+        
+        // Bind the properties that relate to maintaining sizes and positions.
+        bindProperties();
+    }
+    
+    private final void makeDataTracker() {
         // Construct an initially empty data tracking marker, so that it can be
         // placed in a layout container without having Path Elements yet.
         // NOTE: We fudge the height a bit to account for the thickness of the
@@ -527,27 +555,9 @@ public abstract class DualAxisChartPane extends StackPane {
         // Hide the Data Tracking Label Group until it is needed.
         _dataTrackingLabelGroup = new Group( _dataTrackingLabelBox );
         _dataTrackingLabelGroup.setVisible( false );
-
-        // Make sure to set the top chart's y-axis on the right side, so it
-        // doesn't overpaint the bottom chart's y-axis and so that the ticks and
-        // labels are to the right vs. the left of the axis itself.
-        // NOTE: This unfortunately decouples the top and bottom charts so that
-        // they are no longer co-located on-screen, so it is backed out for now.
-        // _yAxisTop.setSide( Side.RIGHT );
-
-        // Make sure there is room for the dual y-axis on the right.
-        setPadding( new Insets( 2.0d, 12d, 2.0d, 6.0d ) );
-
-        // Center the grid for the most balanced layout.
-        // NOTE: The invoker must specify the paint order for the two charts,
-        // as it affects what data might get obscured or hidden.
-        final ObservableList< Node > layoutNodes = getChildren();
-        layoutNodes.addAll( _xyChartBottom,
-                            _xyChartTop,
-                            _dataTrackingMarkerGroup,
-                            _dataTrackingLabelGroup );
-        setAlignment( this, Pos.CENTER );
-
+    }
+    
+    protected final void bindProperties() {
         // Make sure both axis pairs are positioned at the same location.
         // NOTE: We try to get the top chart to show its y-axis on the right,
         // and its x-axis on the top, without actually setting them to those
@@ -764,7 +774,7 @@ public abstract class DualAxisChartPane extends StackPane {
             final double clickLocationXValue = getDataPointValueAtXPosition( clickLocation );
 
             // Get the closest x-axis value in the actual data sets (uniform).
-            final Double closestXValue = getClosestDataPointToXValue( clickLocationXValue );
+            final double closestXValue = getClosestDataPointToXValue( clickLocationXValue );
 
             // Get the data point index closest to the x-axis click location.
             final int dataPointIndexAtXValue = getDataPointIndexAtXValue( closestXValue );
