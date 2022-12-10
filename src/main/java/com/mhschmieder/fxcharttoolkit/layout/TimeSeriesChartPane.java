@@ -298,7 +298,8 @@ public abstract class TimeSeriesChartPane extends DualAxisChartPane {
      * Replaces the specified data set with the given points.
      * <p>
      * NOTE: For reasons of tight-loop performance, it is the responsibility of
-     *  the caller to pre-filter the data sets for any invalid values (>= |1|).
+     *  the caller to pre-filter the data sets for any invalid values (e.g., for
+     *  a normalized chart, values greater than or equal to absolute value of 1).
      *  In the absence of this, the first and last index can be used to limit the
      *  usable part of the data set to valid values, and in any case we prevent
      *  invalid values from generating NaN errors/exceptions.
