@@ -196,8 +196,9 @@ public final class ChartUtilities {
                                          final double tickUnit ) {
         final NumberAxis splAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
 
-        // Can't auto-range as there are no actual data points to plot, and
-        // minor ticks are not wanted for SPL-specific features either.
+        // Can't auto-range as there are no actual data sets to plot in an SPL
+        // Raster Image overlay for a Cartesian Space graphics canvas, and minor
+        // ticks are not wanted for most SPL-specific features either.
         splAxis.setAutoRanging( false );
         splAxis.setMinorTickVisible( false );
 
