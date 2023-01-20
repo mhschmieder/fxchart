@@ -90,7 +90,11 @@ public class PercentPaletteLegend extends ColorPaletteLegend {
 
         yAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter( yAxis ) );
 
-        yAxis.setSide( Side.RIGHT );
+        // NOTE: It might be preferable to put the labels and ticks on the
+        // right, but that's not what this does per se. More work would be
+        // required, likely in the parent class, to switch the layout order of
+        // the axis overlay and the image container box.
+        yAxis.setSide( Side.LEFT );
     }
 
     @Override
