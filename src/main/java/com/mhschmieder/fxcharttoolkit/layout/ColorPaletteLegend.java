@@ -433,9 +433,11 @@ public abstract class ColorPaletteLegend extends StackPane {
         // one column per row and one row per color. We can then control the
         // scaling of this minimal palette to fit the Legend without the core
         // JavaFX imaging engine up-sampling to create intermediary colors.
+        // NOTE: We make sure there is always at least one pixel to display no
+        // matter how small the layout container gets, to avoid run-time errors.
         final int fitWidth = 1;
         final int heightScaleFactor =
-                                    ( int ) Math.round( yAxis.getHeight() / numberOfPaletteColors );
+                                    ( int ) Math.ceil( yAxis.getHeight() / numberOfPaletteColors );
         final int fitHeight = numberOfPaletteColors * heightScaleFactor;
 
         // Up-scale the source image height to more or less fit its on-screen
