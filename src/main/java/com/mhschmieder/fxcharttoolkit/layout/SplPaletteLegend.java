@@ -42,9 +42,9 @@ import javafx.geometry.Side;
  * Title, Dynamic Range, and tick marks/labels for the SPL units and divisions.
  * <p>
  * TODO: Make an enumeration of palette types; there are several popular ones,
- *  but the most common one is NASA's Jet Palette, so we use that by default.
+ * but the most common one is NASA's Jet Palette, so we use that by default.
  */
-public final class SplPaletteLegend extends ColorPaletteLegend {
+public class SplPaletteLegend extends ColorPaletteLegend {
 
     // Declare default constants.
     private static final double DIV_DEFAULT            = 6.0d;
@@ -54,15 +54,11 @@ public final class SplPaletteLegend extends ColorPaletteLegend {
     private static final double MAG_MAX_DEFAULT        = 0.0d;
     private static final double MAG_MIN_DEFAULT        = MAG_MAX_DEFAULT - DYNAMIC_RANGE_DEFAULT;
 
-    public SplPaletteLegend( final boolean pNormalizeMaxToZero,
-                             final double pAspectRatio ) {
+    public SplPaletteLegend( final boolean pNormalizeMaxToZero, final double pAspectRatio ) {
         // Always call the superclass constructor first!
-        this( pNormalizeMaxToZero, 
-               pAspectRatio,
-               ColorPalette.JET,
-               256 );
+        this( pNormalizeMaxToZero, pAspectRatio, ColorPalette.JET, 256 );
     }
-    
+
     public SplPaletteLegend( final boolean pNormalizeMaxToZero,
                              final double pAspectRatio,
                              final ColorPalette pColorPalette,
@@ -72,20 +68,20 @@ public final class SplPaletteLegend extends ColorPaletteLegend {
                DIV_DEFAULT,
                NUMBER_OF_DIVS_DEFAULT,
                MAG_MIN_DEFAULT,
-               MAG_MAX_DEFAULT, 
-               pNormalizeMaxToZero, 
+               MAG_MAX_DEFAULT,
+               pNormalizeMaxToZero,
                pAspectRatio,
                pColorPalette,
                pNumberOfPaletteColors );
     }
-    
-   protected void makeYAxis() {
+
+    protected void makeYAxis() {
         // NOTE: This effectively normalizes us to zero at the start, so may
-        //  need to be reviewed in uses cases where that is not what is wanted.
+        // need to be reviewed in uses cases where that is not what is wanted.
         yAxis = ChartUtilities.getSplAxis( MAG_MIN_DEFAULT, MAG_MAX_DEFAULT, DIV_DEFAULT );
         yAxis.setSide( Side.LEFT );
     }
-    
+
     @Override
     protected void rationalizeDivs() {
         // Recalculate the divisions to be sane based on the new Dynamic Range.
