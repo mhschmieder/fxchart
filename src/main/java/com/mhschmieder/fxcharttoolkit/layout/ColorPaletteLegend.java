@@ -436,8 +436,8 @@ public abstract class ColorPaletteLegend extends StackPane {
         // NOTE: We make sure there is always at least one pixel to display no
         // matter how small the layout container gets, to avoid run-time errors.
         final int fitWidth = 1;
-        final int heightScaleFactor =
-                                    ( int ) Math.ceil( yAxis.getHeight() / numberOfPaletteColors );
+        final int heightScaleFactor = ( int ) Math
+                .max( 1, Math.round( yAxis.getHeight() / numberOfPaletteColors ) );
         final int fitHeight = numberOfPaletteColors * heightScaleFactor;
 
         // Up-scale the source image height to more or less fit its on-screen
