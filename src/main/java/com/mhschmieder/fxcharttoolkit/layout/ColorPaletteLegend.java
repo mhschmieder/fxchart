@@ -284,6 +284,24 @@ public abstract class ColorPaletteLegend extends StackPane {
 
         yAxis.setBackground( background );
     }
+    
+    /**
+     * Sets the label that is atop this legend.
+     * 
+     * @param label The string to use to replace the legend's label
+     */
+    public final void setLabel( final String label ) {
+        paletteLabel.setText( label );
+    }
+    
+    /**
+     * Returns the label that is atop this legend.
+     * 
+     * @return The label that is atop this legend
+     */
+    public final String getLabel() {
+        return paletteLabel.getText();
+    }
 
     /**
      * Sets the Color Palette and Number of Palette Colors and updates the
