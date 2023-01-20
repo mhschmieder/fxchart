@@ -286,6 +286,28 @@ public abstract class ColorPaletteLegend extends StackPane {
     }
 
     /**
+     * Sets the Color Palette and Number of Palette Colors and updates the
+     * legend.
+     * <p>
+     * This is a convenience method to avoid interim updates to the color image
+     * that is hosted by the legend, when more than one characteristic changes.
+     * 
+     * @param pColorPalette
+     *            The new Color Palette to use for the Legend.
+     * @param pNumberOfPaletteColors
+     *            The number of palette colors to apply to the Color Palette
+     */
+    public final void setPalette( final ColorPalette pColorPalette,
+                                  final int pNumberOfPaletteColors ) {
+        colorPalette = pColorPalette;
+        numberOfPaletteColors = pNumberOfPaletteColors;
+
+        // Replace the current image in the Legend so it matches the new Color
+        // Palette choice and the requested Number of Palette Colors.
+        updatePaletteImage();
+    }
+
+    /**
      * Sets a new Color Palette to use for the Legend, and updates the Legend.
      * 
      * @param pColorPalette
@@ -300,9 +322,9 @@ public abstract class ColorPaletteLegend extends StackPane {
     }
 
     /**
-     * Returns the current Color palette in use.
+     * Returns the current Color Palette in use.
      * 
-     * @return The current Color palette in use
+     * @return The current Color Palette in use
      */
     public final ColorPalette getColorPalette() {
         return colorPalette;
@@ -314,8 +336,7 @@ public abstract class ColorPaletteLegend extends StackPane {
      * Legend with a newly generated image corresponding to the Color Palette.
      * 
      * @param pNumberOfPaletteColors
-     *            The number of palette colors to apply to the Color Palette in
-     *            use
+     *            The number of palette colors to apply to the Color Palette
      */
     public final void setNumberOfPaletteColors( final int pNumberOfPaletteColors ) {
         numberOfPaletteColors = pNumberOfPaletteColors;
