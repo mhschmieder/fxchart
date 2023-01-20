@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2023 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,45 +30,48 @@
  */
 package com.mhschmieder.fxcharttoolkit.layout;
 
-import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.physicstoolkit.ColorPalette;
 
 import javafx.geometry.Side;
+import javafx.scene.chart.NumberAxis;
 
 /**
- * This is a layout container for a legend used to indicate SPL values in color
- * palette based visualizations. It is agnostic towards the actual palette,
- * which is loaded as a generic image. It only cares about maintaining the
- * Title, Dynamic Range, and tick marks/labels for the SPL units and divisions.
- * <p>
- * TODO: Make an enumeration of palette types; there are several popular ones,
- *  but the most common one is NASA's Jet Palette, so we use that by default.
+ * This is a layout container for a legend used to indicate percent values in 
+ * color palette based visualizations. It is agnostic towards the actual palette,
+ * which is generated as a pixel image. It only cares about maintaining the
+ * Title, Dynamic Range, and tick marks/labels for the units and divisions.
  */
-public final class SplPaletteLegend extends ColorPaletteLegend {
+public final class PercentPaletteLegend extends ColorPaletteLegend {
 
     // Declare default constants.
-    private static final double DIV_DEFAULT            = 6.0d;
-    private static final int    NUMBER_OF_DIVS_DEFAULT = 7;
+    // NOTE: This is done in case we allow something other than full range, so
+    //  that we can get back to the defaults, but it might be better to make
+    //  them all explicit, to avoid any floating-point inexactness.
+    private static final double DIV_DEFAULT            = 0.1d;
+    private static final int    NUMBER_OF_DIVS_DEFAULT = 10;
     private static final double DYNAMIC_RANGE_DEFAULT  = DIV_DEFAULT * NUMBER_OF_DIVS_DEFAULT;
 
-    private static final double MAG_MAX_DEFAULT        = 0.0d;
+    private static final double MAG_MAX_DEFAULT        = 1.0d;
     private static final double MAG_MIN_DEFAULT        = MAG_MAX_DEFAULT - DYNAMIC_RANGE_DEFAULT;
 
-    public SplPaletteLegend( final boolean pNormalizeMaxToZero,
-                             final double pAspectRatio ) {
+    public PercentPaletteLegend( final String label,
+                                 final boolean pNormalizeMaxToZero,
+                                 final double pAspectRatio ) {
         // Always call the superclass constructor first!
-        this( pNormalizeMaxToZero, 
+        this( label,
+              pNormalizeMaxToZero, 
                pAspectRatio,
                ColorPalette.JET,
                256 );
     }
     
-    public SplPaletteLegend( final boolean pNormalizeMaxToZero,
-                             final double pAspectRatio,
-                             final ColorPalette pColorPalette,
-                             final int pNumberOfPaletteColors ) {
+    public PercentPaletteLegend( final String label,
+                                 final boolean pNormalizeMaxToZero,
+                                 final double pAspectRatio,
+                                 final ColorPalette pColorPalette,
+                                 final int pNumberOfPaletteColors) {
         // Always call the superclass constructor first!
-        super( "SPL (dB)",
+        super( label,
                DIV_DEFAULT,
                NUMBER_OF_DIVS_DEFAULT,
                MAG_MIN_DEFAULT,
@@ -79,16 +82,24 @@ public final class SplPaletteLegend extends ColorPaletteLegend {
                pNumberOfPaletteColors );
     }
     
-   protected void makeYAxis() {
-        // NOTE: This effectively normalizes us to zero at the start, so may
-        //  need to be reviewed in uses cases where that is not what is wanted.
-        yAxis = ChartUtilities.getSplAxis( MAG_MIN_DEFAULT, MAG_MAX_DEFAULT, DIV_DEFAULT );
-        yAxis.setSide( Side.LEFT );
+    @Override 
+    protected void makeYAxis() {
+        yAxis = new NumberAxis( MAG_MIN_DEFAULT, MAG_MAX_DEFAULT, DIV_DEFAULT );
+        
+        // Can't auto-range as there are no actual data sets to plot in a Raster
+        // Image overlay for a Cartesian Space graphics canvas, and minor ticks
+        // are nor wanted for most percentage-specific features either.
+        yAxis.setAutoRanging( false );
+        yAxis.setMinorTickVisible( false );
+        
+        yAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter( yAxis ) );
+        
+        yAxis.setSide( Side.RIGHT );
     }
-    
+        
     @Override
     protected void rationalizeDivs() {
         // Recalculate the divisions to be sane based on the new Dynamic Range.
-        div = ( dynamicRange <= 66.0d ) ? ( dynamicRange <= 27.0d ) ? 3.0d : 6.0d : 12d;
+        div = ( dynamicRange <= 1.0d ) ? ( dynamicRange <= 0.5d ) ? 0.05d : 0.1d : 0.2d;
     }
 }
