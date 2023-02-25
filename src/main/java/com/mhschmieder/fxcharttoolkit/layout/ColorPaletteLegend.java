@@ -496,6 +496,10 @@ public abstract class ColorPaletteLegend extends StackPane {
             }
         }
 
+        // TODO: Look into switching to PixelFormat.getByteBgraInstance() and
+        //  change the pixel writing loops to match this format, as it is said
+        //  to be 3x faster than PixelWriter.getIntArgbInstance()? Only if the
+        //  raw data conforms to this format though, and maybe only if on macOS.
         final WritableImage paletteImage = new WritableImage( fitWidth, fitHeight );
         final PixelWriter pixelWriter = paletteImage.getPixelWriter();
         final WritablePixelFormat< IntBuffer > pixelFormat = PixelFormat.getIntArgbInstance();
