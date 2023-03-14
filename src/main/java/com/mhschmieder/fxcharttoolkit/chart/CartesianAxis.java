@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.sun.javafx.css.converters.SizeConverter;
 
 import javafx.beans.property.DoubleProperty;
@@ -314,7 +316,7 @@ public class CartesianAxis extends ValueAxis< Number > {
         final double lowerBound = getLowerBound();
         final double upperBound = getUpperBound();
         final double tickUnitValue = getTickUnit();
-        final double minorUnit = tickUnitValue / Math.max( 1, getMinorTickCount() );
+        final double minorUnit = tickUnitValue / FastMath.max( 1, getMinorTickCount() );
         if ( tickUnitValue > 0 ) {
             if ( ( ( upperBound - lowerBound ) / minorUnit ) > 30000 ) {
                 // This is a ridiculous amount of minor tick marks; something
@@ -325,25 +327,25 @@ public class CartesianAxis extends ValueAxis< Number > {
                                 + getUpperBound() + ", Tick Unit=" + tickUnitValue ); //$NON-NLS-1$
                 return minorTickMarks;
             }
-            final boolean tickUnitIsInteger = Math.rint( tickUnitValue ) == tickUnitValue;
+            final boolean tickUnitIsInteger = FastMath.rint( tickUnitValue ) == tickUnitValue;
             if ( tickUnitIsInteger ) {
-                double minor = Math.floor( lowerBound ) + minorUnit;
-                final int count = ( int ) Math
-                        .ceil( ( Math.ceil( lowerBound ) - minor ) / minorUnit );
-                for ( int i = 0; ( minor < Math.ceil( lowerBound ) )
+                double minor = FastMath.floor( lowerBound ) + minorUnit;
+                final int count = ( int ) FastMath
+                        .ceil( ( FastMath.ceil( lowerBound ) - minor ) / minorUnit );
+                for ( int i = 0; ( minor < FastMath.ceil( lowerBound ) )
                         && ( i < count ); minor += minorUnit, i++ ) {
                     if ( minor > lowerBound ) {
                         minorTickMarks.add( minor );
                     }
                 }
             }
-            double major = tickUnitIsInteger ? Math.ceil( lowerBound ) : lowerBound;
-            final int count = ( int ) Math.ceil( ( upperBound - major ) / tickUnitValue );
+            double major = tickUnitIsInteger ? FastMath.ceil( lowerBound ) : lowerBound;
+            final int count = ( int ) FastMath.ceil( ( upperBound - major ) / tickUnitValue );
             for ( int i = 0; ( major < upperBound ) && ( i < count ); major +=
                                                                             tickUnitValue, i++ ) {
-                final double next = Math.min( major + tickUnitValue, upperBound );
+                final double next = FastMath.min( major + tickUnitValue, upperBound );
                 double minor = major + minorUnit;
-                final int minorCount = ( int ) Math.ceil( ( next - minor ) / minorUnit );
+                final int minorCount = ( int ) FastMath.ceil( ( next - minor ) / minorUnit );
                 for ( int j = 0; ( minor < next ) && ( j < minorCount ); minor += minorUnit, j++ ) {
                     minorTickMarks.add( minor );
                 }
@@ -412,8 +414,8 @@ public class CartesianAxis extends ValueAxis< Number > {
                         // eliminating the next-to-lowest and next-to-highest
                         // x-axis tick marks and labels (and their associated
                         // grid lines).
-                        final boolean lowerBoundIsInteger = Math.rint( lowerBound ) == lowerBound;
-                        final boolean upperBoundIsInteger = Math.rint( upperBound ) == upperBound;
+                        final boolean lowerBoundIsInteger = FastMath.rint( lowerBound ) == lowerBound;
+                        final boolean upperBoundIsInteger = FastMath.rint( upperBound ) == upperBound;
 
                         // Add the negative tick marks below the origin first,
                         // in numerical order as Oracle throws some of them out
@@ -447,7 +449,7 @@ public class CartesianAxis extends ValueAxis< Number > {
 
                         // NOTE: The x-axis needs to leave room for the minus
                         // sign, on the negative side of the origin.
-                        double nominalBound = Math.abs( Math.rint( lowerBound ) );
+                        double nominalBound = FastMath.abs( FastMath.rint( lowerBound ) );
                         double xAxisRatio = nominalBound >= 1000d
                             ? majorTickDistancePixels <= 48d ? 1.9d : 0.5d
                             : nominalBound >= 100d
@@ -461,7 +463,7 @@ public class CartesianAxis extends ValueAxis< Number > {
 
                         // Add the ordered negative tick marks below the origin.
                         // NOTE: The lower bound has already been added.
-                        int tickCount = ( int ) Math.ceil( Math.abs( lowerBound ) / tickUnitValue )
+                        int tickCount = ( int ) FastMath.ceil( FastMath.abs( lowerBound ) / tickUnitValue )
                                 - 1;
                         double tickValue = -tickUnitValue * tickCount;
                         for ( int i = 0; i < tickCount; tickValue += tickUnitValue, i++ ) {
@@ -496,7 +498,7 @@ public class CartesianAxis extends ValueAxis< Number > {
 
                         // NOTE: The x-axis doesn't need to leave room for the
                         // minus sign, on the positive side of the origin.
-                        nominalBound = Math.abs( Math.rint( upperBound ) );
+                        nominalBound = FastMath.abs( FastMath.rint( upperBound ) );
                         xAxisRatio = nominalBound >= 1000d
                             ? majorTickDistancePixels <= 40d ? 1.95d : 0.55d
                             : nominalBound >= 100d
@@ -510,7 +512,7 @@ public class CartesianAxis extends ValueAxis< Number > {
 
                         // Add the ordered positive tick marks above the origin.
                         // NOTE: The upper bound gets added at the end.
-                        tickCount = ( int ) Math.ceil( Math.abs( upperBound ) / tickUnitValue ) - 1;
+                        tickCount = ( int ) FastMath.ceil( FastMath.abs( upperBound ) / tickUnitValue ) - 1;
                         tickValue = tickUnitValue;
                         for ( int i = 0; i < tickCount; tickValue += tickUnitValue, i++ ) {
                             if ( ( isXAxis && upperBoundIsInteger )
@@ -528,10 +530,10 @@ public class CartesianAxis extends ValueAxis< Number > {
                     else {
                         // If tickUnitValue is integer, start with the nearest
                         // integer.
-                        double tickValue = Math.rint( tickUnitValue ) == tickUnitValue
-                            ? Math.ceil( lowerBound )
+                        double tickValue = FastMath.rint( tickUnitValue ) == tickUnitValue
+                            ? FastMath.ceil( lowerBound )
                             : lowerBound + tickUnitValue;
-                        final int tickCount = ( int ) Math
+                        final int tickCount = ( int ) FastMath
                                 .ceil( ( upperBound - tickValue ) / tickUnitValue );
                         for ( int i = 0; ( tickValue <= upperBound )
                                 && ( i < tickCount ); tickValue += tickUnitValue, i++ ) {

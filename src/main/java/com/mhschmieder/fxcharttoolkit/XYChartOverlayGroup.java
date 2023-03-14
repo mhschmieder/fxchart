@@ -33,6 +33,8 @@ package com.mhschmieder.fxcharttoolkit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
 import com.mhschmieder.fxcharttoolkit.chart.GridResolution;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
@@ -328,20 +330,20 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         final boolean snapToPixel = region.isSnapToPixel();
 
         // Snap top and left to pixels.
-        final double topSnap = snapToPixel ? Math.round( top ) : top;
-        final double leftSnap = snapToPixel ? Math.round( left ) : left;
+        final double topSnap = snapToPixel ? FastMath.round( top ) : top;
+        final double leftSnap = snapToPixel ? FastMath.round( left ) : left;
 
         // Snap content width and content height to pixels.
-        final double contentWidthSnap = snapToPixel ? Math.ceil( contentWidth ) : contentWidth;
-        final double contentHeightSnap = snapToPixel ? Math.ceil( contentHeight ) : contentHeight;
+        final double contentWidthSnap = snapToPixel ? FastMath.ceil( contentWidth ) : contentWidth;
+        final double contentHeightSnap = snapToPixel ? FastMath.ceil( contentHeight ) : contentHeight;
 
         // Try and work out width and height of axes, making four passes.
         // NOTE: The multiple passes to stabilize, are probably no longer
         // needed, as we no longer make any dynamic calls in this loop.
-        final double xAxisWidth = Math.max( 0.0d, contentWidthSnap );
+        final double xAxisWidth = FastMath.max( 0.0d, contentWidthSnap );
         double xAxisHeight = 0.0d;
         double yAxisWidth = 0.0d;
-        final double yAxisHeight = Math.max( 0.0d, contentHeightSnap );
+        final double yAxisHeight = FastMath.max( 0.0d, contentHeightSnap );
         for ( int count = 0; count < 4; count++ ) {
             final double newYAxisWidth = yAxis.prefWidth( yAxisHeight );
             final double newXAxisHeight = xAxis.prefHeight( xAxisWidth );
@@ -354,10 +356,10 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         }
 
         // Round axis sizes up to whole integers to snap to pixel.
-        final double xAxisWidthSnap = Math.ceil( xAxisWidth );
-        final double xAxisHeightSnap = Math.ceil( xAxisHeight );
-        final double yAxisWidthSnap = Math.ceil( yAxisWidth );
-        final double yAxisHeightSnap = Math.ceil( yAxisHeight );
+        final double xAxisWidthSnap = FastMath.ceil( xAxisWidth );
+        final double xAxisHeightSnap = FastMath.ceil( xAxisHeight );
+        final double yAxisWidthSnap = FastMath.ceil( yAxisWidth );
+        final double yAxisHeightSnap = FastMath.ceil( yAxisHeight );
 
         // Calculate X-axis height.
         xAxis.setVisible( true );

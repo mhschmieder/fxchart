@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.mathtoolkit.MathUtilities;
 
@@ -593,7 +595,7 @@ public class ChartControlFactory {
                                                                                                                 .getLowerBound() );
                                                                           final double yFillPos =
                                                                                                 Double.isFinite( lowestYValue )
-                                                                                                    ? Math.max( lowestYValue,
+                                                                                                    ? FastMath.max( lowestYValue,
                                                                                                                 yAxisMin )
                                                                                                     : yAxisMin;
 

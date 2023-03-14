@@ -32,6 +32,8 @@ package com.mhschmieder.fxcharttoolkit.chart;
 
 import java.text.NumberFormat;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.commonstoolkit.lang.StringConstants;
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
@@ -162,9 +164,9 @@ public final class ChartUtilities {
                                                               final double[] centerFrequencies,
                                                               final ClientProperties pClientProperties ) {
         final FrequencySeriesAxis frequencySeriesAxis =
-                                                      new FrequencySeriesAxis( Math
+                                                      new FrequencySeriesAxis( FastMath
                                                               .round( lowerBound ),
-                                                                               Math.round( upperBound ),
+                                                              FastMath.round( upperBound ),
                                                                                centerFrequencies,
                                                                                pClientProperties );
 

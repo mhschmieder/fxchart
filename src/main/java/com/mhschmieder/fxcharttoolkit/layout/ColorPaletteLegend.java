@@ -32,6 +32,8 @@ package com.mhschmieder.fxcharttoolkit.layout;
 
 import java.nio.IntBuffer;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.physicstoolkit.ColorPalette;
@@ -385,9 +387,9 @@ public abstract class ColorPaletteLegend extends StackPane {
         // Store the new Dynamic Range, and use it to update the labels.
         // TODO: Force the Dynamic Range itself to an increment of the chosen
         // Scale Factor?
-        magMin = Math.round( Math.min( minimum, maximum ) );
-        magMax = Math.round( Math.max( minimum, maximum ) );
-        dynamicRange = Math.abs( magMax - magMin );
+        magMin = FastMath.round( FastMath.min( minimum, maximum ) );
+        magMax = FastMath.round( FastMath.max( minimum, maximum ) );
+        dynamicRange = FastMath.abs( magMax - magMin );
 
         // Recalculate the divisions to be sane based on the new Dynamic Range.
         rationalizeDivs();
@@ -475,8 +477,8 @@ public abstract class ColorPaletteLegend extends StackPane {
         // NOTE: We make sure there is always at least one pixel to display no
         // matter how small the layout container gets, to avoid run-time errors.
         final int fitWidth = 1;
-        final int heightScaleFactor = ( int ) Math
-                .max( 1, Math.round( yAxis.getHeight() / numberOfPaletteColors ) );
+        final int heightScaleFactor = ( int ) FastMath
+                .max( 1, FastMath.round( yAxis.getHeight() / numberOfPaletteColors ) );
         final int fitHeight = numberOfPaletteColors * heightScaleFactor;
 
         // Up-scale the source image height to more or less fit its on-screen

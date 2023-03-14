@@ -32,6 +32,8 @@ package com.mhschmieder.fxcharttoolkit.control;
 
 import java.text.NumberFormat;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
 
 import javafx.geometry.Side;
@@ -110,8 +112,8 @@ public class ChartLabeledControlFactory {
                                               final Side pAxisSide ) {
         // Make sure the outer ticks are whole numbers or else all tick labels
         // get too long to avoid overlap (and also are less usable).
-        final double axisMin = Math.floor( pLowerBound );
-        final double axisMax = Math.ceil( pUpperBound );
+        final double axisMin = FastMath.floor( pLowerBound );
+        final double axisMax = FastMath.ceil( pUpperBound );
 
         final NumberAxis unitlessAxis = new NumberAxis( pAxisLabel, axisMin, axisMax, pTickUnit );
 
