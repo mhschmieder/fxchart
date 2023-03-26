@@ -68,7 +68,7 @@ public class ChartLabeledActionFactory {
                                   minorTickResolutionChoiceCollection,
                                   BUNDLE_NAME,
                                   "minorTickResolution",
-                                  "/com/fatCow/icons/HorizontalRuler16.png" );
+                                  "/icons/fatCow/HorizontalRuler16.png" );
 
         return minorTickResolutionChoiceGroup;
     }
@@ -144,7 +144,7 @@ public class ChartLabeledActionFactory {
                                   gridResolutionChoiceCollection,
                                   BUNDLE_NAME,
                                   "gridResolution",
-                                  "/com/led24/icons/Grid16.png" );
+                                  "/icons/led24/Grid16.png" );
 
         return gridResolutionChoiceGroup;
     }
@@ -179,7 +179,7 @@ public class ChartLabeledActionFactory {
                                          BUNDLE_NAME,
                                          "settings",
                                          "gridColor",
-                                         "/com/ahaSoft/icons/Grid16.png" );
+                                         "/icons/ahaSoft/Grid16.png" );
     }
 
     @SuppressWarnings("nls")
@@ -188,7 +188,6 @@ public class ChartLabeledActionFactory {
                                          BUNDLE_NAME,
                                          "settings",
                                          "dataTrackerColor",
-                                         "/com/yusukeKamiyamane/icons/ColorSwatch16.png" );
+                                         "/icons/yusukeKamiyamane/ColorSwatch16.png" );
     }
-
 }
