@@ -720,9 +720,9 @@ public abstract class XYChartPane extends StackPane {
                 final Label dataTrackingLabel = _dataTrackingLabels.get( dataTrackingLabelIndex++ );
                 dataTrackingLabel.setText( dataPoint.toString() );
                 // final String lineChartColorTag = ".chart-series-line.series"
-                // + String.valueOf( dataSetIndex );
+                // + Integer.toString( dataSetIndex );
                 // final String areaChartColorTag =
-                // ".chart-series-area-line.series" + String.valueOf(
+                // ".chart-series-area-line.series" + Integer.toString(
                 // dataSetIndex );
                 // dataTrackingLabel.getStyleClass().addAll( lineChartColorTag,
                 // areaChartColorTag );

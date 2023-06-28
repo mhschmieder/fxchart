@@ -887,10 +887,10 @@ public abstract class DualAxisChartPane extends StackPane {
                     // Reflection API for CSS attributes, which is non-trivial
                     // so should be deferred for now.
                     // final String lineChartColorTag =
-                    // ".chart-series-line.series" + String.valueOf(
+                    // ".chart-series-line.series" + Integer.toString(
                     // dataSetIndex );
                     // final String areaChartColorTag =
-                    // ".chart-series-area-line.series" + String.valueOf(
+                    // ".chart-series-area-line.series" + Integer.toString(
                     // dataSetIndex );
                     // dataTrackingLabel.getStyleClass().addAll(
                     // lineChartColorTag, areaChartColorTag );
