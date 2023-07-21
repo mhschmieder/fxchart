@@ -55,6 +55,18 @@
         </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
+            <artifactId>acousticstoolkit</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mhschmieder</groupId>
+            <artifactId>charttoolkit</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mhschmieder</groupId>
             <artifactId>fxguitoolkit</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
