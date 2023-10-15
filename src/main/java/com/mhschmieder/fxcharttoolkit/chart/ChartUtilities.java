@@ -367,7 +367,7 @@ public final class ChartUtilities {
     }
 
     @SuppressWarnings("nls")
-    public static void syncLegendToDataSeries( final ChartLegend legend,
+    public static void updateDataSeriesLegend( final ChartLegend legend,
                                                final XYChart< Number, Number > chart ) {
         final ObservableList< ChartLegendItem > legendItems = legend.getItems();
         legendItems.clear();
