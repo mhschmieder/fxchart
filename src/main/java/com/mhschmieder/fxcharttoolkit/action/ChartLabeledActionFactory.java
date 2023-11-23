@@ -46,11 +46,9 @@ import com.mhschmieder.fxguitoolkit.action.XActionGroup;
  */
 public class ChartLabeledActionFactory {
 
-    // TODO: Review whether this is still correct, now that we have to package
-    // all non-Java resource files in a separate hierarchy from the Java package
-    // for the source code.
+    // NOTE: We must substitute "." for resource directory tree delimiters.
     @SuppressWarnings("nls") public static final String BUNDLE_NAME =
-                                                                    "com.mhschmieder.fxcharttoolkit.action.ChartActionLabels";
+                                                                    "properties.ChartActionLabels";
 
     /**
      * The default constructor is disabled, as this is a static factory class.
