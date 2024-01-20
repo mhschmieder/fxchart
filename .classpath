@@ -31,5 +31,6 @@
 	<classpathentry kind="src" path="/mathtoolkit"/>
 	<classpathentry kind="src" path="/charttoolkit"/>
 	<classpathentry kind="src" path="/acousticstoolkit"/>
+	<classpathentry kind="src" path="/fxacousticsgui"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

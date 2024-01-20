@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2024 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -175,23 +175,23 @@ public final class PolarResponsePanel extends RenderedGraphicsPanel {
     }
 
     public void updateHorizontalPolarResponse( final double[] amplitude,
-                                               final String loudspeakerModel,
+                                               final String acousticSourceModel,
                                                final RelativeBandwidth relativeBandwidth,
                                                final double centerFrequency ) {
         _polarPlotHz.updatePolarAmplitudeTrace( amplitude,
-                                                loudspeakerModel,
+                                                acousticSourceModel,
                                                 relativeBandwidth,
                                                 centerFrequency );
     }
 
     public void updateVerticalPolarResponse( final double[] amplitude,
-                                             final String loudspeakerModel,
+                                             final String acousticSourceModel,
                                              final RelativeBandwidth relativeBandwidth,
                                              final double centerFrequency ) {
         _polarPlotVt.updatePolarAmplitudeTrace( amplitude,
-                                                loudspeakerModel,
+                                                acousticSourceModel,
                                                 relativeBandwidth,
                                                 centerFrequency );
     }
 
-}// class PolarResponsePanel
+}
