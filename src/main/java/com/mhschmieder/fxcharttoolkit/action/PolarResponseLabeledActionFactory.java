@@ -100,8 +100,8 @@ public class PolarResponseLabeledActionFactory {
 
     @SuppressWarnings("nls")
     public static final XActionGroup getViewActionGroup( final ClientProperties pClientProperties,
-                                                         final ViewActions viewActions ) {
-        final Collection< Action > viewActionCollection = viewActions
+                                                         final PolarResponseViewActions polarResponseViewActions ) {
+        final Collection< Action > viewActionCollection = polarResponseViewActions
                 .getViewActionCollection( pClientProperties );
 
         final XActionGroup viewActionGroup = ActionFactory

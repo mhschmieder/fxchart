@@ -49,13 +49,13 @@ import javafx.scene.paint.Color;
 public final class PolarResponseActions {
 
     public FileActions     _fileActions;
-    public ViewActions     _viewActions;
+    public PolarResponseViewActions     _viewActions;
     public SettingsActions _settingsActions;
     public TestActions     _testActions;
 
     public PolarResponseActions( final ClientProperties pClientProperties ) {
         _fileActions = new FileActions( pClientProperties );
-        _viewActions = new ViewActions( pClientProperties );
+        _viewActions = new PolarResponseViewActions( pClientProperties );
         _settingsActions = new SettingsActions( pClientProperties );
         _testActions = new TestActions( pClientProperties );
     }

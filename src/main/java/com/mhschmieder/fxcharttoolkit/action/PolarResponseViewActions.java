@@ -41,11 +41,11 @@ import com.mhschmieder.fxguitoolkit.action.XActionGroup;
 /**
  * This is a struct-like container for View actions used by Polar Response.
  */
-public final class ViewActions {
+public final class PolarResponseViewActions {
 
     public PolarResponseAmplitudeScaleChoices _scaleChoices;
 
-    public ViewActions( final ClientProperties pClientProperties ) {
+    public PolarResponseViewActions( final ClientProperties pClientProperties ) {
         _scaleChoices = new PolarResponseAmplitudeScaleChoices( pClientProperties );
     }
 

@@ -39,7 +39,7 @@ import com.mhschmieder.fxcharttoolkit.action.PolarResponseActions;
 import com.mhschmieder.fxcharttoolkit.action.PolarResponseAmplitudeScaleChoices;
 import com.mhschmieder.fxcharttoolkit.action.PolarResponseLabeledActionFactory;
 import com.mhschmieder.fxcharttoolkit.action.TestActions;
-import com.mhschmieder.fxcharttoolkit.action.ViewActions;
+import com.mhschmieder.fxcharttoolkit.action.PolarResponseViewActions;
 import com.mhschmieder.fxguitoolkit.action.XActionGroup;
 import com.mhschmieder.fxguitoolkit.action.XActionUtilities;
 
@@ -87,9 +87,9 @@ public final class PolarResponseMenuFactory {
     }
 
     public static Menu getViewMenu( final ClientProperties pClientProperties,
-                                    final ViewActions viewActions ) {
+                                    final PolarResponseViewActions polarResponseViewActions ) {
         final XActionGroup viewActionGroup = PolarResponseLabeledActionFactory
-                .getViewActionGroup( pClientProperties, viewActions );
+                .getViewActionGroup( pClientProperties, polarResponseViewActions );
         final Menu viewMenu = XActionUtilities.createMenu( viewActionGroup );
         return viewMenu;
     }
