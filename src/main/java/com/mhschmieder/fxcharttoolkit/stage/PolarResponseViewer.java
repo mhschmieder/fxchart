@@ -60,7 +60,7 @@ import com.mhschmieder.commonstoolkit.io.FileStatus;
 import com.mhschmieder.commonstoolkit.io.FileUtilities;
 import com.mhschmieder.commonstoolkit.io.IoUtilities;
 import com.mhschmieder.commonstoolkit.net.DataServerResponse;
-import com.mhschmieder.commonstoolkit.net.ServerRequestProperties;
+import com.mhschmieder.commonstoolkit.net.HttpServletRequestProperties;
 import com.mhschmieder.commonstoolkit.security.ServerLoginCredentials;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.action.PolarResponseActions;
@@ -70,10 +70,10 @@ import com.mhschmieder.fxcharttoolkit.control.PolarResponseToolBar;
 import com.mhschmieder.fxcharttoolkit.layout.PolarResponsePane;
 import com.mhschmieder.fxcharttoolkit.net.PolarDataRequestParameters;
 import com.mhschmieder.fxcharttoolkit.swing.PolarResponsePanel;
+import com.mhschmieder.fxconcurrent.stage.DataRequestStatusViewer;
 import com.mhschmieder.fxguitoolkit.action.BackgroundColorChoices;
 import com.mhschmieder.fxguitoolkit.control.TextSelector;
 import com.mhschmieder.fxguitoolkit.dialog.DialogUtilities;
-import com.mhschmieder.fxguitoolkit.stage.DataRequestStatusViewer;
 import com.mhschmieder.fxguitoolkit.stage.ExtensionFilterUtilities;
 import com.mhschmieder.fxguitoolkit.stage.ExtensionFilters;
 import com.mhschmieder.fxguitoolkit.stage.RenderedGraphicsExportPreview;
@@ -195,7 +195,7 @@ public class PolarResponseViewer extends XStage {
     /**
      * Cache the Server Request Properties, which are static except for Login.
      */
-    private final ServerRequestProperties          serverRequestProperties;
+    private final HttpServletRequestProperties          httpServletRequestProperties;
 
     public PolarResponseViewer( final ServerLoginCredentials loginCredentials,
                                 final ProductBranding productBranding,
@@ -203,7 +203,7 @@ public class PolarResponseViewer extends XStage {
                                 final TextSelector pAcousticSourceModelSelector,
                                 final String pAcousticSourceModelDefault,
                                 final boolean pUseExtendedRange,
-                                final ServerRequestProperties pServerRequestProperties ) {
+                                final HttpServletRequestProperties pServerRequestProperties ) {
         // Always call the superclass constructor first!
         super( POLAR_RESPONSE_FRAME_TITLE_DEFAULT,
                "polarResponse",
@@ -216,7 +216,7 @@ public class PolarResponseViewer extends XStage {
         acousticSourceModelSelector = pAcousticSourceModelSelector;
 
         _loginCredentials = loginCredentials;
-        serverRequestProperties = pServerRequestProperties;
+        httpServletRequestProperties = pServerRequestProperties;
         
         useExtendedRange = pUseExtendedRange;
 
@@ -670,7 +670,7 @@ public class PolarResponseViewer extends XStage {
 
     protected final void makePredictPolarResponseService() {
         // Execute the Data Update Request via a Reusable Service.
-        _polarDataRequestService = new PolarDataRequestService( serverRequestProperties,
+        _polarDataRequestService = new PolarDataRequestService( httpServletRequestProperties,
                                                                 clientProperties,
                                                                 _dataRequestStatusViewer );
 

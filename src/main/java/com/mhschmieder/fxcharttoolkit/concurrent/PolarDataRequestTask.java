@@ -31,17 +31,17 @@
 package com.mhschmieder.fxcharttoolkit.concurrent;
 
 import com.mhschmieder.commonstoolkit.net.DataRequestParameters;
-import com.mhschmieder.commonstoolkit.net.ServerRequestProperties;
+import com.mhschmieder.commonstoolkit.net.HttpServletRequestProperties;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.commonstoolkit.util.DataUpdateType;
-import com.mhschmieder.fxcommonstoolkit.concurrent.DataRequestTask;
+import com.mhschmieder.fxconcurrent.DataRequestTask;
 
 /**
  * This is a task wrapper for Polar Response prediction server requests.
  */
 public final class PolarDataRequestTask extends DataRequestTask {
 
-    public PolarDataRequestTask( final ServerRequestProperties pServerRequestProperties,
+    public PolarDataRequestTask( final HttpServletRequestProperties pServerRequestProperties,
                                  final DataRequestParameters pDataRequestParameters,
                                  final ClientProperties pClientProperties ) {
         // Always call the super-constructor first!

@@ -30,15 +30,15 @@
  */
 package com.mhschmieder.fxcharttoolkit.concurrent;
 
-import com.mhschmieder.commonstoolkit.net.ServerRequestProperties;
+import com.mhschmieder.commonstoolkit.net.HttpServletRequestProperties;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.fxcommonstoolkit.concurrent.DataRequestTask;
-import com.mhschmieder.fxguitoolkit.concurrent.TrackableDataRequestService;
-import com.mhschmieder.fxguitoolkit.stage.DataRequestStatusViewer;
+import com.mhschmieder.fxconcurrent.DataRequestTask;
+import com.mhschmieder.fxconcurrent.TrackableDataRequestService;
+import com.mhschmieder.fxconcurrent.stage.DataRequestStatusViewer;
 
 public final class PolarDataRequestService extends TrackableDataRequestService {
 
-    public PolarDataRequestService( final ServerRequestProperties pServerRequestProperties,
+    public PolarDataRequestService( final HttpServletRequestProperties pServerRequestProperties,
                                     final ClientProperties pClientProperties,
                                     final DataRequestStatusViewer pDataRequestStatusViewer ) {
         // Always call the superclass constructor first!
@@ -49,7 +49,7 @@ public final class PolarDataRequestService extends TrackableDataRequestService {
     
     @Override 
     protected DataRequestTask makeDataRequestTask() {
-        return new PolarDataRequestTask( serverRequestProperties,
+        return new PolarDataRequestTask( httpServletRequestProperties,
                                          dataRequestParameters,
                                          clientProperties );
     }
