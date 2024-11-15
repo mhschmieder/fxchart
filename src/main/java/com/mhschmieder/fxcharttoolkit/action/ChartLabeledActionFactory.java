@@ -186,6 +186,6 @@ public class ChartLabeledActionFactory {
                                          BUNDLE_NAME,
                                          "settings",
                                          "dataTrackerColor",
-                                         "/icons/yusukeKamiyamane/ColorSwatch16.png" );
+                                         "/icons/yusukeKamiyamane/fugue/ColorSwatch16.png" );
     }
 }
