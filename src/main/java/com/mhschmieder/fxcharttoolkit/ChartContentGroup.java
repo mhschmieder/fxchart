@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxGuiToolkit Library
+ * This file is part of the FxChartToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxChartToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxguitoolkit
+ * Project: https://github.com/mhschmieder/fxcharttoolkit
  */
 package com.mhschmieder.fxcharttoolkit;
 
@@ -47,13 +47,13 @@ public class ChartContentGroup extends Group {
     /**
      * Maintain a local Clipping Rectangle that is kept in sync with chart.
      */
-    protected final Rectangle _clippingRectangle;
+    protected final Rectangle clippingRectangle;
 
     /**
      * Keep track of what Distance Unit we're using to display, for later
      * conversion.
      */
-    public DistanceUnit       _distanceUnit;
+    public DistanceUnit distanceUnit;
 
     /**
      * This is the full constructor, when all parameters are known.
@@ -62,9 +62,9 @@ public class ChartContentGroup extends Group {
         // Always call the superclass constructor first!
         super();
 
-        _clippingRectangle = new Rectangle();
+        clippingRectangle = new Rectangle();
 
-        _distanceUnit = DistanceUnit.defaultValue();
+        distanceUnit = DistanceUnit.defaultValue();
 
         try {
             initialize();
@@ -83,7 +83,7 @@ public class ChartContentGroup extends Group {
      * @return The current clipping rectangle for this Group
      */
     public final Rectangle getClippingRectangle() {
-        return _clippingRectangle;
+        return clippingRectangle;
     }
 
     /**
@@ -100,8 +100,8 @@ public class ChartContentGroup extends Group {
     private final void initialize() {
         // Setup clipping on the contents, using a dedicated clipping node that
         // will be updated as needed. Obviously, no anti-aliasing is used here.
-        _clippingRectangle.setSmooth( false );
-        setClip( _clippingRectangle );
+        clippingRectangle.setSmooth( false );
+        setClip( clippingRectangle );
     }
 
     /**
@@ -135,19 +135,19 @@ public class ChartContentGroup extends Group {
                                           final double strokeWidthRatio ) {
         // Apply the Distance Unit scale transform, as it is generally
         // compensated for by the transform on the overall wrapper group.
-        shapeContainer.scale( distanceUnitReference, _distanceUnit );
+        shapeContainer.scale( distanceUnitReference, distanceUnit );
 
         // Modify Stroke Width resolution to be appropriate for the new scale.
         final double strokeWidthBasis = displayToVenueScaleFactor;
         shapeContainer.updateStrokeWidth( distanceUnitReference,
-                                          _distanceUnit,
+                                          distanceUnit,
                                           strokeWidthBasis,
                                           strokeWidthRatio );
     }
 
-    public final void setDistanceUnit( final DistanceUnit distanceUnit ) {
+    public final void setDistanceUnit( final DistanceUnit pDistanceUnit ) {
         // Cache the new Distance Unit to provide context for graphics.
-        _distanceUnit = distanceUnit;
+        distanceUnit = pDistanceUnit;
     }
 
     /**
@@ -171,10 +171,10 @@ public class ChartContentGroup extends Group {
      *            The Clipping Rectangle to use for updating this one's bounds
      */
     public final void updateClippingRectangle( final Rectangle clippingRectangleCandidate ) {
-        _clippingRectangle.setX( clippingRectangleCandidate.getX() );
-        _clippingRectangle.setY( clippingRectangleCandidate.getY() );
-        _clippingRectangle.setWidth( clippingRectangleCandidate.getWidth() );
-        _clippingRectangle.setHeight( clippingRectangleCandidate.getHeight() );
+        clippingRectangle.setX( clippingRectangleCandidate.getX() );
+        clippingRectangle.setY( clippingRectangleCandidate.getY() );
+        clippingRectangle.setWidth( clippingRectangleCandidate.getWidth() );
+        clippingRectangle.setHeight( clippingRectangleCandidate.getHeight() );
 
         // Although this only affects auto-sized Groups (which ours are not), it
         // is safer to go ahead and request the content of each Group to
@@ -209,12 +209,11 @@ public class ChartContentGroup extends Group {
                                        final double translateX,
                                        final double translateY ) {
         // Translate the clipping rectangle for the Chart Contents Group.
-        _clippingRectangle.setTranslateX( _clippingRectangle.getX() + xLow );
-        _clippingRectangle.setTranslateY( _clippingRectangle.getY() + yLow );
+        clippingRectangle.setTranslateX( clippingRectangle.getX() + xLow );
+        clippingRectangle.setTranslateY( clippingRectangle.getY() + yLow );
 
         // Translate the Chart Contents Group from the axis origin.
         setTranslateX( translateX );
         setTranslateY( translateY );
     }
-
 }

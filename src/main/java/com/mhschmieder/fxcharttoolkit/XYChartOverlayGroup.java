@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxGuiToolkit Library
+ * This file is part of the FxChartToolkit Library
  *
  * You should have received a copy of the MIT License along with the
- * FxGuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxChartToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxguitoolkit
+ * Project: https://github.com/mhschmieder/fxcharttoolkit
  */
 package com.mhschmieder.fxcharttoolkit;
 
@@ -55,11 +55,10 @@ import javafx.scene.transform.Transform;
 
 /**
  * This is a wrapper collection for Nodes that emulate the contents of XYCharts
- * in the FX Charts API, in situations where we can't use the stock
- * implementation, such as in Cartesian Space plotting where there's no data and
- * only Graphical Objects.
+ * in the FX Charts API, in situations where we can't use stock implementation,
+ * such as in Cartesian Charts where there's no data; just Graphical Objects.
  * <p>
- * This node in the scene graph does what scene graphs are supposed to do:
+ * This node in the scene graph does what scene graphs are supposed to do: it
  * encapsulates the transform from screen to model coordinates so that all child
  * nodes and their children may operate in model space.
  */
@@ -339,7 +338,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
 
         // Try and work out width and height of axes, making four passes.
         // NOTE: The multiple passes to stabilize, are probably no longer
-        // needed, as we no longer make any dynamic calls in this loop.
+        //  needed, as we no longer make any dynamic calls in this loop.
         final double xAxisWidth = FastMath.max( 0.0d, contentWidthSnap );
         double xAxisHeight = 0.0d;
         double yAxisWidth = 0.0d;
@@ -404,10 +403,10 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // Update the clipping rectangle for the Chart Overlay Group.
         // NOTE: Both width and height have to account for stroke width.
         final double fudgeFactor = strokeWidth;
-        _clippingRectangle.setX( leftSnap );
-        _clippingRectangle.setY( topSnap );
-        _clippingRectangle.setWidth( clipWidth + fudgeFactor );
-        _clippingRectangle.setHeight( clipHeight + fudgeFactor );
+        clippingRectangle.setX( leftSnap );
+        clippingRectangle.setY( topSnap );
+        clippingRectangle.setWidth( clipWidth + fudgeFactor );
+        clippingRectangle.setHeight( clipHeight + fudgeFactor );
 
         // Update the vertical zero line, in model space.
         updateZeroLine( xAxis, yAxis, _verticalZeroLine, Orientation.VERTICAL, strokeWidth );
@@ -626,11 +625,11 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         gridLines.setMouseTransparent( true );
 
         // TODO: Reconsider making an empty local Path Elements list, adding
-        // MoveTo/LineTo pairs, then replacing the list in the query below. This
-        // is how Oracle implements XYChart, and perhaps this performs better
-        // than what we are doing with a Group of Lines, as the Scene Graph has
-        // fewer Nodes this way. But I think we switched due to poor
-        // performance. We could also replace java calls with CSS style names.
+        //  MoveTo/LineTo pairs, then replacing the list in the query below. This
+        //  is how Oracle implements XYChart, and perhaps this performs better
+        //  than what we are doing with a Group of Lines, as the Scene Graph has
+        //  fewer Nodes this way. But I think we switched due to poor
+        //  performance. We could also replace java calls with CSS style names.
         // final Path path = new Path();
         // final ObservableList<PathElement> pathElements = path.getElements();
     }
@@ -689,5 +688,4 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // Try to improve performance by setting Grid Lines to ignore the mouse.
         zeroLine.setMouseTransparent( true );
     }
-
 }
