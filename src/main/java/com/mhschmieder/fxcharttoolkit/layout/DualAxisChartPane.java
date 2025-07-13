@@ -34,8 +34,8 @@ import java.text.NumberFormat;
 
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
+import com.mhschmieder.fxgraphicstoolkit.input.ClickLocation;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorConstants;
-import com.mhschmieder.fxguitoolkit.control.ClickLocation;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 
 import javafx.application.Platform;

@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,9 +57,72 @@ public final class ChartUtilities {
      * The default constructor is disabled, as this is a static utilities class.
      */
     private ChartUtilities() {}
+    
+    /**
+     * A method to find the lower bound of an axis given its upper bound, long 
+     * edge dimension, and a conversion from its dimension to local coordinates.
+     * <p>
+     * As long as you treat the display's x-axis separately from its y-axis,
+     * this method should apply to any arbitrary local units, even when they
+     * are different both in type and in scale for the two axes.
+     *
+     * @param dimensionPx
+     *            The long dimension of the axis in terms of its layout bounds
+     * @param upperBound
+     *            The maximum value the axis may represent in local coordinates
+     * @param displayToLocalScaleFactor
+     *            The multiplier to convert from display coordinates to local
+     *            coordinates
+     * @return The lower bound for the axis
+     */
+    public static double calculateLowerBound( final double dimensionPx,
+                                              final double upperBound,
+                                              final double displayToLocalScaleFactor ) {
+        // Check edge cases.
+        if ( ( displayToLocalScaleFactor <= 0.0d ) || ( dimensionPx <= 0.0d )
+                || ( upperBound >= Double.POSITIVE_INFINITY ) ) {
+            return 0.0d;
+        }
+
+        final double range = dimensionPx * displayToLocalScaleFactor;
+        final double lowerBound = upperBound - range;
+
+        return lowerBound;
+    }
+
+    /**
+     * A method to find the upper bound of an axis given its lower bound, long 
+     * edge dimension, and a conversion from its dimension to local coordinates.
+     * <p>
+     * As long as you treat the display's x-axis separately from its y-axis,
+     * this method should apply to any arbitrary local units, even when they
+     * are different both in type and in scale for the two axes.
+     *
+     * @param dimensionPx
+     *            The long dimension of the axis in terms of its layout bounds
+     * @param lowerBound
+     *            The minimum value the axis may represent in local coordinates
+     * @param displayToLocalScaleFactor
+     *            The multiplier to convert from display coordinates to local
+     *            coordinates
+     * @return The upper bound for the axis
+     */
+    public static double calculateUpperBound( final double dimensionPx,
+                                              final double lowerBound,
+                                              final double displayToLocalScaleFactor ) {
+        // Check edge cases.
+        if ( ( displayToLocalScaleFactor <= 0.0d ) || ( dimensionPx <= 0.0d )
+                || ( lowerBound <= Double.NEGATIVE_INFINITY ) ) {
+            return 0.0d;
+        }
+
+        final double range = dimensionPx * displayToLocalScaleFactor;
+        final double upperBound = lowerBound + range;
+
+        return upperBound;
+    }
 
     // Apply standardized attributes to all number-based charts.
-    @SuppressWarnings("nls")
     public static void applyNumberChartAttributes( final XYChart< Number, Number > chart,
                                                    final boolean isOverlayChart,
                                                    final boolean showLegend,
