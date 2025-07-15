@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,12 @@ import javafx.scene.chart.XYChart.Series;
  * This class attempts to cover as much ground as possible without getting into
  * specifics that might vary between different usage contexts or application
  * domains. Even so, it is geared towards Signal Processing and Analysis.
+ * <p>
+ * The x-axis units are not mandated here. All that matters is that downstream
+ * clients use consistent units and supply the measurement unit to display.
+ * <p>
+ * TODO: Make an enumeration of typical time units and pass as a variable, then
+ *  convert to the displayed measurement unit string here vs. in the invoker?
  * <p>
  * NOTE: This class has recently been abstracted to a higher level, for greater
  *  applicability than just Impulse Responses, but it needs some testing in
@@ -127,6 +133,9 @@ public abstract class TimeSeriesChartPane extends DualAxisChartPane {
         _timeIncrements = timeIncrements;
         _minimumTimeRecordIndex = minimumTimeRecordIndex;
         _maximumTimeRecordIndex = maximumTimeRecordIndex;
+        
+        // Play it safe in case derived classes forget to set this initially.
+        _activeDataSet = 0;
 
         try {
             initPane( xUnitLabel, isOverlayChart );
