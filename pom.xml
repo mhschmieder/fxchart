@@ -10,7 +10,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>FxGuiToolkit</name>
+	<name>fxcharttoolkit</name>
 	<url>https://github.com/mhschmieder/fxcharttoolkit</url>
 	<description>Utilities and custom classes for JavaFX based Charting work.</description>
 
