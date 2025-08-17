@@ -39,3 +39,11 @@ buildNumber.properties
 # macOS security breach vulnerability files #
 *.DS_Store
 /bin/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+# IntelliJ
+.idea/
