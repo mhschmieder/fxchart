@@ -32,7 +32,6 @@ package com.mhschmieder.fxcharttoolkit;
 
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeContainer;
 import com.mhschmieder.physicstoolkit.DistanceUnit;
-
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Transform;

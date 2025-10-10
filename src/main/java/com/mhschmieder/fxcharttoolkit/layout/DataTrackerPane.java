@@ -33,7 +33,6 @@ package com.mhschmieder.fxcharttoolkit.layout;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxgraphicstoolkit.input.ClickLocation;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

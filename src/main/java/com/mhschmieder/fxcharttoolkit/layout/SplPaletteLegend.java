@@ -32,7 +32,6 @@ package com.mhschmieder.fxcharttoolkit.layout;
 
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.physicstoolkit.ColorPalette;
-
 import javafx.geometry.Side;
 
 /**

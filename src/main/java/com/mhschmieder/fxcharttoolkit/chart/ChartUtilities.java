@@ -30,16 +30,11 @@
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
-import java.text.NumberFormat;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.lang.StringConstants;
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.layout.ChartLegend;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.chart.Axis;
@@ -47,6 +42,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import org.apache.commons.math3.util.FastMath;
+
+import java.text.NumberFormat;
 
 /**
  * This is a utility class for common chart methods, agnostic to chart type.

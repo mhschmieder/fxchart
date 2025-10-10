@@ -30,15 +30,12 @@
  */
 package com.mhschmieder.fxcharttoolkit.layout;
 
-import java.text.NumberFormat;
-
 import com.mhschmieder.commonstoolkit.text.TextUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.fxgraphicstoolkit.input.ClickLocation;
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorConstants;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +52,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+
+import java.text.NumberFormat;
 
 /**
  * This is an abstract base class that enforces standards for all X/Y Chart

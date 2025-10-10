@@ -31,7 +31,6 @@
 package com.mhschmieder.fxcharttoolkit.layout;
 
 import com.mhschmieder.fxcharttoolkit.chart.ChartLegendItem;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
 import javafx.beans.property.ObjectProperty;

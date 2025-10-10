@@ -30,15 +30,10 @@
  */
 package com.mhschmieder.fxcharttoolkit.layout;
 
-import java.nio.IntBuffer;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
 import com.mhschmieder.physicstoolkit.ColorPalette;
 import com.mhschmieder.physicstoolkit.PaletteUtilities;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -62,6 +57,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.apache.commons.math3.util.FastMath;
+
+import java.nio.IntBuffer;
 
 /**
  * This is a layout container for a legend used to indicate values in color

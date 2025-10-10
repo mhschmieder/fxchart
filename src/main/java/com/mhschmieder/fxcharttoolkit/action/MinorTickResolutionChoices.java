@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.fxcharttoolkit.action;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.controlsfx.control.action.Action;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.chart.GridResolution;
 import com.mhschmieder.fxguitoolkit.action.XAction;
+import org.controlsfx.control.action.Action;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * This is a struct-like container for generic Minor Tick Resolution choices,

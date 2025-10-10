@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.fxcharttoolkit.action;
 
-import java.util.Collection;
-
-import org.controlsfx.control.action.Action;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxguitoolkit.action.ActionFactory;
 import com.mhschmieder.fxguitoolkit.action.XAction;
 import com.mhschmieder.fxguitoolkit.action.XActionGroup;
+import org.controlsfx.control.action.Action;
+
+import java.util.Collection;
 
 /**
  * This is a utility class for making labeled actions for charts.

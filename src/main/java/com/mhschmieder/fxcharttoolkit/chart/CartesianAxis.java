@@ -30,17 +30,7 @@
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.sun.javafx.css.converters.SizeConverter;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -48,11 +38,18 @@ import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableDoubleProperty;
 import javafx.css.StyleableProperty;
-// import javafx.css.converter.SizeConverter;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Side;
 import javafx.scene.chart.ValueAxis;
 import javafx.util.StringConverter;
+import org.apache.commons.math3.util.FastMath;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is a specialization of a standard Number Axis, in order to customize the

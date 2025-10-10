@@ -30,19 +30,17 @@
  */
 package com.mhschmieder.fxcharttoolkit.layout;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
 import com.mhschmieder.fxcharttoolkit.control.ChartControlFactory;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * The Time Series Chart Pane is the abstract base class that serves as a

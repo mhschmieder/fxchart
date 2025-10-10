@@ -30,15 +30,9 @@
  */
 package com.mhschmieder.fxcharttoolkit;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
 import com.mhschmieder.fxcharttoolkit.chart.GridResolution;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -52,6 +46,10 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
+import org.apache.commons.math3.util.FastMath;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is a wrapper collection for Nodes that emulate the contents of XYCharts

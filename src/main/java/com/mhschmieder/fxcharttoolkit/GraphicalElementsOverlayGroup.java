@@ -31,7 +31,6 @@
 package com.mhschmieder.fxcharttoolkit;
 
 import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
-
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

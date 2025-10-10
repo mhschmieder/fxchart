@@ -30,14 +30,12 @@
  */
 package com.mhschmieder.fxcharttoolkit.layout;
 
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.acousticstoolkit.TimeSignalUtilities;
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxacousticsgui.action.AnalysisTimeHorizontalZoomChoices;
 import com.mhschmieder.fxcharttoolkit.chart.ChartUtilities;
-
 import javafx.scene.chart.XYChart;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * A generalized Chart Pane container for a normalized Impulse Response.

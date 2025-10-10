@@ -30,19 +30,17 @@
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxcharttoolkit.IllegalLogarithmicRangeException;
-
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.chart.ValueAxis;
+import org.apache.commons.math3.util.FastMath;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A logarithmic axis implementation for JavaFX 2 charts<br>

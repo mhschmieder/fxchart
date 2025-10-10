@@ -30,14 +30,12 @@
  */
 package com.mhschmieder.fxcharttoolkit.control;
 
-import java.text.NumberFormat;
-
-import org.apache.commons.math3.util.FastMath;
-
 import com.mhschmieder.fxcharttoolkit.chart.CartesianAxis;
-
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
+import org.apache.commons.math3.util.FastMath;
+
+import java.text.NumberFormat;
 
 /**
  * {@code ChartLabeledControlFactory} is a factory class for minimizing

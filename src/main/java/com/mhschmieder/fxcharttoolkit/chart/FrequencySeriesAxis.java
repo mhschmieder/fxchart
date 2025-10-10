@@ -30,12 +30,11 @@
  */
 package com.mhschmieder.fxcharttoolkit.chart;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import org.apache.commons.math3.util.FastMath;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FrequencySeriesAxis extends LogarithmicAxis {
 
