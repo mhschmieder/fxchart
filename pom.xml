@@ -6,12 +6,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mhschmieder</groupId>
-    <artifactId>fxcharttoolkit</artifactId>
+    <artifactId>fxchart</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>fxcharttoolkit</name>
-	<url>https://github.com/mhschmieder/fxcharttoolkit</url>
+	<name>fxchart</name>
+	<url>https://github.com/mhschmieder/fxchart</url>
 	<description>Utilities and custom classes for JavaFX based Charting work.</description>
 
 	<licenses>
