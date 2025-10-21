@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/mhschmieder/fxgraphicstoolkit </url>
-		<connection>scm:git:git://github.com/mhschmieder/fxcharttoolkit.git</connection>
-		<developerConnection>scm:git:git@github.com:mhschmieder/fxcharttoolkit.git</developerConnection>
+		<url>https://github.com/mhschmieder/fxchart</url>
+		<connection>scm:git:git://github.com/mhschmieder/fxchart.git</connection>
+		<developerConnection>scm:git:git@github.com:mhschmieder/fxchart.git</developerConnection>
 	</scm>
 
 	<developers>
