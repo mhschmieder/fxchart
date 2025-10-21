@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
         	<groupId>com.mhschmieder</groupId>
-        	<artifactId>fxacousticsgui</artifactId>
+        	<artifactId>fxacoustics</artifactId>
         	<version>0.1-SNAPSHOT</version>
         </dependency>
 	</dependencies>
