@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxchart.chart;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxchart.IllegalLogarithmicRangeException;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

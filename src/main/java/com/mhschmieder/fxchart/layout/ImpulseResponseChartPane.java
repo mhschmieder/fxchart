@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.acousticstoolkit.TimeSignalUtilities;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxacoustics.action.AnalysisTimeHorizontalZoomChoices;
 import com.mhschmieder.fxchart.chart.ChartUtilities;
+import com.mhschmieder.jacoustics.TimeSignalUtilities;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.scene.chart.XYChart;
 import org.apache.commons.math3.util.FastMath;
 

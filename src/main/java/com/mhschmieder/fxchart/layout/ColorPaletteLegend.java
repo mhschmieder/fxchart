@@ -32,8 +32,8 @@ package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
 import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
-import com.mhschmieder.physicstoolkit.ColorPalette;
-import com.mhschmieder.physicstoolkit.PaletteUtilities;
+import com.mhschmieder.jphysics.ColorPalette;
+import com.mhschmieder.jphysics.PaletteUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -538,7 +538,7 @@ public abstract class ColorPaletteLegend extends StackPane {
      * <p>
      * This method should be overridden by classes that need specialized Color
      * Palettes that aren't covered by the current palette generators in the
-     * physicstoolkit, bearing in mind that only the common Jet Palette is
+     * jphysics, bearing in mind that only the common Jet Palette is
      * currently provided by that toolkit.
      * <p>
      * As most classes won't need a specialized palette, we don't want to force
@@ -546,7 +546,7 @@ public abstract class ColorPaletteLegend extends StackPane {
      * null. Downstream logic knows to avoid null palettes.
      * <p>
      * In general, if other standardized palettes get implemented by the
-     * physicstoolkit later on, this method is still needed for special cases,
+     * jphysics later on, this method is still needed for special cases,
      * such as when an asymmetric color map is needed. This most often happens
      * with statistical charting, where specific threshold values may mark
      * sudden shifts in the color map.

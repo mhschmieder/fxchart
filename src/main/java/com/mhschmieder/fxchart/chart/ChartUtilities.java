@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.fxchart.chart;
 
-import com.mhschmieder.commonstoolkit.lang.StringConstants;
-import com.mhschmieder.commonstoolkit.text.TextUtilities;
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxchart.layout.ChartLegend;
 import com.mhschmieder.fxguitoolkit.GuiUtilities;
+import com.mhschmieder.jcommons.lang.StringConstants;
+import com.mhschmieder.jcommons.text.TextUtilities;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.chart.Axis;

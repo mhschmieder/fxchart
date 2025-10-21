@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.commonstoolkit.util.SystemType;
 import com.mhschmieder.fxchart.chart.ChartUtilities;
 import com.mhschmieder.fxchart.control.ChartControlFactory;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jcommons.util.SystemType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.NumberAxis;

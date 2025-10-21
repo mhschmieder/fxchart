@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.chart;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import org.apache.commons.math3.util.FastMath;
 
 import java.util.ArrayList;

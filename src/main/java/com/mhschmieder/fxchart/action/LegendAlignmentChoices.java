@@ -21,20 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxPhysicsToolkit Library
+ * This file is part of the FxJPhysics Library
  *
  * You should have received a copy of the MIT License along with the
- * FxPhysicsToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * FxJPhysics Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxphysicstoolkit
+ * Project: https://github.com/mhschmieder/fxjphysics
  */
 package com.mhschmieder.fxchart.action;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.fxchart.chart.LegendAlignment;
 import com.mhschmieder.fxguitoolkit.action.ActionFactory;
 import com.mhschmieder.fxguitoolkit.action.XAction;
 import com.mhschmieder.fxguitoolkit.action.XActionGroup;
+import com.mhschmieder.jcommons.util.ClientProperties;
 import org.controlsfx.control.action.Action;
 
 import java.util.Arrays;

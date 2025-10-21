@@ -31,7 +31,7 @@
 package com.mhschmieder.fxchart.control;
 
 import com.mhschmieder.fxchart.chart.ChartUtilities;
-import com.mhschmieder.mathtoolkit.MathUtilities;
+import com.mhschmieder.jmath.MathUtilities;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;

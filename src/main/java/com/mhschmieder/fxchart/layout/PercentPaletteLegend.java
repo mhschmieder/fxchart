@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.physicstoolkit.ColorPalette;
+import com.mhschmieder.jphysics.ColorPalette;
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
 
