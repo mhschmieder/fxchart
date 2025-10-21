@@ -46,8 +46,7 @@ import java.util.Collection;
 public class ChartLabeledActionFactory {
 
     // NOTE: We must substitute "." for resource directory tree delimiters.
-    @SuppressWarnings("nls") public static final String BUNDLE_NAME =
-                                                                    "properties.ChartActionLabels";
+    public static final String BUNDLE_NAME = "properties.ChartActionLabels";
 
     /**
      * The default constructor is disabled, as this is a static factory class.
