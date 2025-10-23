@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,9 @@
 package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxcontrols.GuiUtilities;
-import com.mhschmieder.fxgraphics.geometry.Extents2D;
-import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.image.ImageUtilities;
+import com.mhschmieder.fxphysics.FxPhysicsUtilities;
+import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -124,7 +124,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
      * @param extents
      *            The extents (in user units) used for the overlay image
      */
-    public final void adjustMainOverlayImage( final Extents2D extents ) {
+    public final void adjustMainOverlayImage( final Extents2DProperties extents ) {
         // Adjust the location and size to match the bounds of the container.
         final double imageWidth = extents.getWidth();
         final double imageHeight = extents.getHeight();
@@ -252,7 +252,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
      * @return True if the input stream was non-null
      */
     public final boolean loadMainOverlayImage( final InputStream inputStream,
-                                               final Extents2D extents ) {
+                                               final Extents2DProperties extents ) {
         // Avoid throwing unnecessary exceptions by not attempting to open bad
         // input streams.
         if ( inputStream == null ) {
@@ -260,7 +260,8 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         }
 
         // Convert image bounds to pixels, as those are the units for images.
-        final Bounds imageBounds = GeometryUtilities.boundsFromExtents( extents );
+        final Bounds imageBounds = FxPhysicsUtilities.boundsFromExtents(
+                extents );
         final Bounds imageBoundsPx = getVenueToDisplayTransform().transform( imageBounds );
 
         // Apply the Aspect Ratio during Main Overlay Image Loading, and match
