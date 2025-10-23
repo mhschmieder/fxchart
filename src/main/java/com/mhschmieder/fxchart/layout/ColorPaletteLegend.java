@@ -538,8 +538,8 @@ public abstract class ColorPaletteLegend extends StackPane {
      * <p>
      * This method should be overridden by classes that need specialized Color
      * Palettes that aren't covered by the current palette generators in the
-     * jphysics, bearing in mind that only the common Jet Palette is
-     * currently provided by that toolkit.
+     * jphysics, bearing in mind that only the common Jet Palette is currently
+     * provided by that library.
      * <p>
      * As most classes won't need a specialized palette, we don't want to force
      * this method to be overridden and implemented, so the default returns
