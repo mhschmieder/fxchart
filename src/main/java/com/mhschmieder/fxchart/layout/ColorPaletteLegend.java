@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxgraphicstoolkit.paint.ColorUtilities;
-import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
+import com.mhschmieder.fxcontrols.layout.LayoutFactory;
+import com.mhschmieder.fxgraphics.paint.ColorUtilities;
 import com.mhschmieder.jphysics.ColorPalette;
 import com.mhschmieder.jphysics.PaletteUtilities;
 import javafx.application.Platform;

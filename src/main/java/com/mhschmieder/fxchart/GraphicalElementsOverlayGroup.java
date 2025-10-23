@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart;
 
-import com.mhschmieder.fxgraphicstoolkit.shape.ShapeGroup;
+import com.mhschmieder.fxgraphics.shape.ShapeGroup;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

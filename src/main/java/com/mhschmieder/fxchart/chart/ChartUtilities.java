@@ -31,7 +31,7 @@
 package com.mhschmieder.fxchart.chart;
 
 import com.mhschmieder.fxchart.layout.ChartLegend;
-import com.mhschmieder.fxguitoolkit.GuiUtilities;
+import com.mhschmieder.fxcontrols.GuiUtilities;
 import com.mhschmieder.jcommons.lang.StringConstants;
 import com.mhschmieder.jcommons.text.TextUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;

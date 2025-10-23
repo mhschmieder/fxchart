@@ -30,10 +30,10 @@
  */
 package com.mhschmieder.fxchart;
 
-import com.mhschmieder.fxgraphicstoolkit.geometry.Extents2D;
-import com.mhschmieder.fxgraphicstoolkit.geometry.GeometryUtilities;
-import com.mhschmieder.fxgraphicstoolkit.image.ImageUtilities;
-import com.mhschmieder.fxguitoolkit.GuiUtilities;
+import com.mhschmieder.fxcontrols.GuiUtilities;
+import com.mhschmieder.fxgraphics.geometry.Extents2D;
+import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
+import com.mhschmieder.fxgraphics.image.ImageUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;

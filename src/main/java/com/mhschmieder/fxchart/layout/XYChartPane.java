@@ -31,9 +31,9 @@
 package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxchart.chart.ChartUtilities;
-import com.mhschmieder.fxgraphicstoolkit.input.ClickLocation;
-import com.mhschmieder.fxgraphicstoolkit.paint.ColorConstants;
-import com.mhschmieder.fxguitoolkit.layout.LayoutFactory;
+import com.mhschmieder.fxcontrols.layout.LayoutFactory;
+import com.mhschmieder.fxgraphics.input.ClickLocation;
+import com.mhschmieder.fxgraphics.paint.ColorConstants;
 import com.mhschmieder.jcommons.text.TextUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.application.Platform;
