@@ -32,7 +32,7 @@ package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxgraphics.image.ImageUtilities;
 import com.mhschmieder.fxgui.util.GuiUtilities;
-import com.mhschmieder.fxphysics.FxPhysicsUtilities;
+import com.mhschmieder.fxphysics.util.FxPhysicsUtilities;
 import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
