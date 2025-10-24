@@ -79,12 +79,12 @@
         </dependency>
         <dependency>
         	<groupId>com.mhschmieder</groupId>
-        	<artifactId>fxacoustics</artifactId>
+        	<artifactId>fxacousticscontrols</artifactId>
         	<version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.mhschmieder</groupId>
-            <artifactId>fxphysics</artifactId>
+            <artifactId>fxphysicscontrols</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxacoustics.action.AnalysisTimeHorizontalZoomChoices;
+import com.mhschmieder.fxacousticscontrols.action.AnalysisTimeHorizontalZoomChoices;
 import com.mhschmieder.fxchart.chart.ChartUtilities;
 import com.mhschmieder.jacoustics.TimeSignalUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
