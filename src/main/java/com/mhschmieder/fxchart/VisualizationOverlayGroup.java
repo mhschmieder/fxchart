@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the
- * FxChart Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the fxchart
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
@@ -32,8 +32,8 @@ package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxgraphics.image.ImageUtilities;
 import com.mhschmieder.fxgui.util.GuiUtilities;
-import com.mhschmieder.fxphysicscontrols.model.Extents2DProperties;
-import com.mhschmieder.fxphysicscontrols.util.FxPhysicsUtilities;
+import com.mhschmieder.fxphysicsgui.model.Extents2DProperties;
+import com.mhschmieder.fxphysicsgui.util.FxPhysicsUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
