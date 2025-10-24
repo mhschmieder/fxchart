@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxcontrols.layout.LayoutFactory;
+import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
 import com.mhschmieder.jphysics.ColorPalette;
 import com.mhschmieder.jphysics.PaletteUtilities;
@@ -270,7 +270,7 @@ public abstract class ColorPaletteLegend extends StackPane {
      */
     public void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
-        final Background background = LayoutFactory.makeRegionBackground( backColor );
+        final Background background = RegionUtilities.makeRegionBackground( backColor );
         setBackground( background );
 
         final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );

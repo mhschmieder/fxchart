@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxcontrols.layout.LayoutFactory;
+import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.scene.control.ContextMenu;
@@ -138,7 +138,7 @@ public abstract class DataTrackerPane extends StackPane {
                                                       final String jarRelativeStylesheetFilenameDark,
                                                       final String jarRelativeStylesheetFilenameLight ) {
         // Set the new Background first, so it sets context for CSS derivations.
-        final Background background = LayoutFactory.makeRegionBackground( backColor );
+        final Background background = RegionUtilities.makeRegionBackground( backColor );
         setBackground( background );
     }
 

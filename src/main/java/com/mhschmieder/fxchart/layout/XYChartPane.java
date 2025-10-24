@@ -31,7 +31,7 @@
 package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxchart.chart.ChartUtilities;
-import com.mhschmieder.fxcontrols.layout.LayoutFactory;
+import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgraphics.paint.ColorConstants;
 import com.mhschmieder.jcommons.text.TextUtilities;
@@ -548,7 +548,7 @@ public abstract class XYChartPane extends StackPane {
 
     public final void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
-        final Background background = LayoutFactory.makeRegionBackground( backColor );
+        final Background background = RegionUtilities.makeRegionBackground( backColor );
         setBackground( background );
 
         _xyChart.setBackground( background );

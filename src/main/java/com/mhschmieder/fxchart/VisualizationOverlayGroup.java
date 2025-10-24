@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.fxchart;
 
-import com.mhschmieder.fxcontrols.GuiUtilities;
 import com.mhschmieder.fxgraphics.image.ImageUtilities;
+import com.mhschmieder.fxgui.util.GuiUtilities;
 import com.mhschmieder.fxphysics.FxPhysicsUtilities;
 import com.mhschmieder.fxphysics.model.Extents2DProperties;
 import javafx.application.Platform;

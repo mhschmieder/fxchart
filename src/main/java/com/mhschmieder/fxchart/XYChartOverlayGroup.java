@@ -32,7 +32,7 @@ package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxchart.chart.CartesianAxis;
 import com.mhschmieder.fxchart.chart.GridResolution;
-import com.mhschmieder.fxcontrols.GuiUtilities;
+import com.mhschmieder.fxgui.util.GuiUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
