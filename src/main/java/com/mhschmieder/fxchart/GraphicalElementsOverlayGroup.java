@@ -36,7 +36,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 /**
- * This is a Group container for all of the Graphical Elements that will display 
+ * This is a Group container for all the Graphical Elements that will display
  * over a Cartesian Chart background. Usually these are the shapes representing
  * interactive application domain objects.
  * <p>
