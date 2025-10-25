@@ -156,7 +156,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         }
     }
 
-    /**
+    /*
      * Export the raw overlay image (but not the surrounding context) to a file
      * using the specified image format.
      */
@@ -165,7 +165,8 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         boolean succeeded = false;
         try {
             final Image image = getMainOverlayImage();
-            final BufferedImage bufferedImage = SwingFXUtils.fromFXImage( image, null );
+            final BufferedImage bufferedImage = SwingFXUtils.fromFXImage(
+                    image, null );
             succeeded = ImageIO.write( bufferedImage, imageFormat, outputStream );
 
             // Cleanup.
@@ -182,7 +183,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
     /**
      * Returns the Main Overlay Image.
      *
-     * @return The Main Overlay Image .
+     * @return The Main Overlay Image.
      */
     public final Image getMainOverlayImage() {
         return _mainOverlayImageView.getImage();
@@ -198,7 +199,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
     }
 
     /**
-     * Set up the configuration of the Visualization Overlay Group elements.
+     * Sets up the configuration of the Visualization Overlay Group elements.
      *
      * @param jarRelativeWatermarkFilename
      *            The JAR-relative file name for the Watermark Image file
@@ -243,7 +244,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
     }
 
     /**
-     * Load a raw overlay image from a supplied input stream.
+     * Loads a raw overlay image from a supplied input stream.
      *
      * @param inputStream
      *            The input stream containing the raw overlay image
@@ -251,8 +252,9 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
      *            The Plane extents (in user units) used for the overlay image
      * @return True if the input stream was non-null
      */
-    public final boolean loadMainOverlayImage( final InputStream inputStream,
-                                               final Extents2DProperties extents ) {
+    public final boolean loadMainOverlayImage(
+            final InputStream inputStream,
+            final Extents2DProperties extents ) {
         // Avoid throwing unnecessary exceptions by not attempting to open bad
         // input streams.
         if ( inputStream == null ) {
@@ -262,7 +264,8 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         // Convert image bounds to pixels, as those are the units for images.
         final Bounds imageBounds = FxPhysicsUtilities.boundsFromExtents(
                 extents );
-        final Bounds imageBoundsPx = getVenueToDisplayTransform().transform( imageBounds );
+        final Bounds imageBoundsPx = getVenueToDisplayTransform().transform(
+                imageBounds );
 
         // Apply the Aspect Ratio during Main Overlay Image Loading, and match
         // it to the current chart overlay bounds by settings its dimensions to
@@ -272,12 +275,13 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         // TODO: Find a way to bind the chart and/or axes to the image, and
         //  hand it just the width along with -1 for height so the Aspect Ratio
         //  gets used. Currently, some downstream uses display a bit too wide.
-        final Image image = ImageUtilities.loadImageFromStream( inputStream,
-                                                                true,
-                                                                -1d,
-                                                                imageBoundsPx.getWidth(),
-                                                                imageBoundsPx.getHeight(),
-                                                                false );
+        final Image image = ImageUtilities.loadImageFromStream(
+                inputStream,
+                true,
+                -1d,
+                imageBoundsPx.getWidth(),
+                imageBoundsPx.getHeight(),
+                false );
         setMainOverlayImage( image );
 
         // Adjust the location and size to match the bounds of the container.
@@ -292,16 +296,20 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
      * @param jarRelativeWatermarkFilename
      *            The JAR-relative file name for the Watermark Image file
      */
-    protected final void loadWatermark( final String jarRelativeWatermarkFilename ) {
+    protected final void loadWatermark(
+            final String jarRelativeWatermarkFilename ) {
         // Background-load the Watermark Image as a JAR-resident resource,
         // then place it into an Image View container, so it can be displayed
         // and scaled.
-        ImageUtilities.updateImageView( _watermarkImageView, jarRelativeWatermarkFilename, true );
+        ImageUtilities.updateImageView(
+                _watermarkImageView,
+                jarRelativeWatermarkFilename,
+                true );
 
         // Remember that we have to flip the y-axis for Cartesian Space vs.
         // Screen Coordinates, for any raster image that we load into the
         // associated visual elements node group.
-        _watermarkImageView.setScaleY( -1d );
+        _watermarkImageView.setScaleY( -1.0d );
 
         // Traditionally, we have set watermark opacity to 15%.
         _watermarkImageView.setOpacity( _watermarkOpacity );
@@ -329,8 +337,8 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
     }
 
     /**
-     * Remove the Main Overlay Image by setting the Image View to a null
-     * Image reference.
+     * Removes the Main Overlay Image by setting the Image View to a null Image
+     * reference.
      */
     public final void removeMainOverlayImage() {
         // Blank out the image in case the layout visibility isn't hidden --
