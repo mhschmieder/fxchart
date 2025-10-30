@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2025 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,7 @@ public abstract class DualAxisChartPane extends StackPane {
     protected String                  _yUnitLabelBottom;
     protected String                  _yUnitLabelTop;
 
-    // Declare the Data Tracking marker display as a Line, so can stylize it.
+    // Declare the Data Tracking marker display as a Line, so we can stylize it.
     protected Group                   _dataTrackingMarkerGroup;
     protected Line                    _dataTrackingMarker;
 
@@ -90,8 +90,8 @@ public abstract class DualAxisChartPane extends StackPane {
     // Keep track of the color to be used for Data Tracking.
     protected Color                   _dataTrackerColor;
 
-    // Cache the last Click Location so we can use it to update after data
-    // loads from new predictions.
+    // Cache the last Click Location so we can use it to update after data loads
+    // from new sources or from visualization updates.
     protected ClickLocation           _clickLocation;
 
     // Number format cache used for locale-specific number formatting.
@@ -716,7 +716,7 @@ public abstract class DualAxisChartPane extends StackPane {
     public final void updateDataTracking( final ClickLocation clickLocation,
                                           final boolean mouseClicked ) {
         // If the click location is not present, the calling context may not
-        // know that status and thus it is safer to exit early here rather than
+        // know that status, and thus it is safer to exit early here rather than
         // have every caller add complex logic.
         if ( clickLocation == null ) {
             return;
@@ -736,13 +736,13 @@ public abstract class DualAxisChartPane extends StackPane {
         // values after a change to the underlying data sets while the data
         // tracker is already active but not being dragged.
         // TODO: Determine whether this should happen after the final early
-        // exit criteria have been examined.
+        //  exit criteria have been examined.
         _clickLocation = new ClickLocation( clickLocation );
 
         // Do not update the Data Tracker if we are outside the axis bounds.
         // NOTE: This is not quite an exact match, but is the closest we've
-        // come yet, with the main thing being that layout bounds are slightly
-        // unstable by a few pixels now and then; helped by the fudge factor.
+        //  come yet, with the main thing being that layout bounds are slightly
+        //  unstable by a few pixels now and then; helped by the fudge factor.
         final double leftEdgePx = _xAxisBottom.getDisplayPosition( _xAxisBottom.getLowerBound() )
                 + _xAxisBottom.getLayoutX() + 4.0d;
         final double rightEdgePx = _xAxisBottom.getDisplayPosition( _xAxisBottom.getUpperBound() )
