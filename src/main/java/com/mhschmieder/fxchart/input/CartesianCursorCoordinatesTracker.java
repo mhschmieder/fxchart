@@ -32,8 +32,8 @@ package com.mhschmieder.fxchart.input;
 
 import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
-import com.mhschmieder.jgraphics.input.MouseToolManager;
 import com.mhschmieder.fxgui.input.CursorCoordinatesTracker;
+import com.mhschmieder.jgraphics.input.MouseToolManager;
 import com.mhschmieder.jphysics.DistanceUnit;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
