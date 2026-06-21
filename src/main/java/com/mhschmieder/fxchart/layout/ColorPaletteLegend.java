@@ -32,8 +32,8 @@ package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
-import com.mhschmieder.jphysics.ColorPalette;
-import com.mhschmieder.jphysics.PaletteUtilities;
+import com.mhschmieder.jgraphics.color.ColorPalette;
+import com.mhschmieder.jgraphics.color.PaletteUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

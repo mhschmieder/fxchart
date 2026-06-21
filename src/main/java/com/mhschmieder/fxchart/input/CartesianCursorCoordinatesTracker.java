@@ -34,7 +34,7 @@ import com.mhschmieder.fxgraphics.geometry.GeometryUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgui.input.CursorCoordinatesTracker;
 import com.mhschmieder.jgraphics.input.MouseToolManager;
-import com.mhschmieder.jphysics.DistanceUnit;
+import com.mhschmieder.jphysics.measure.DistanceUnit;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.chart.ValueAxis;

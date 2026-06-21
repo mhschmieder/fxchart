@@ -31,7 +31,7 @@
 package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxgraphics.shape.ShapeContainer;
-import com.mhschmieder.jphysics.DistanceUnit;
+import com.mhschmieder.jphysics.measure.DistanceUnit;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Transform;
