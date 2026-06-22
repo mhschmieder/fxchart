@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.swing;
 
-import com.mhschmieder.fxgui.swing.RenderedGraphicsPanel;
+import com.mhschmieder.fxgui.swing.RenderedGraphicsTitledVectorizationPanel;
 import com.mhschmieder.jacoustics.RelativeBandwidth;
 import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
@@ -42,7 +42,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public final class PolarResponsePanel extends RenderedGraphicsPanel {
+public final class PolarResponseTitledVectorizationPanel extends RenderedGraphicsTitledVectorizationPanel {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -53,9 +53,9 @@ public final class PolarResponsePanel extends RenderedGraphicsPanel {
     public PolarAmplitudePlot _polarPlotHz;
     public PolarAmplitudePlot _polarPlotVt;
 
-    public PolarResponsePanel( final int polarResponseViewerWidth,
-                               final int polarResponseViewerHeight,
-                               final double angleIncrementDegrees ) {
+    public PolarResponseTitledVectorizationPanel(final int polarResponseViewerWidth,
+                                                 final int polarResponseViewerHeight,
+                                                 final double angleIncrementDegrees ) {
         // Always call the superclass constructor first!
         super();
 
