@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.fxchart.concurrent;
 
-import com.mhschmieder.fxconcurrent.service.TrackableDataRequestService;
-import com.mhschmieder.fxconcurrent.stage.DataRequestStatusViewer;
-import com.mhschmieder.fxconcurrent.task.DataRequestTask;
+import com.mhschmieder.fxgui.service.TrackableDataRequestService;
+import com.mhschmieder.fxgui.stage.DataRequestStatusViewer;
+import com.mhschmieder.fxgui.task.DataRequestTask;
 import com.mhschmieder.jcommons.net.HttpServletRequestProperties;
 import com.mhschmieder.jcommons.util.ClientProperties;
 

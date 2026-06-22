@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.fxchart.stage;
 
-import com.mhschmieder.fxconcurrent.stage.DataRequestStatusViewer;
+import com.mhschmieder.fxgui.stage.DataRequestStatusViewer;
 import com.mhschmieder.fxcontrols.control.TextSelector;
 import com.mhschmieder.fxgui.dialog.DialogUtilities;
 import com.mhschmieder.fxgui.stage.ExtensionFilterUtilities;
