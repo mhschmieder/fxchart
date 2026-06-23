@@ -38,6 +38,7 @@ import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.chart.Axis;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
@@ -445,4 +446,28 @@ public final class ChartUtilities {
         }
     }
 
+    // TODO: Check if this already exists in a toolkit utility class, and note
+    //  that it is agnostic regarding unit abbreviation vs. full descriptor.
+    public static String getAxisLabelWithUnit( final String axisLabelBasis,
+                                               final String unit ) {
+        return axisLabelBasis + " (" + unit + ")";
+    }
+
+    public static NumberAxis createNumberAxis(final double min,
+                                              final double max,
+                                              final double step,
+                                              final String label ) {
+        final NumberAxis axis = new NumberAxis(min, max, step);
+        axis.setLabel(label);
+
+        return axis;
+    }
+
+    public static CategoryAxis createCategoryAxis(
+            final ObservableList<String> categories,
+            final String label ) {
+        final CategoryAxis axis = new CategoryAxis(categories);
+        axis.setLabel(label);
+
+        return axis;
 }
