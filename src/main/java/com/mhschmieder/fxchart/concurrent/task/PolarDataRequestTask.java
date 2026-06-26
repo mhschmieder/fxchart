@@ -28,9 +28,9 @@
  *
  * Project: https://github.com/mhschmieder/fxpolarchart
  */
-package com.mhschmieder.fxchart.concurrent;
+package com.mhschmieder.fxchart.concurrent.task;
 
-import com.mhschmieder.fxgui.task.DataRequestTask;
+import com.mhschmieder.fxgui.concurrent.task.DataRequestTask;
 import com.mhschmieder.jcommons.net.DataRequestParameters;
 import com.mhschmieder.jcommons.net.HttpServletRequestProperties;
 import com.mhschmieder.jcommons.util.ClientProperties;

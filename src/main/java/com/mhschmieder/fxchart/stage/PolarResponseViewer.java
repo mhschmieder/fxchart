@@ -38,7 +38,7 @@ import com.mhschmieder.fxgui.file.ExtensionFilters;
 import com.mhschmieder.fxgui.stage.RenderedGraphicsExportPreview;
 import com.mhschmieder.fxgui.stage.XStage;
 import com.mhschmieder.fxchart.action.PolarResponseActions;
-import com.mhschmieder.fxchart.concurrent.PolarDataRequestService;
+import com.mhschmieder.fxchart.concurrent.service.PolarDataRequestService;
 import com.mhschmieder.fxchart.control.PolarResponseMenuFactory;
 import com.mhschmieder.fxchart.control.PolarResponseToolBar;
 import com.mhschmieder.fxchart.layout.PolarResponsePane;
