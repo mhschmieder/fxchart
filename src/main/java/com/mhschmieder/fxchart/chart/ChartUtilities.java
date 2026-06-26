@@ -470,4 +470,5 @@ public final class ChartUtilities {
         axis.setLabel(label);
 
         return axis;
+    }
 }
