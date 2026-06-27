@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.fxchart.control;
 
-import com.mhschmieder.fxchart.action.TestActions;
-import com.mhschmieder.fxcontrols.action.XActionGroup;
-import com.mhschmieder.fxcontrols.action.XActionUtilities;
 import com.mhschmieder.fxchart.action.PolarResponseActions;
 import com.mhschmieder.fxchart.action.PolarResponseAmplitudeScaleChoices;
 import com.mhschmieder.fxchart.action.PolarResponseLabeledActionFactory;
 import com.mhschmieder.fxchart.action.PolarResponseViewActions;
+import com.mhschmieder.fxchart.action.TestActions;
+import com.mhschmieder.fxcontrols.action.XActionGroup;
+import com.mhschmieder.fxcontrols.action.XActionUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;

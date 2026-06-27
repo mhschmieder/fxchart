@@ -30,11 +30,11 @@
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxchart.action.PolarResponseActions;
 import com.mhschmieder.fxchart.control.PolarResponseMenuFactory;
-import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
+import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.jacoustics.RelativeBandwidth;
+import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jgraphics.GraphicsUtilities;
 import javafx.embed.swing.SwingNode;
