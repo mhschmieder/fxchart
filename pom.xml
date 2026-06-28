@@ -46,32 +46,70 @@
 	</developers>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.21.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>11.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>fxcontrols</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>fxgraphics</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>fxgui</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>25.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>jchart</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.mhschmieder</groupId>
 			<artifactId>jcommons</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-        <dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>jgraphics</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mhschmieder</groupId>
+			<artifactId>jmath</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>jphysics</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.mhschmieder</groupId>
-            <artifactId>jchart</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mhschmieder</groupId>
-            <artifactId>fxcontrols</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>25.0.1</version>
-        </dependency>
-    </dependencies>
+	</dependencies>
 
 
 </project>

@@ -28,33 +28,29 @@
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
-package com.mhschmieder.fxchart.chart;
-
-import java.util.Locale;
-
-/**
- * The <code>GridResolution</code> enum is an enumeration of supported chart
- * grid resolutions for grid lines (major ticks) and/or minor ticks.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
- */
-public enum GridResolution {
-    OFF, COARSE, MEDIUM, FINE;
-
-    public static final GridResolution defaultValue() {
-        return MEDIUM;
-    }
-
-    public static final GridResolution fromCanonicalString( final String gridResolutionCanonicalString ) {
-        return ( gridResolutionCanonicalString != null )
-            ? valueOf( gridResolutionCanonicalString.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
-    }
-
-    public final String toCanonicalString() {
-        return toString().toLowerCase( Locale.ENGLISH );
-    }
-
+module fxchart {
+    exports com.mhschmieder.fxchart;
+    exports com.mhschmieder.fxchart.action;
+    exports com.mhschmieder.fxchart.chart;
+    exports com.mhschmieder.fxchart.concurrent.service;
+    exports com.mhschmieder.fxchart.concurrent.task;
+    exports com.mhschmieder.fxchart.control;
+    exports com.mhschmieder.fxchart.input;
+    exports com.mhschmieder.fxchart.layout;
+    exports com.mhschmieder.fxchart.net;
+    exports com.mhschmieder.fxchart.stage;
+    exports com.mhschmieder.fxchart.swing;
+    requires commons.math3;
+    requires fxcontrols;
+    requires fxgraphics;
+    requires fxgui;
+    requires java.prefs;
+    requires javafx.swing;
+    requires jchart;
+    requires jcommons;
+    requires jgraphics;
+    requires jmath;
+    requires jphysics;
+    requires org.apache.commons.io;
+    requires org.controlsfx.controls;
 }

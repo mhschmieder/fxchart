@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxPolarChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the FxPolarChart
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxpolarchart
+ * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.stage;
 
@@ -36,6 +36,7 @@ import com.mhschmieder.fxchart.control.PolarResponseMenuFactory;
 import com.mhschmieder.fxchart.control.PolarResponseToolBar;
 import com.mhschmieder.fxchart.layout.PolarResponsePane;
 import com.mhschmieder.fxchart.net.PolarDataRequestParameters;
+import com.mhschmieder.fxchart.swing.PolarResponseTitledVectorizationPanel;
 import com.mhschmieder.fxcontrols.control.TextSelector;
 import com.mhschmieder.fxgui.dialog.DialogUtilities;
 import com.mhschmieder.fxgui.file.ExtensionFilterUtilities;
@@ -43,10 +44,6 @@ import com.mhschmieder.fxgui.file.ExtensionFilters;
 import com.mhschmieder.fxgui.stage.DataRequestStatusViewer;
 import com.mhschmieder.fxgui.stage.RenderedGraphicsExportPreview;
 import com.mhschmieder.fxgui.stage.XStage;
-import com.mhschmieder.fxpolarchart.swing.PolarResponsePanel;
-import com.mhschmieder.jacoustics.FrequencyRange;
-import com.mhschmieder.jacoustics.FrequencySignalUtilities;
-import com.mhschmieder.jacoustics.RelativeBandwidth;
 import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jchart.layout.SemiLogRPolarPlot;
 import com.mhschmieder.jcommons.branding.ProductBranding;
@@ -58,7 +55,10 @@ import com.mhschmieder.jcommons.net.DataServerResponse;
 import com.mhschmieder.jcommons.net.HttpServletRequestProperties;
 import com.mhschmieder.jcommons.security.ServerLoginCredentials;
 import com.mhschmieder.jcommons.util.ClientProperties;
-import com.mhschmieder.jgraphics.GraphicsUtilities;
+import com.mhschmieder.jgraphics.util.GraphicsUtilities;
+import com.mhschmieder.jphysics.acoustics.FrequencyRange;
+import com.mhschmieder.jphysics.acoustics.FrequencySignalUtilities;
+import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -170,7 +170,7 @@ public class PolarResponseViewer extends XStage {
 
 
     // Declare a Swing preview panel for Polar Response exports.
-    protected PolarResponsePanel                   _polarResponsePreviewPanel;
+    protected PolarResponseTitledVectorizationPanel _polarResponsePreviewPanel;
 
     // Declare an unbounded byte array to hold server responses.
     // TODO: Switch to memory-mapping, for potential efficiency?
@@ -384,7 +384,6 @@ public class PolarResponseViewer extends XStage {
         _renderedGraphicsExportPreview.setVisible( false );
     }
 
-    @SuppressWarnings("nls")
     protected final void initStage() {
         // First have the superclass initialize its content.
         initStage( "/icons/mhschmieder/PolarCrosshairs16.png",
@@ -713,9 +712,11 @@ public class PolarResponseViewer extends XStage {
 
         // Make sure the prediction parameter sources are up to date.
         final String acousticSourceModelForDataRequest = getAcousticSourceModelForDataRequest();
-        final PolarDataRequestParameters polarDataRequestParameters = new PolarDataRequestParameters( _loginCredentials,
-                                                                                                      acousticSourceModelForDataRequest,
-                                                                                                      _frequencyRange );
+        final PolarDataRequestParameters polarDataRequestParameters
+                = new PolarDataRequestParameters(
+                        _loginCredentials,
+                acousticSourceModelForDataRequest,
+                _frequencyRange );
         _polarDataRequestService.setDataRequestParameters( polarDataRequestParameters );
 
         // Restart the Service as this also cancels old tasks and then resets.
@@ -749,10 +750,11 @@ public class PolarResponseViewer extends XStage {
         EventQueue.invokeLater( () -> {
             // Make the main Swing layout panel once only at startup.
             // TODO: Pass the angle increment to the viewer's constructor.
-            _polarResponsePreviewPanel =
-                                       new PolarResponsePanel( POLAR_RESPONSE_VIEWER_WIDTH_DEFAULT,
-                                                               POLAR_RESPONSE_VIEWER_HEIGHT_DEFAULT,
-                                                               1.0d ); // data increment is one degree
+            _polarResponsePreviewPanel
+                    = new PolarResponseTitledVectorizationPanel(
+                            POLAR_RESPONSE_VIEWER_WIDTH_DEFAULT,
+                    POLAR_RESPONSE_VIEWER_HEIGHT_DEFAULT,
+                    1.0d ); // data increment is one degree
 
             // Get Rendering Hints that aim for quality rendering of geometry.
             final RenderingHints renderingHints = GraphicsUtilities.getRenderingHintsForCharting();

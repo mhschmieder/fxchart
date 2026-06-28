@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the FxChart
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
@@ -46,7 +46,7 @@ import javafx.scene.layout.TilePane;
  * A Chart Legend that displays a list of Legend Items with symbols in a box.
  *
  * NOTE: This class is pulled in from Sun's private API (
- * com.sun.javafx.charts.Legend) as that goes away starting with Java 11.
+ *  com.sun.javafx.charts.Legend) as that goes away starting with Java 11.
  */
 public class ChartLegend extends TilePane {
 

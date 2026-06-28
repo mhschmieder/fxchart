@@ -21,22 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxPolarChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the FxPolarChart
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxpolarchart
+ * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxchart.action.PolarResponseActions;
 import com.mhschmieder.fxchart.control.PolarResponseMenuFactory;
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
-import com.mhschmieder.jacoustics.RelativeBandwidth;
 import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jcommons.util.ClientProperties;
-import com.mhschmieder.jgraphics.GraphicsUtilities;
+import com.mhschmieder.jgraphics.util.GraphicsUtilities;
+import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;

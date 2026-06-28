@@ -30,8 +30,11 @@
  */
 package com.mhschmieder.fxchart;
 
+import com.mhschmieder.fxcontrols.model.Extents2DProperties;
+import com.mhschmieder.fxgraphics.group.ChartContentGroup;
+import com.mhschmieder.fxgraphics.group.GroupUtilities;
 import com.mhschmieder.fxgraphics.image.ImageUtilities;
-import com.mhschmieder.fxgui.util.GuiUtilities;
+import com.mhschmieder.fxgui.util.BoundsUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -122,7 +125,8 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
      * @param extents
      *            The extents (in user units) used for the overlay image
      */
-    public final void adjustMainOverlayImage( final Extents2DProperties extents ) {
+    public final void adjustMainOverlayImage(
+            final Extents2DProperties extents ) {
         // Adjust the location and size to match the bounds of the container.
         final double imageWidth = extents.getWidth();
         final double imageHeight = extents.getHeight();
@@ -137,17 +141,20 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
             if ( imageAspectRatio < 1.0d ) {
                 if ( imageAspectRatio >= WATERMARK_ASPECT_RATIO ) {
                     _watermarkImageView.setFitWidth( imageWidth );
-                    _watermarkImageView.setFitHeight( imageWidth * WATERMARK_ASPECT_RATIO );
+                    _watermarkImageView.setFitHeight( imageWidth
+                            * WATERMARK_ASPECT_RATIO );
                 }
                 else {
                     _watermarkImageView.setFitHeight( imageHeight );
-                    _watermarkImageView.setFitWidth( imageHeight / WATERMARK_ASPECT_RATIO );
+                    _watermarkImageView.setFitWidth( imageHeight
+                            / WATERMARK_ASPECT_RATIO );
                 }
             }
             else {
                 // NOTE: We already know the watermark ratio is width-biased.
                 _watermarkImageView.setFitWidth( imageWidth );
-                _watermarkImageView.setFitHeight( imageWidth * WATERMARK_ASPECT_RATIO );
+                _watermarkImageView.setFitHeight( imageWidth
+                        * WATERMARK_ASPECT_RATIO );
             }
 
             _watermarkImageView.setVisible( true );
@@ -230,7 +237,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
         // Initialize the persistent shared attributes of this Visualization
         // Overlay Group, which is application managed and is not directly
         // interactive at this time.
-        GuiUtilities.initDecoratorNodeGroup( this );
+        GroupUtilities.initDecoratorNodeGroup( this );
     }
 
     /**

@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the
- * FxChart Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the fxchart
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
@@ -32,7 +32,8 @@ package com.mhschmieder.fxchart;
 
 import com.mhschmieder.fxchart.chart.CartesianAxis;
 import com.mhschmieder.fxchart.chart.GridResolution;
-import com.mhschmieder.fxgui.util.GuiUtilities;
+import com.mhschmieder.fxgraphics.group.ChartContentGroup;
+import com.mhschmieder.fxgraphics.group.GroupUtilities;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -285,7 +286,7 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // Initialize the persistent shared attributes of the Chart Overlay
         // Group, which is application managed and is not directly interactive
         // at this time.
-        GuiUtilities.initDecoratorNodeGroup( this );
+        GroupUtilities.initDecoratorNodeGroup( this );
     }
 
     /**

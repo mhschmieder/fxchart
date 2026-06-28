@@ -21,19 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChartT Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the
- * FxChart Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the fxchart
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.layout;
 
-import com.mhschmieder.fxacousticscontrols.action.AnalysisTimeHorizontalZoomChoices;
 import com.mhschmieder.fxchart.chart.ChartUtilities;
-import com.mhschmieder.jacoustics.TimeSignalUtilities;
+import com.mhschmieder.fxcontrols.action.AnalysisTimeHorizontalZoomChoices;
 import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jphysics.acoustics.TimeSignalUtilities;
 import javafx.scene.chart.XYChart;
 import org.apache.commons.math3.util.FastMath;
 

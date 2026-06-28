@@ -21,15 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the fxgraphics Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the fxgraphics
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxgraphics
+ * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.input;
 
+import com.mhschmieder.fxgraphics.input.MouseToolManager;
 import com.mhschmieder.fxgraphics.input.RotationManager;
 import com.mhschmieder.jgraphics.input.MouseToolMode;
 import com.mhschmieder.jphysics.measure.DistanceUnit;

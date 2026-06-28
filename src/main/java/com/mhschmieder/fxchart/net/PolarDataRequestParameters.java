@@ -21,20 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxPolarChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the FxPolarChart
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/fxpolarchart
+ * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.net;
 
-import com.mhschmieder.jacoustics.FrequencyRange;
-import com.mhschmieder.jacoustics.RelativeBandwidth;
 import com.mhschmieder.jcommons.net.DataRequestParameters;
 import com.mhschmieder.jcommons.security.LoginCredentials;
 import com.mhschmieder.jcommons.util.DataUpdateType;
+import com.mhschmieder.jphysics.acoustics.FrequencyRange;
+import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
 
 import java.net.HttpURLConnection;
 
@@ -86,11 +86,13 @@ public final class PolarDataRequestParameters extends DataRequestParameters {
      * @param httpURLConnection The HTTP URL Connection for the Request
      */
     @Override 
-    public void addDataRequestProperties( final HttpURLConnection httpURLConnection ) {
+    public void addDataRequestProperties(
+            final HttpURLConnection httpURLConnection ) {
         try {
             // Load the frequency range parameters immediately, in case the user
             // changes them while the data request is processing.
-            final RelativeBandwidth relativeBandwidth = frequencyRange.getRelativeBandwidth();
+            final RelativeBandwidth relativeBandwidth = frequencyRange
+                    .getRelativeBandwidth();
             final int octaveDivider = relativeBandwidth.toOctaveDivider();
             final double centerFrequency = frequencyRange.getCenterFrequency();
 

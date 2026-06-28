@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the
- * FxChart Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the fxchart
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
 /**
- * This package contains the FxChart Library's core layout utilities.
+ * This package contains the fxchart Library's core layout utilities.
  *
  * @version 0.1
  *

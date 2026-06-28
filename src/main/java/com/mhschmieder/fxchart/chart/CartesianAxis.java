@@ -21,16 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the FxChart Library
+ * This file is part of the fxchart Library
  *
- * You should have received a copy of the MIT License along with the FxChart
+ * You should have received a copy of the MIT License along with the fxchart
  * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/fxchart
  */
 package com.mhschmieder.fxchart.chart;
 
-import com.sun.javafx.css.converters.SizeConverter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,6 +37,7 @@ import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableDoubleProperty;
 import javafx.css.StyleableProperty;
+import javafx.css.converter.SizeConverter;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Side;
 import javafx.scene.chart.ValueAxis;
@@ -170,27 +170,23 @@ public class CartesianAxis extends ValueAxis< Number > {
      * TODO: Find a non-private way to do this, as it breaks in JavaFX 11.
      */
     protected static class StyleableProperties {
-        @SuppressWarnings({
-                            "nls",
-                            "unchecked" }) protected static final CssMetaData< CartesianAxis, Number >        TICK_UNIT =
-                                                                                                                        new CssMetaData< CartesianAxis, Number >( "-fx-tick-unit",
-                                                                                                                                                                  SizeConverter
-                                                                                                                                                                          .getInstance(),
-                                                                                                                                                                  5.0d ) {
+        protected static final CssMetaData< CartesianAxis, Number > TICK_UNIT
+                = new CssMetaData< CartesianAxis, Number >( "-fx-tick-unit",
+                SizeConverter.getInstance(),
+                5.0d ) {
+            @Override
+            public StyleableProperty< Number > getStyleableProperty( final CartesianAxis n ) {
+                return ( StyleableProperty< Number > ) n
+                        .tickUnitProperty();
+            }
 
-                                                                                                                                                                                                                                            @Override
-                                                                                                                                                                                                                                            public StyleableProperty< Number > getStyleableProperty( final CartesianAxis n ) {
-                                                                                                                                                                                                                                                return ( StyleableProperty< Number > ) n
-                                                                                                                                                                                                                                                        .tickUnitProperty();
-                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                            @Override
-                                                                                                                                                                                                                                            public boolean isSettable( final CartesianAxis n ) {
-                                                                                                                                                                                                                                                return ( n.tickUnit == null )
-                                                                                                                                                                                                                                                        || !n.tickUnit
-                                                                                                                                                                                                                                                                .isBound();
-                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                        };
+            @Override
+            public boolean isSettable( final CartesianAxis n ) {
+                return ( n.tickUnit == null )
+                        || !n.tickUnit
+                                .isBound();
+            }
+        };
 
         protected static final List< CssMetaData< ? extends Styleable, ? > >                                  STYLEABLES;
         static {
