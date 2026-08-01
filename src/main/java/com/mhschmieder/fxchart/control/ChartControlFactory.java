@@ -135,7 +135,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathUtilities
+                                                                              legendHeight = Math
                                                                                       .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -152,7 +152,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathUtilities
+                                                                              legendHeight = Math
                                                                                       .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -843,7 +843,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathUtilities
+                                                                              legendHeight = Math
                                                                                       .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
@@ -860,7 +860,7 @@ public class ChartControlFactory {
                                                                                                   .prefWidth( height
                                                                                                           - top
                                                                                                           - bottom ) );
-                                                                              legendHeight = MathUtilities
+                                                                              legendHeight = Math
                                                                                       .clamp( snapSize( legend
                                                                                               .prefHeight( legendWidth ) ),
                                                                                                      0.0d,
