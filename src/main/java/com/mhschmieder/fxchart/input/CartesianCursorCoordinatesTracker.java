@@ -35,11 +35,12 @@ import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgraphics.input.MouseToolManager;
 import com.mhschmieder.fxgui.input.CursorCoordinatesTracker;
 import com.mhschmieder.jphysics.measure.DistanceUnit;
+
+import java.text.NumberFormat;
+
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.chart.ValueAxis;
-
-import java.text.NumberFormat;
 
 /**
  * A further specialization of the Cursor Coordinates Tracker to deal with
@@ -47,7 +48,8 @@ import java.text.NumberFormat;
  * not in effect, such as geo applications using lat/lon with projections, this
  * additional functionality is modeled in a derived subclass when needed.
  */
-public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker {
+public class CartesianCursorCoordinatesTracker
+        extends CursorCoordinatesTracker {
 
     /**
      * Declare cursor coordinates for general use, in model units (meters).
@@ -60,36 +62,35 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
                                               final ValueAxis< Number > xAxis,
                                               final ValueAxis< Number > yAxis ) {
         // Always call the superclass constructor first!
-        super( mouseToolManager,
-               numberFormat,
-               distanceUnit,
-               xAxis,
-               yAxis );
+        super( mouseToolManager, numberFormat, distanceUnit, xAxis, yAxis );
 
         _cursorCoordinatesMeters = new Point2D( 0.0d, 0.0d );
     }
 
     /**
-     * Update the cursor coordinates, presented using the current Distance Unit.
+     * Update the cursor coordinates, presented using the current Distance
+     * Unit.
      *
-     * @param cursorCoordinatesPixels
-     *            Cursor location in pixels, from the top of the Cartesian Chart
+     * @param cursorCoordinatesPixels Cursor location in pixels, from the top of
+     *                                the Cartesian Chart
      */
     public void updateCursorCoordinatesLabel( final ClickLocation cursorCoordinatesPixels ) {
         // Cache the cursor coordinates for reference by Cut/Copy/Paste.
-        _cursorCoordinatesMeters = convertDisplayCoordinatesToMeters( 
-                cursorCoordinatesPixels, true );
+        _cursorCoordinatesMeters = convertDisplayCoordinatesToMeters(
+                cursorCoordinatesPixels,
+                true );
 
         // Convert the cursor coordinates from display units (pixels) to the
         // current User Preference for Distance Unit.
-        final Point2D cursorCoordinatesLocal = convertDisplayCoordinatesToLocalCoordinates( 
-                cursorCoordinatesPixels, true );
+        final Point2D cursorCoordinatesLocal
+                = convertDisplayCoordinatesToLocalCoordinates(
+                cursorCoordinatesPixels,
+                true );
 
-        updateTrackerLabel( 
-                cursorCoordinatesPixels.x,
-                cursorCoordinatesPixels.y,
-                cursorCoordinatesLocal.getX(),
-                cursorCoordinatesLocal.getY() );
+        updateTrackerLabel( cursorCoordinatesPixels.x,
+                            cursorCoordinatesPixels.y,
+                            cursorCoordinatesLocal.getX(),
+                            cursorCoordinatesLocal.getY() );
     }
 
     /**
@@ -101,10 +102,10 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
      * point in space but a delta to be added to another point, so we pass a
      * flag for whether to use the layout bounds or not.
      *
-     * @param cursorCoordinatesPixels
-     *            The supplied click location, in display units (pixels)
-     * @param useLayoutBounds
-     *            Flag for whether to use the layout bounds or not
+     * @param cursorCoordinatesPixels The supplied click location, in display
+     *                                units (pixels)
+     * @param useLayoutBounds         Flag for whether to use the layout bounds
+     *                                or not
      * @return The converted coordinates as a Point2D geometry object
      */
     public Point2D convertDisplayCoordinatesToMeters( final ClickLocation cursorCoordinatesPixels,
@@ -124,14 +125,12 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
      * point in space but a delta to be added to another point, so we pass a
      * flag for whether to use the layout bounds or not.
      *
-     * @param cursorXPixels
-     *            The x-coordinate to be converted from pixels to Meters
-     * @param cursorYPixels
-     *            The y-coordinate to be converted from pixels to Meters
-     * @param layoutBounds
-     *            The layout bounds for the source node
-     * @param useLayoutBounds
-     *            Flag for whether to use the layout bounds or not
+     * @param cursorXPixels   The x-coordinate to be converted from pixels to
+     *                        Meters
+     * @param cursorYPixels   The y-coordinate to be converted from pixels to
+     *                        Meters
+     * @param layoutBounds    The layout bounds for the source node
+     * @param useLayoutBounds Flag for whether to use the layout bounds or not
      * @return The converted coordinates as a Point2D geometry object
      */
     public Point2D convertDisplayCoordinatesToMeters( final double cursorXPixels,
@@ -140,38 +139,18 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
                                                       final boolean useLayoutBounds ) {
         // The display to venue transform is in user units vs. stored units, so
         // we convert to Meters from whatever Distance Unit is currently in use.
-        final Point2D point = convertDisplayCoordinatesToLocalCoordinates( cursorXPixels,
-                                                                           cursorYPixels,
-                                                                           layoutBounds,
-                                                                           useLayoutBounds );
-        final Point2D pointMeters = GeometryUtilities
-                .getPointInMeters( point.getX(), point.getY(), _distanceUnit );
+        final Point2D point = convertDisplayCoordinatesToLocalCoordinates(
+                cursorXPixels,
+                cursorYPixels,
+                layoutBounds,
+                useLayoutBounds );
+        final Point2D pointMeters
+                = GeometryUtilities.getPointInMeters( point.getX(),
+                                                      point.getY(),
+                                                      _distanceUnit );
 
         // Return the transformed coordinates as a new Point2D instance.
         return pointMeters;
-    }
-
-   /**
-     * Convert a click location in display units (pixels) to a Point2D in local
-     * units (current user preference for Distance Unit).
-     * <p>
-     * Note that drag deltas should just flip the y coordinate as it isn't a
-     * point in space but a delta to be added to another point, so we pass a
-     * flag for whether to use the layout bounds or not.
-     *
-     * @param cursorCoordinatesPixels
-     *            The supplied click location, in display units (pixels)
-     * @param useLayoutBounds
-     *            Flag for whether to use the layout bounds or not
-     * @return The converted coordinates as a Point2D geometry object
-     */
-    public Point2D convertDisplayCoordinatesToLocalCoordinates( final ClickLocation cursorCoordinatesPixels,
-                                                                final boolean useLayoutBounds ) {
-        return convertDisplayCoordinatesToLocalCoordinates( 
-                cursorCoordinatesPixels.x,
-                cursorCoordinatesPixels.y,
-                cursorCoordinatesPixels.sourceLayoutBounds,
-                useLayoutBounds );
     }
 
     /**
@@ -182,14 +161,12 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
      * point in space but a delta to be added to another point, so we pass a
      * flag for whether to use the layout bounds or not.
      *
-     * @param cursorXPixels
-     *            The x-coordinate to be converted from pixels to venue units
-     * @param cursorYPixels
-     *            The y-coordinate to be converted from pixels to venue units
-     * @param layoutBounds
-     *            The layout bounds for the source node
-     * @param useLayoutBounds
-     *            Flag for whether to use the layout bounds or not
+     * @param cursorXPixels   The x-coordinate to be converted from pixels to
+     *                        venue units
+     * @param cursorYPixels   The y-coordinate to be converted from pixels to
+     *                        venue units
+     * @param layoutBounds    The layout bounds for the source node
+     * @param useLayoutBounds Flag for whether to use the layout bounds or not
      * @return The converted coordinates as a Point2D geometry object
      */
     public Point2D convertDisplayCoordinatesToLocalCoordinates( final double cursorXPixels,
@@ -203,8 +180,8 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
         // Measure the offsets from the bottom.
         final double xOffsetPixels = cursorXPixels;
         final double yOffsetPixels = useLayoutBounds
-            ? ( boundsHeight - cursorYPixels )
-            : -cursorYPixels;
+                                     ? ( boundsHeight - cursorYPixels )
+                                     : -cursorYPixels;
 
         // Pre-cache all of the chart range values, in venue coordinates.
         final double xLowerBound = _xAxis.getLowerBound();
@@ -228,11 +205,11 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
         // Convert the point from pixels to venue coordinates, relative to the
         // origin (lower left corner, or bottom).
         final double pointX = useLayoutBounds
-            ? ( xLowerBound + ( xOffsetPixels * scale ) )
-            : ( xOffsetPixels * scale );
+                              ? ( xLowerBound + ( xOffsetPixels * scale ) )
+                              : ( xOffsetPixels * scale );
         final double pointY = useLayoutBounds
-            ? ( yLowerBound + ( yOffsetPixels * scale ) )
-            : ( yOffsetPixels * scale );
+                              ? ( yLowerBound + ( yOffsetPixels * scale ) )
+                              : ( yOffsetPixels * scale );
         final Point2D point = new Point2D( pointX, pointY );
 
         // Convert the given coordinates from display units (pixels) to current
@@ -257,5 +234,28 @@ public class CartesianCursorCoordinatesTracker extends CursorCoordinatesTracker 
         // if ( contains( zoomCurrent, point, true ) ) {
         return point;
         // }
+    }
+
+    /**
+     * Convert a click location in display units (pixels) to a Point2D in local
+     * units (current user preference for Distance Unit).
+     * <p>
+     * Note that drag deltas should just flip the y coordinate as it isn't a
+     * point in space but a delta to be added to another point, so we pass a
+     * flag for whether to use the layout bounds or not.
+     *
+     * @param cursorCoordinatesPixels The supplied click location, in display
+     *                                units (pixels)
+     * @param useLayoutBounds         Flag for whether to use the layout bounds
+     *                                or not
+     * @return The converted coordinates as a Point2D geometry object
+     */
+    public Point2D convertDisplayCoordinatesToLocalCoordinates( final ClickLocation cursorCoordinatesPixels,
+                                                                final boolean useLayoutBounds ) {
+        return convertDisplayCoordinatesToLocalCoordinates(
+                cursorCoordinatesPixels.x,
+                cursorCoordinatesPixels.y,
+                cursorCoordinatesPixels.sourceLayoutBounds,
+                useLayoutBounds );
     }
 }

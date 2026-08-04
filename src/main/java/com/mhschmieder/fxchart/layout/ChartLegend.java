@@ -31,6 +31,7 @@
 package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxchart.chart.ChartLegendItem;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
 import javafx.beans.property.ObjectProperty;
@@ -44,26 +45,26 @@ import javafx.scene.layout.TilePane;
 
 /**
  * A Chart Legend that displays a list of Legend Items with symbols in a box.
- *
+ * <p>
  * NOTE: This class is pulled in from Sun's private API (
- *  com.sun.javafx.charts.Legend) as that goes away starting with Java 11.
+ * com.sun.javafx.charts.Legend) as that goes away starting with Java 11.
  */
 public class ChartLegend extends TilePane {
 
-    private static final int                                          GAP = 5;
+    private static final int GAP = 5;
 
-    /** The Legend Items to display in this Legend */
+    /**
+     * The Legend Items to display in this Legend
+     */
     private final ObjectProperty< ObservableList< ChartLegendItem > > items;
-
-    protected ListChangeListener< ChartLegendItem >                   itemsListener;
-
     /**
      * The Legend Items should be laid out vertically in columns rather than
      * horizontally in rows.
      */
-    private final BooleanProperty                                     vertical;
+    private final BooleanProperty vertical;
+    protected ListChangeListener< ChartLegendItem > itemsListener;
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public ChartLegend() {
         super( GAP, GAP );
 
@@ -121,42 +122,48 @@ public class ChartLegend extends TilePane {
 
             @Override
             protected void invalidated() {
-                setOrientation( get() ? Orientation.VERTICAL : Orientation.HORIZONTAL );
+                setOrientation( get()
+                                ? Orientation.VERTICAL
+                                : Orientation.HORIZONTAL );
             }
         };
 
         setTileAlignment( Pos.CENTER_LEFT );
-        setItems( FXCollections.< ChartLegendItem > observableArrayList() );
+        setItems( FXCollections.< ChartLegendItem >observableArrayList() );
 
         getStyleClass().setAll( "chart-legend" );
-    }
-
-    @Override
-    protected double computePrefHeight( final double forWidth ) {
-        // Legend prefHeight is zero if there are no Legend Items.
-        return ( getItems().size() > 0 ) ? super.computePrefHeight( forWidth ) : 0;
-    }
-
-    @Override
-    protected double computePrefWidth( final double forHeight ) {
-        // Legend prefWidth is zero if there are no Legend Items.
-        return ( getItems().size() > 0 ) ? super.computePrefWidth( forHeight ) : 0;
     }
 
     public final ObservableList< ChartLegendItem > getItems() {
         return items.get();
     }
 
-    public final boolean isVertical() {
-        return vertical.get();
+    public final void setItems( final ObservableList< ChartLegendItem > value ) {
+        itemsProperty().set( value );
     }
 
     public final ObjectProperty< ObservableList< ChartLegendItem > > itemsProperty() {
         return items;
     }
 
-    public final void setItems( final ObservableList< ChartLegendItem > value ) {
-        itemsProperty().set( value );
+    @Override
+    protected double computePrefWidth( final double forHeight ) {
+        // Legend prefWidth is zero if there are no Legend Items.
+        return ( getItems().isEmpty() )
+               ? 0
+               : super.computePrefWidth( forHeight );
+    }
+
+    @Override
+    protected double computePrefHeight( final double forWidth ) {
+        // Legend prefHeight is zero if there are no Legend Items.
+        return ( getItems().isEmpty() )
+               ? 0
+               : super.computePrefHeight( forWidth );
+    }
+
+    public final boolean isVertical() {
+        return vertical.get();
     }
 
     public final void setVertical( final boolean value ) {
@@ -166,5 +173,4 @@ public class ChartLegend extends TilePane {
     public final BooleanProperty verticalProperty() {
         return vertical;
     }
-
 }

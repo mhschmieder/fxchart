@@ -38,12 +38,13 @@ import com.mhschmieder.fxchart.action.TestActions;
 import com.mhschmieder.fxcontrols.action.XActionGroup;
 import com.mhschmieder.fxcontrols.action.XActionUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import org.controlsfx.control.action.Action;
 
 import java.util.Collection;
+
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 
 /**
  * This is a factory class for generating Menus for Polar Response.
@@ -52,42 +53,52 @@ public final class PolarResponseMenuFactory {
 
     public static ContextMenu getPolarResponseContextMenu( final ClientProperties pClientProperties,
                                                            final PolarResponseActions polarResponseActions ) {
-        final Collection< Action > polarResponseContextMenuActionCollection = polarResponseActions
-                .getPolarResponseContextMenuActionCollection( pClientProperties );
-        final ContextMenu polarResponseContextMenu = XActionUtilities
-                .createContextMenu( polarResponseContextMenuActionCollection );
+        final Collection< Action > polarResponseContextMenuActionCollection
+                =
+                polarResponseActions.getPolarResponseContextMenuActionCollection(
+                pClientProperties );
+        final ContextMenu polarResponseContextMenu
+                = XActionUtilities.createContextMenu(
+                polarResponseContextMenuActionCollection );
         return polarResponseContextMenu;
     }
 
     public static MenuBar getPolarResponseMenuBar( final ClientProperties pClientProperties,
                                                    final PolarResponseActions polarResponseActions ) {
-        final Collection< Action > polarResponseMenuBarActionCollection = polarResponseActions
-                .getPolarResponseMenuBarActionCollection( pClientProperties );
-        final MenuBar polarResponseMenuBar = XActionUtilities
-                .createMenuBar( polarResponseMenuBarActionCollection );
+        final Collection< Action > polarResponseMenuBarActionCollection
+                = polarResponseActions.getPolarResponseMenuBarActionCollection(
+                pClientProperties );
+        final MenuBar polarResponseMenuBar = XActionUtilities.createMenuBar(
+                polarResponseMenuBarActionCollection );
         return polarResponseMenuBar;
     }
 
     public static Menu getScaleMenu( final ClientProperties pClientProperties,
                                      final PolarResponseAmplitudeScaleChoices polarResponseAmplitudeScaleChoices ) {
-        final XActionGroup scaleChoiceGroup = PolarResponseLabeledActionFactory
-                .getScaleChoiceGroup( pClientProperties, polarResponseAmplitudeScaleChoices );
+        final XActionGroup scaleChoiceGroup
+                = PolarResponseLabeledActionFactory.getScaleChoiceGroup(
+                pClientProperties,
+                polarResponseAmplitudeScaleChoices );
         final Menu scaleMenu = XActionUtilities.createMenu( scaleChoiceGroup );
         return scaleMenu;
     }
 
     public static Menu getTestMenu( final ClientProperties pClientProperties,
                                     final TestActions testActions ) {
-        final XActionGroup testActionGroup = PolarResponseLabeledActionFactory
-                .getTestActionGroup( pClientProperties, testActions );
+        final XActionGroup testActionGroup
+                = PolarResponseLabeledActionFactory.getTestActionGroup(
+                pClientProperties,
+                testActions );
         final Menu testMenu = XActionUtilities.createMenu( testActionGroup );
         return testMenu;
     }
 
     public static Menu getViewMenu( final ClientProperties pClientProperties,
                                     final PolarResponseViewActions polarResponseViewActions ) {
-        final XActionGroup viewActionGroup = PolarResponseLabeledActionFactory
-                .getViewActionGroup( pClientProperties, polarResponseViewActions );
+        final XActionGroup viewActionGroup
+                = PolarResponseLabeledActionFactory.getViewActionGroup(
+                pClientProperties,
+                polarResponseViewActions );
         final Menu viewMenu = XActionUtilities.createMenu( viewActionGroup );
         return viewMenu;
     }

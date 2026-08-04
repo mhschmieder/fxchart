@@ -32,6 +32,7 @@ package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxchart.chart.ChartUtilities;
 import com.mhschmieder.jgraphics.color.ColorPalette;
+
 import javafx.geometry.Side;
 
 /**
@@ -46,14 +47,16 @@ import javafx.geometry.Side;
 public class SplPaletteLegend extends ColorPaletteLegend {
 
     // Declare default constants.
-    private static final double DIV_DEFAULT            = 6.0d;
-    private static final int    NUMBER_OF_DIVS_DEFAULT = 7;
-    private static final double DYNAMIC_RANGE_DEFAULT  = DIV_DEFAULT * NUMBER_OF_DIVS_DEFAULT;
+    private static final double DIV_DEFAULT = 6.0d;
+    private static final int NUMBER_OF_DIVS_DEFAULT = 7;
+    private static final double DYNAMIC_RANGE_DEFAULT = DIV_DEFAULT
+                                                        * NUMBER_OF_DIVS_DEFAULT;
+    private static final double MAG_MAX_DEFAULT = 0.0d;
+    private static final double MAG_MIN_DEFAULT = MAG_MAX_DEFAULT
+                                                  - DYNAMIC_RANGE_DEFAULT;
 
-    private static final double MAG_MAX_DEFAULT        = 0.0d;
-    private static final double MAG_MIN_DEFAULT        = MAG_MAX_DEFAULT - DYNAMIC_RANGE_DEFAULT;
-
-    public SplPaletteLegend( final boolean pNormalizeMaxToZero, final double pAspectRatio ) {
+    public SplPaletteLegend( final boolean pNormalizeMaxToZero,
+                             final double pAspectRatio ) {
         // Always call the superclass constructor first!
         this( pNormalizeMaxToZero, pAspectRatio, ColorPalette.JET, 256 );
     }
@@ -77,13 +80,19 @@ public class SplPaletteLegend extends ColorPaletteLegend {
     protected void makeYAxis() {
         // NOTE: This effectively normalizes us to zero at the start, so may
         // need to be reviewed in uses cases where that is not what is wanted.
-        yAxis = ChartUtilities.getSplAxis( MAG_MIN_DEFAULT, MAG_MAX_DEFAULT, DIV_DEFAULT );
+        yAxis = ChartUtilities.getSplAxis( MAG_MIN_DEFAULT,
+                                           MAG_MAX_DEFAULT,
+                                           DIV_DEFAULT );
         yAxis.setSide( Side.LEFT );
     }
 
     @Override
     protected void rationalizeDivs() {
         // Recalculate the divisions to be sane based on the new Dynamic Range.
-        div = ( dynamicRange <= 66.0d ) ? ( dynamicRange <= 27.0d ) ? 3.0d : 6.0d : 12d;
+        div = ( dynamicRange <= 66.0d )
+              ? ( dynamicRange <= 27.0d )
+                ? 3.0d
+                : 6.0d
+              : 12d;
     }
 }

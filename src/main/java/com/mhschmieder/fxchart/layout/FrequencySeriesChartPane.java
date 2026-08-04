@@ -36,8 +36,9 @@ import com.mhschmieder.fxcontrols.action.FrequencyRangeHorizontalZoomChoices;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jphysics.acoustics.CenterFrequencies;
 import com.mhschmieder.jphysics.acoustics.FrequencySignalUtilities;
-import javafx.scene.chart.NumberAxis;
 import org.apache.commons.math3.util.FastMath;
+
+import javafx.scene.chart.NumberAxis;
 
 public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
 
@@ -48,52 +49,52 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
     // or any other sound source that is not bound by the average hearing range.
     // TODO: Add setters and/or constructor parameters for more flexibility.
     public static final double DEFAULT_LOWEST_FREQUENCY_TO_DISPLAY = 15.0d;
-    public static final double DEFAULT_HIGHEST_FREQUENCY_TO_DISPLAY = 20000.0d;
+    public static final double DEFAULT_HIGHEST_FREQUENCY_TO_DISPLAY = 20_000.0d;
 
     // Number of dB between vertical tics (that is, the tic increment in dB).
-    public static final int    DEFAULT_VERTICAL_GRID_SPACING_LEGACY = 10;
-    public static final int    DEFAULT_VERTICAL_GRID_SPACING = 6;
+    public static final int DEFAULT_VERTICAL_GRID_SPACING_LEGACY = 10;
+    public static final int DEFAULT_VERTICAL_GRID_SPACING = 6;
 
     // Number of vertical tics above, below, and including 0 dB.
-    public static final int    DEFAULT_NUMBER_OF_VERTICAL_TICS = 7;
-    public static final double DEFAULT_VERTICAL_GRID_RANGE_LEGACY
-            = ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 )
+    public static final int DEFAULT_NUMBER_OF_VERTICAL_TICS = 7;
+    public static final double DEFAULT_VERTICAL_GRID_RANGE_LEGACY =
+            ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 )
             * DEFAULT_VERTICAL_GRID_SPACING_LEGACY;
-    public static final double DEFAULT_VERTICAL_GRID_RANGE
-            = ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 )
-            * DEFAULT_VERTICAL_GRID_SPACING;
 
     // Default the maximum magnitude to 120 dB, as that covers a majority of
     // prediction scenarios and thus results in the best initial conditions.
     public static final double DEFAULT_MAG_MAX_LEGACY = 120.0d;
-    public static final double DEFAULT_MAG_MIN_LEGACY  = DEFAULT_MAG_MAX_LEGACY
-            - DEFAULT_VERTICAL_GRID_RANGE_LEGACY;
-
-    // Cache the number of bins used for this chart.
-    // TODO: Review whether this is redundant with asking for bins.length.
-    protected int              _numberOfBins;
+    public static final double DEFAULT_MAG_MIN_LEGACY = DEFAULT_MAG_MAX_LEGACY
+                                                        - DEFAULT_VERTICAL_GRID_RANGE_LEGACY;
+    public static final double DEFAULT_VERTICAL_GRID_RANGE =
+            ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 )
+            * DEFAULT_VERTICAL_GRID_SPACING;
 
     // Keep track of whether we are using third octave center frequencies.
-    private final boolean      _useThirdOctaveCenterFrequencies;
+    private final boolean _useThirdOctaveCenterFrequencies;
 
     // Local cache of bins passed by client. No restriction on what they are.
     public double[] bins;
 
     // Declare global minimum and maximum vertical axis values.
-    public double              _magMax;
-    public double              _magMin;
+    public double _magMax;
+    public double _magMin;
 
     // Declare vertical axis grid spacing.
-    public int                 _verticalGridSpacing;
-    public double              _verticalGridRange;
+    public int _verticalGridSpacing;
+    public double _verticalGridRange;
+
+    // Cache the number of bins used for this chart.
+    // TODO: Review whether this is redundant with asking for bins.length.
+    protected int _numberOfBins;
 
     // Cache the Frequency Index Range as it varies for Third vs. Full Octave.
-    private int                _startFreqIndex;
-    private int                _stopFreqIndex;
+    private int _startFreqIndex;
+    private int _stopFreqIndex;
 
     // Cache the Frequency Value Range as it varies for Third vs. Full Octave.
-    private double             _lowestFrequencyToDisplay;
-    private double             _highestFrequencyToDisplay;
+    private double _lowestFrequencyToDisplay;
+    private double _highestFrequencyToDisplay;
 
     public FrequencySeriesChartPane( final int numberOfBins,
                                      final int maximumNumberOfDataSets,
@@ -105,17 +106,17 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
                                      final ClientProperties pClientProperties ) {
         // Always call the superclass constructor first!
         super( maximumNumberOfDataSets,
-                xUnitLabel,
-                yUnitLabel,
-                yUnitLabel,
-                pClientProperties );
+               xUnitLabel,
+               yUnitLabel,
+               yUnitLabel,
+               pClientProperties );
 
         // Default to center frequencies if measurement bins not provided.
         // TODO: Add setters to changes these bins later, with a re-jig of
         //  start/stop frequencies etc.
-        bins =  ( pBins != null )
-                ? pBins
-                : CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES;
+        bins = ( pBins != null )
+               ? pBins
+               : CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES;
 
         _numberOfBins = numberOfBins;
         _useThirdOctaveCenterFrequencies = useThirdOctaveCenterFrequencies;
@@ -137,18 +138,20 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
     private void initPane( boolean useLimitedFrequencyRange ) {
         // The x-axis can be zoomed/scaled but is set to its max range.
         final double[] centerFrequencies = _useThirdOctaveCenterFrequencies
-                ? CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES
-                : CenterFrequencies.NOMINAL_FULL_OCTAVE_CENTER_FREQUENCIES;
+                                           ?
+                                           CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES
+                                           :
+                                           CenterFrequencies.NOMINAL_FULL_OCTAVE_CENTER_FREQUENCIES;
 
         // Find the start and end indices for the valid data.
         // NOTE: For expediency of getting this added to the toolkit, we are
         //  initially using a default range that goes slightly beyond hearing.
-        final int[] displayableFrequencyRangeIndices = FrequencySignalUtilities
-                .getClampedFrequencyRangeIndices(
-                        bins,
-                        useLimitedFrequencyRange,
-                        DEFAULT_LOWEST_FREQUENCY_TO_DISPLAY,
-                        DEFAULT_HIGHEST_FREQUENCY_TO_DISPLAY );
+        final int[] displayableFrequencyRangeIndices
+                =
+                FrequencySignalUtilities.getClampedFrequencyRangeIndices( bins,
+                                                                            useLimitedFrequencyRange,
+                                                                            DEFAULT_LOWEST_FREQUENCY_TO_DISPLAY,
+                                                                            DEFAULT_HIGHEST_FREQUENCY_TO_DISPLAY );
         _startFreqIndex = displayableFrequencyRangeIndices[ 0 ];
         _stopFreqIndex = displayableFrequencyRangeIndices[ 1 ];
 
@@ -170,8 +173,8 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
         // intervals. Otherwise, we are showing full octaves and should show
         // minor ticks at third octave intervals.
         final int numberOfMinorTickMarks = _useThirdOctaveCenterFrequencies
-                ? 4
-                : 3;
+                                           ? 4
+                                           : 3;
         _xAxisBottom.setMinorTickCount( numberOfMinorTickMarks );
         _xAxisTop.setMinorTickCount( numberOfMinorTickMarks );
 
@@ -183,11 +186,6 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
         _xAxisTop.setMinorTickVisible( false );
     }
 
-    protected double[] getDataVec( final int dataSetIndex ) {
-        // Provide default behavior to avoid downstream algorithm issues.
-        return null;
-    }
-
     public final int getVerticalGridSpacing() {
         return _verticalGridSpacing;
     }
@@ -196,7 +194,8 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
     // to reset to default min/max range, as otherwise the Processor-only charts
     // do not center at 0 dB.
     public final void resetMinMax( final int verticalGridSpacing ) {
-        _magMax = 0.5d * ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 ) * verticalGridSpacing;
+        _magMax = 0.5d * ( DEFAULT_NUMBER_OF_VERTICAL_TICS - 1 )
+                  * verticalGridSpacing;
         _magMin = -_magMax;
     }
 
@@ -232,8 +231,113 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
         updateDataTracking();
     }
 
+    private void zoomFullFrequencyRange() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our default non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( true );
+
+        updateFrequencyAxisRange( _lowestFrequencyToDisplay,
+                                  _highestFrequencyToDisplay,
+                                  _useThirdOctaveCenterFrequencies );
+    }
+
+    protected final void updateFrequencyAxisRange( final double xMin,
+                                                   final double xMax,
+                                                   final boolean useThirdOctaveCenterFrequencies ) {
+        // Cache the current status of chart update animation, as we need to
+        // turn it off while scaling or else we get a ghost trace due to the
+        // animation running on a different thread from the main data setter.
+        final boolean animateChartUpdates = isAnimateChartUpdates();
+        setAnimateChartUpdates( false );
+
+        final double[] centerFrequencies = useThirdOctaveCenterFrequencies
+                                           ?
+                                           CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES
+                                           :
+                                           CenterFrequencies.NOMINAL_FULL_OCTAVE_CENTER_FREQUENCIES;
+        ( ( FrequencySeriesAxis ) _xAxisBottom ).setCenterFrequencies(
+                centerFrequencies );
+
+        _xAxisBottom.setLowerBound( xMin );
+        _xAxisBottom.setUpperBound( xMax );
+
+        ( ( FrequencySeriesAxis ) _xAxisTop ).setCenterFrequencies(
+                centerFrequencies );
+
+        _xAxisTop.setLowerBound( xMin );
+        _xAxisTop.setUpperBound( xMax );
+
+        // If showing third octaves, the minor ticks should be at 1/12 octave
+        // intervals. Otherwise, we are showing full octaves and should show
+        // minor ticks at third octave intervals.
+        final int numberOfMinorTickMarks = useThirdOctaveCenterFrequencies
+                                           ? 4
+                                           : 3;
+        _xAxisBottom.setMinorTickCount( numberOfMinorTickMarks );
+        _xAxisTop.setMinorTickCount( numberOfMinorTickMarks );
+
+        // Now it is safe to conditionally re-animate chart updates.
+        // NOTE: Avoid side effects by only setting when we need to.
+        if ( animateChartUpdates ) {
+            setAnimateChartUpdates( animateChartUpdates );
+        }
+    }
+
+    private void zoomLowFrequencies() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( false );
+
+        updateFrequencyAxisRange( _lowestFrequencyToDisplay, 200.0d, true );
+    }
+
+    private void zoomLowMidFrequencies() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( false );
+
+        updateFrequencyAxisRange( 60.0d, 600.0d, true );
+    }
+
+    private void zoomMidFrequencies() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( false );
+
+        updateFrequencyAxisRange( 200.0d, 2000.0d, true );
+    }
+
+    private void zoomMidHighFrequencies() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( false );
+
+        updateFrequencyAxisRange( 600.0d, 6000.0d, true );
+    }
+
+    private void zoomHighFrequencies() {
+        // Currently, only full zoom benefits from showing the minor ticks. This
+        // is most likely due to our non-constant-Q spacing, as we get
+        // unevenness if we generate twelfth octave intervals between third
+        // octave major ticks -- even if we straddle them and use two formulae.
+        _xAxisBottom.setMinorTickVisible( false );
+
+        updateFrequencyAxisRange( 2000.0d, _highestFrequencyToDisplay, true );
+    }
+
     // NOTE: Only the derived classes know which data set indices are in use.
-    public abstract void setTraceVisible( final int dataSetIndex, final boolean traceVisible );
+    public abstract void setTraceVisible( final int dataSetIndex,
+                                          final boolean traceVisible );
 
     public void updateAmplitudeAxisRange( final int verticalGridSpacing,
                                           final double verticalGridRange ) {
@@ -249,10 +353,12 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
         // TODO: Verify after checking every combination of vertical scale
         //  factors, which computation of the niceYMin is most advantageous for
         //  good tic marks.
-        final int niceYMax = ( int ) FastMath.ceil(
-                _magMax / verticalGridSpacing )  * verticalGridSpacing;
-        final int niceYMin = ( int ) FastMath.ceil(
-                limitedMin  / verticalGridSpacing ) * verticalGridSpacing;
+        final int niceYMax =
+                ( int ) FastMath.ceil( _magMax / verticalGridSpacing )
+                * verticalGridSpacing;
+        final int niceYMin =
+                ( int ) FastMath.ceil( limitedMin / verticalGridSpacing )
+                * verticalGridSpacing;
         // int niceYMin = niceYMax - ( int )FastMath.ceil( verticalGridRange );
 
         _yAxisBottom.setLowerBound( niceYMin );
@@ -300,68 +406,8 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
         _verticalGridRange = verticalGridRange;
     }
 
-    protected final void updateFrequencyAxisRange(
-            final double xMin,
-            final double xMax,
-            final boolean useThirdOctaveCenterFrequencies ) {
-        // Cache the current status of chart update animation, as we need to
-        // turn it off while scaling or else we get a ghost trace due to the
-        // animation running on a different thread from the main data setter.
-        final boolean animateChartUpdates = isAnimateChartUpdates();
-        setAnimateChartUpdates( false );
-
-        final double[] centerFrequencies = useThirdOctaveCenterFrequencies
-                ? CenterFrequencies.NOMINAL_THIRD_OCTAVE_CENTER_FREQUENCIES
-                : CenterFrequencies.NOMINAL_FULL_OCTAVE_CENTER_FREQUENCIES;
-        ( ( FrequencySeriesAxis ) _xAxisBottom ).setCenterFrequencies(
-                centerFrequencies );
-
-        _xAxisBottom.setLowerBound( xMin );
-        _xAxisBottom.setUpperBound( xMax );
-
-        ( ( FrequencySeriesAxis ) _xAxisTop ).setCenterFrequencies(
-                centerFrequencies );
-
-        _xAxisTop.setLowerBound( xMin );
-        _xAxisTop.setUpperBound( xMax );
-
-        // If showing third octaves, the minor ticks should be at 1/12 octave
-        // intervals. Otherwise, we are showing full octaves and should show
-        // minor ticks at third octave intervals.
-        final int numberOfMinorTickMarks = useThirdOctaveCenterFrequencies
-                ? 4
-                : 3;
-        _xAxisBottom.setMinorTickCount( numberOfMinorTickMarks );
-        _xAxisTop.setMinorTickCount( numberOfMinorTickMarks );
-
-        // Now it is safe to conditionally re-animate chart updates.
-        // NOTE: Avoid side effects by only setting when we need to.
-        if ( animateChartUpdates ) {
-            setAnimateChartUpdates( animateChartUpdates );
-        }
-    }
-
     // NOTE: Only the derived classes know which data set indices are in use.
-    protected void updateMinMax() {}
-
-    protected final void updateMinMax( final double[] dataVec,
-                                       final boolean cumulativeMinMax,
-                                       final double[] bins,
-                                       final int numberOfBins,
-                                       final int minimumBinIndex,
-                                       final int maximumBinIndex ) {
-        // Find the minimum and maximum displayed amplitudes in the data vector.
-        double magMax = Double.NEGATIVE_INFINITY;
-        double magMin = Double.POSITIVE_INFINITY;
-        for ( int i = _startFreqIndex; i <= _stopFreqIndex; i++ ) {
-            final double dataValue = dataVec[ i ];
-            magMax = FastMath.max( magMax, dataValue );
-            magMin = FastMath.min( magMin, dataValue );
-        }
-
-        // Replace the max/min pair or compare to the existing pair.
-        _magMax = cumulativeMinMax ? FastMath.max( _magMax, magMax ) : magMax;
-        _magMin = cumulativeMinMax ? FastMath.min( _magMin, magMin ) : magMin;
+    protected void updateMinMax() {
     }
 
     /**
@@ -369,12 +415,11 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
      * composite Dynamic Range. Note that the list of indices is pre-vetted
      * based on criteria outside the domain of this low-level method.
      *
-     * @param dataSetIndices
-     *            The indices of the Data Sets to include in the min/max
-     *            criteria
+     * @param dataSetIndices The indices of the Data Sets to include in the
+     *                       min/max criteria
      */
     public final void updateMinMax( final int[] dataSetIndices,
-                                    final double[] bins,
+                                    final double[] pBins,
                                     final int numberOfBins,
                                     final int minimumBinIndex,
                                     final int maximumBinIndex ) {
@@ -395,85 +440,42 @@ public abstract class FrequencySeriesChartPane extends DualAxisChartPane {
             // the series is valid and has been loaded), and the selected divs.
             final boolean cumulativeMinMax = validDataSetLoaded;
             updateMinMax( dataVec,
-                    cumulativeMinMax,
-                    bins,
-                    numberOfBins,
-                    minimumBinIndex,
-                    maximumBinIndex );
+                          cumulativeMinMax,
+                          pBins,
+                          numberOfBins,
+                          minimumBinIndex,
+                          maximumBinIndex );
 
             validDataSetLoaded = true;
         }
     }
 
-    private void zoomFullFrequencyRange() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our default non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( true );
-
-        updateFrequencyAxisRange(
-                _lowestFrequencyToDisplay,
-                _highestFrequencyToDisplay,
-                _useThirdOctaveCenterFrequencies );
+    protected double[] getDataVec( final int dataSetIndex ) {
+        // Provide default behavior to avoid downstream algorithm issues.
+        return null;
     }
 
-    private void zoomLowFrequencies() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( false );
+    protected final void updateMinMax( final double[] dataVec,
+                                       final boolean cumulativeMinMax,
+                                       final double[] bins,
+                                       final int numberOfBins,
+                                       final int minimumBinIndex,
+                                       final int maximumBinIndex ) {
+        // Find the minimum and maximum displayed amplitudes in the data vector.
+        double magMax = Double.NEGATIVE_INFINITY;
+        double magMin = Double.POSITIVE_INFINITY;
+        for ( int i = _startFreqIndex; i <= _stopFreqIndex; i++ ) {
+            final double dataValue = dataVec[ i ];
+            magMax = FastMath.max( magMax, dataValue );
+            magMin = FastMath.min( magMin, dataValue );
+        }
 
-        updateFrequencyAxisRange(
-                _lowestFrequencyToDisplay,
-                200.0d,
-                true );
-    }
-
-    private void zoomLowMidFrequencies() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( false );
-
-        updateFrequencyAxisRange(
-                60.0d, 600.0d, true );
-    }
-
-    private void zoomMidFrequencies() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( false );
-
-        updateFrequencyAxisRange(
-                200.0d, 2000.0d, true );
-    }
-
-    private void zoomMidHighFrequencies() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( false );
-
-        updateFrequencyAxisRange(
-                600.0d, 6000.0d, true );
-    }
-
-    private void zoomHighFrequencies() {
-        // Currently, only full zoom benefits from showing the minor ticks. This
-        // is most likely due to our non-constant-Q spacing, as we get
-        // unevenness if we generate twelfth octave intervals between third
-        // octave major ticks -- even if we straddle them and use two formulae.
-        _xAxisBottom.setMinorTickVisible( false );
-
-        updateFrequencyAxisRange(
-                2000.0d,
-                _highestFrequencyToDisplay,
-                true );
+        // Replace the max/min pair or compare to the existing pair.
+        _magMax = cumulativeMinMax
+                  ? FastMath.max( _magMax, magMax )
+                  : magMax;
+        _magMin = cumulativeMinMax
+                  ? FastMath.min( _magMin, magMin )
+                  : magMin;
     }
 }

@@ -31,6 +31,7 @@
 package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.jgraphics.color.ColorPalette;
+
 import javafx.geometry.Side;
 import javafx.scene.chart.NumberAxis;
 
@@ -46,12 +47,13 @@ public class PercentPaletteLegend extends ColorPaletteLegend {
     // NOTE: This is done in case we allow something other than full range, so
     // that we can get back to the defaults, but it might be better to make
     // them all explicit, to avoid any floating-point inexactness.
-    private static final double DIV_DEFAULT            = 0.1d;
-    private static final int    NUMBER_OF_DIVS_DEFAULT = 10;
-    private static final double DYNAMIC_RANGE_DEFAULT  = DIV_DEFAULT * NUMBER_OF_DIVS_DEFAULT;
-
-    private static final double MAG_MAX_DEFAULT        = 1.0d;
-    private static final double MAG_MIN_DEFAULT        = MAG_MAX_DEFAULT - DYNAMIC_RANGE_DEFAULT;
+    private static final double DIV_DEFAULT = 0.1d;
+    private static final int NUMBER_OF_DIVS_DEFAULT = 10;
+    private static final double DYNAMIC_RANGE_DEFAULT = DIV_DEFAULT
+                                                        * NUMBER_OF_DIVS_DEFAULT;
+    private static final double MAG_MAX_DEFAULT = 1.0d;
+    private static final double MAG_MIN_DEFAULT = MAG_MAX_DEFAULT
+                                                  - DYNAMIC_RANGE_DEFAULT;
 
     public PercentPaletteLegend( final String label,
                                  final boolean pNormalizeMaxToZero,
@@ -99,6 +101,10 @@ public class PercentPaletteLegend extends ColorPaletteLegend {
     @Override
     protected void rationalizeDivs() {
         // Recalculate the divisions to be sane based on the new Dynamic Range.
-        div = ( dynamicRange <= 1.0d ) ? ( dynamicRange <= 0.5d ) ? 0.05d : 0.1d : 0.2d;
+        div = ( dynamicRange <= 1.0d )
+              ? ( dynamicRange <= 0.5d )
+                ? 0.05d
+                : 0.1d
+              : 0.2d;
     }
 }

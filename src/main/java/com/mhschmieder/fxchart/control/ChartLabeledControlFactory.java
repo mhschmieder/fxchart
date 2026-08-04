@@ -31,9 +31,10 @@
 package com.mhschmieder.fxchart.control;
 
 import com.mhschmieder.fxchart.chart.CartesianAxis;
-import javafx.geometry.Side;
 
 import java.text.NumberFormat;
+
+import javafx.geometry.Side;
 
 /**
  * {@code ChartLabeledControlFactory} is a factory class for minimizing
@@ -45,44 +46,39 @@ public class ChartLabeledControlFactory {
     /**
      * The default constructor is disabled, as this is a static factory class.
      */
-    private ChartLabeledControlFactory() {}
+    private ChartLabeledControlFactory() {
+    }
 
     /**
      * Creates and returns a non-auto-ranging CartesianAxis with the given upper
      * and lower bound.
      *
-     * @param pAxisLabel
-     *            The name to display for this axis
-     * @param pLowerBound
-     *            The lower bound for this axis, i.e. min plottable value
-     * @param pUpperBound
-     *            The upper bound for this axis, i.e. max plottable value
-     * @param pTickUnit
-     *            The tick unit, i.e. space between tick marks
-     * @param pMinorTickCount
-     *            The number of minor tick divisions to display between each
-     *            major tick mark
-     * @param pAxisSide
-     *            The side of the hose chart to show the axis on
-     * @param pTickLabelFormat
-     *            The number format to use for the tick mark labels
+     * @param pAxisLabel       The name to display for this axis
+     * @param pLowerBound      The lower bound for this axis, i.e. min plottable
+     *                         value
+     * @param pUpperBound      The upper bound for this axis, i.e. max plottable
+     *                         value
+     * @param pTickUnit        The tick unit, i.e. space between tick marks
+     * @param pMinorTickCount  The number of minor tick divisions to display
+     *                         between each major tick mark
+     * @param pAxisSide        The side of the hose chart to show the axis on
+     * @param pTickLabelFormat The number format to use for the tick mark
+     *                         labels
      * @return A Cartesian Axis bound to the specified limits
      */
-    public static CartesianAxis getCartesianAxis(
-            final String pAxisLabel,
-            final double pLowerBound,
-            final double pUpperBound,
-            final double pTickUnit,
-            final int pMinorTickCount,
-            final Side pAxisSide,
-            final NumberFormat pTickLabelFormat ) {
-        return new CartesianAxis(
-                pAxisLabel,
-                pLowerBound,
-                pUpperBound,
-                pTickUnit,
-                pMinorTickCount,
-                pAxisSide,
-                pTickLabelFormat );
+    public static CartesianAxis getCartesianAxis( final String pAxisLabel,
+                                                  final double pLowerBound,
+                                                  final double pUpperBound,
+                                                  final double pTickUnit,
+                                                  final int pMinorTickCount,
+                                                  final Side pAxisSide,
+                                                  final NumberFormat pTickLabelFormat ) {
+        return new CartesianAxis( pAxisLabel,
+                                  pLowerBound,
+                                  pUpperBound,
+                                  pTickUnit,
+                                  pMinorTickCount,
+                                  pAxisSide,
+                                  pTickLabelFormat );
     }
 }

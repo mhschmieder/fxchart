@@ -30,10 +30,12 @@
  */
 package com.mhschmieder.fxchart;
 
+import java.io.Serial;
+
 /**
  * Exception to be thrown when a bound value isn't supported by the logarithmic
  * axis<br>
- *
+ * <p>
  * This class is modified from Kevin's dooApp, part of JRebirth. <br>
  *
  * @author Kevin Senechal mailto: kevin.senechal@dooapp.com
@@ -44,14 +46,13 @@ public class IllegalLogarithmicRangeException extends Exception {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = 9036903131703009485L;
 
     /**
-     * @param message
-     *            The message to pass to the standard exception handler
+     * @param message The message to pass to the standard exception handler
      */
     public IllegalLogarithmicRangeException( final String message ) {
         super( message );
     }
-
 }

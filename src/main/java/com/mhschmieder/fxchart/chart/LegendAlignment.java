@@ -65,8 +65,9 @@ public enum LegendAlignment {
 
     public static LegendAlignment canonicalValueOf( final String canonicalLegendAlignment ) {
         return ( canonicalLegendAlignment != null )
-            ? valueOf( canonicalLegendAlignment.toUpperCase( Locale.ENGLISH ) )
-            : defaultValue();
+               ?
+               valueOf( canonicalLegendAlignment.toUpperCase( Locale.ENGLISH ) )
+               : defaultValue();
     }
 
     public static LegendAlignment defaultValue() {
@@ -76,5 +77,4 @@ public enum LegendAlignment {
     public final String toCanonicalString() {
         return toString().toLowerCase( Locale.ENGLISH );
     }
-
 }

@@ -45,17 +45,17 @@ import java.net.HttpURLConnection;
  */
 public final class PolarDataRequestParameters extends DataRequestParameters {
 
-    /** 
-     * Cache the Acoustic Source Model to use for the prediction. 
+    /**
+     * Cache the Acoustic Source Model to use for the prediction.
      * <p>
      * NOTE: This should be just the model, not a full file path. This is just
-     *  an example of a simple client/server call that requests polar response
-     *  data from a server that is capable of producing polar data grids from
-     *  a simple parameter set, whether the Acoustic Source Model represents a
-     *  database key or a filename (sans file path in formation). In this
-     *  context, the Acoustic Source Model should match server expectations
-     *  and therefore may not match what is presented to the user in the GUI.
-     *  It is up to downstream clients to write mappers to pass to this class.
+     * an example of a simple client/server call that requests polar response
+     * data from a server that is capable of producing polar data grids from a
+     * simple parameter set, whether the Acoustic Source Model represents a
+     * database key or a filename (sans file path in formation). In this
+     * context, the Acoustic Source Model should match server expectations and
+     * therefore may not match what is presented to the user in the GUI. It is
+     * up to downstream clients to write mappers to pass to this class.
      */
     private final String acousticSourceModel;
 
@@ -72,7 +72,7 @@ public final class PolarDataRequestParameters extends DataRequestParameters {
         super( "Polar Response",
                DataUpdateType.FULL_UPDATE,
                pLoginCredentials );
-        
+
         acousticSourceModel = pAcousticSourceModel;
         frequencyRange = pFrequencyRange;
     }
@@ -80,27 +80,29 @@ public final class PolarDataRequestParameters extends DataRequestParameters {
     /**
      * Adds data request properties to the HTTP Request.
      * <p>
-     * NOTE: Polar Response update requests are trivial enough to tag a few 
-     *  custom HTTP parameters to the URL rather than attaching a full file.
-     * 
+     * NOTE: Polar Response update requests are trivial enough to tag a few
+     * custom HTTP parameters to the URL rather than attaching a full file.
+     *
      * @param httpURLConnection The HTTP URL Connection for the Request
      */
-    @Override 
-    public void addDataRequestProperties(
-            final HttpURLConnection httpURLConnection ) {
+    @Override
+    public void addDataRequestProperties( final HttpURLConnection httpURLConnection ) {
         try {
             // Load the frequency range parameters immediately, in case the user
             // changes them while the data request is processing.
-            final RelativeBandwidth relativeBandwidth = frequencyRange
-                    .getRelativeBandwidth();
+            final RelativeBandwidth relativeBandwidth
+                    = frequencyRange.getRelativeBandwidth();
             final int octaveDivider = relativeBandwidth.toOctaveDivider();
             final double centerFrequency = frequencyRange.getCenterFrequency();
 
-            httpURLConnection.setRequestProperty( "acousticSourceModel", acousticSourceModel );
+            httpURLConnection.setRequestProperty( "acousticSourceModel",
+                                                  acousticSourceModel );
             httpURLConnection.setRequestProperty( "octaveDivider",
-                                                  Integer.toString( octaveDivider ) );
+                                                  Integer.toString(
+                                                          octaveDivider ) );
             httpURLConnection.setRequestProperty( "centerFrequency",
-                                                  Double.toString( centerFrequency ) );
+                                                  Double.toString(
+                                                          centerFrequency ) );
         }
         catch ( final Exception e ) {
             e.printStackTrace();

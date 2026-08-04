@@ -36,13 +36,13 @@
  ******************************************************************************/
 
 /* Make the overlay chart's redundant plotting area background transparent. */
-.chart-plot-background { 
-  -fx-background-color: transparent; 
+.chart-plot-background {
+    -fx-background-color: transparent;
 }
 
 /* Make the overlay chart's redundant legend background transparent. */
 .chart-legend {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 /*******************************************************************************

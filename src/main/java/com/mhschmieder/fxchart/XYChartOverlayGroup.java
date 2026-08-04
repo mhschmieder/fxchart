@@ -34,6 +34,11 @@ import com.mhschmieder.fxchart.chart.CartesianAxis;
 import com.mhschmieder.fxchart.chart.GridResolution;
 import com.mhschmieder.fxgraphics.group.ChartContentGroup;
 import com.mhschmieder.fxgraphics.group.GroupUtilities;
+import org.apache.commons.math3.util.FastMath;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -47,10 +52,6 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
-import org.apache.commons.math3.util.FastMath;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This is a wrapper collection for Nodes that emulate the contents of XYCharts
@@ -70,55 +71,56 @@ public class XYChartOverlayGroup extends ChartContentGroup {
      * is needed. This default effectively sets 16 user distance units to 1
      * pixel.
      */
-    public static final double  DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR = 1.0d / 16d;
-
-    /**
-     * Grid Line opacity level is defined a constant, in case we switch to a
-     * computed ratio and in case we provide programmatic support for changing
-     * its value (this then gives us our defined default value).
-     */
-    private static final double GRID_LINE_OPACITY_DEFAULT             = 0.825d;
-
+    public static final double DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR = 1.0d
+                                                                       / 16d;
     /**
      * Regardless of whether an image is loaded, plots that can host background
      * images must take different tactics towards grid color than using the
      * background color.
      */
-    public static final Color   GRID_COLOR_DEFAULT                    = Color.LIGHTGRAY;
-
-    private final Line          _horizontalZeroLine;
-    private final Line          _verticalZeroLine;
-    private final Group         _horizontalGridLines;
-    private final Group         _verticalGridLines;
-    private final Line          _topAxis;
-    private final Line          _rightAxis;
-
+    public static final Color GRID_COLOR_DEFAULT = Color.LIGHTGRAY;
+    /**
+     * Grid Line opacity level is defined a constant, in case we switch to a
+     * computed ratio and in case we provide programmatic support for changing
+     * its value (this then gives us our defined default value).
+     */
+    private static final double GRID_LINE_OPACITY_DEFAULT = 0.825d;
+    private final Line _horizontalZeroLine;
+    private final Line _verticalZeroLine;
+    private final Group _horizontalGridLines;
+    private final Group _verticalGridLines;
+    private final Line _topAxis;
+    private final Line _rightAxis;
+    /**
+     * Cache the current foreground, to apply to volatile features.
+     */
+    protected Color _foreColor;
     /**
      * The current venue-to-display scale factor for the Cartesian Chart host.
      */
-    private double              _venueToDisplayScaleFactor;
-
-    /** @serial Whether to draw the axis zero lines. */
-    private boolean             _showAxisZeroLines;
-
-    /** @serial Whether to draw a background grid. */
-    private boolean             _gridOn;
-
-    /** @serial The scale applied to the auto-tic generated grid resolution. */
-    private double              _gridScale;
-
+    private double _venueToDisplayScaleFactor;
+    /**
+     *
+     */
+    private boolean _showAxisZeroLines;
+    /**
+     *
+     */
+    private boolean _gridOn;
+    /**
+     *
+     */
+    private double _gridScale;
     /**
      * Declare variable to keep track of the current grid resolution.
      * <p>
      * TODO: Eliminate this in favor of changing the tic mark spacing.
      */
-    private GridResolution      _gridResolution;
-
-    /** @serial Color of the grid lines. */
-    private Color               _gridColor;
-
-    /** Cache the current foreground, to apply to volatile features. */
-    protected Color             _foreColor;
+    private GridResolution _gridResolution;
+    /**
+     *
+     */
+    private Color _gridColor;
 
     /**
      * This is the main constructor.
@@ -139,7 +141,8 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         _topAxis.setVisible( false );
         _rightAxis.setVisible( false );
 
-        _venueToDisplayScaleFactor = 1.0d / DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR;
+        _venueToDisplayScaleFactor = 1.0d
+                                     / DEFAULT_DISPLAY_TO_VENUE_SCALE_FACTOR;
 
         _showAxisZeroLines = true;
 
@@ -164,40 +167,22 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         }
     }
 
-    protected final void addGridLine( final Number tickValue,
-                                      final CartesianAxis otherAxis,
-                                      final Orientation gridLineOrientation,
-                                      final double strokeWidth,
-                                      final Double[] dashArray,
-                                      final List< Line > gridLineElements ) {
-        final double tickValueDouble = tickValue.doubleValue();
+    /**
+     * Set up the configuration of the Chart Overlay Group.
+     */
+    private final void initialize() {
+        final ObservableList< Node > nodes = getChildren();
+        nodes.addAll( _verticalGridLines,
+                      _horizontalGridLines,
+                      _verticalZeroLine,
+                      _horizontalZeroLine,
+                      _rightAxis,
+                      _topAxis );
 
-        // Make sure this isn't the Zero Line, if it is set to be visible.
-        if ( !_showAxisZeroLines || ( tickValueDouble != 0.0d ) ) {
-            final Line gridLine = new Line();
-            switch ( gridLineOrientation ) {
-            case HORIZONTAL:
-                gridLine.setStartX( otherAxis.getLowerBound() );
-                gridLine.setStartY( tickValueDouble );
-                gridLine.setEndX( otherAxis.getUpperBound() );
-                gridLine.setEndY( tickValueDouble );
-                break;
-            case VERTICAL:
-                gridLine.setStartX( tickValueDouble );
-                gridLine.setStartY( otherAxis.getLowerBound() );
-                gridLine.setEndX( tickValueDouble );
-                gridLine.setEndY( otherAxis.getUpperBound() );
-                break;
-            default:
-                break;
-            }
-
-            gridLine.setStroke( _gridColor );
-            gridLine.setStrokeWidth( strokeWidth );
-            gridLine.setStrokeLineCap( StrokeLineCap.BUTT );
-            gridLine.getStrokeDashArray().setAll( dashArray );
-            gridLineElements.add( gridLine );
-        }
+        // Initialize the persistent shared attributes of the Chart Overlay
+        // Group, which is application managed and is not directly interactive
+        // at this time.
+        GroupUtilities.initDecoratorNodeGroup( this );
     }
 
     /**
@@ -208,10 +193,32 @@ public class XYChartOverlayGroup extends ChartContentGroup {
      */
     public final double getDisplayToVenueScaleFactor() {
         final double venueToDisplayScaleFactor = getVenueToDisplayScaleFactor();
-        final double displayToVenueScaleFactor = ( venueToDisplayScaleFactor <= 0.0d )
-            ? 1.0d
-            : 1.0d / venueToDisplayScaleFactor;
+        final double displayToVenueScaleFactor = ( venueToDisplayScaleFactor
+                                                   <= 0.0d )
+                                                 ? 1.0d
+                                                 : 1.0d
+                                                   / venueToDisplayScaleFactor;
         return displayToVenueScaleFactor;
+    }
+
+    /**
+     * The scale of the current venue-to-display scale factor.
+     *
+     * @return The last value used to create the venue-to-display scale
+     *         transform that is the primary function of this node.
+     */
+    public final double getVenueToDisplayScaleFactor() {
+        return _venueToDisplayScaleFactor;
+    }
+
+    /**
+     * Set the venue-to-display scale factor on this node.
+     *
+     * @param venueToDisplayScaleFactor The new venue-to-display scale factor
+     */
+    public final void setVenueToDisplayScaleFactor( final double venueToDisplayScaleFactor ) {
+        // Cache the new venue-to-display scale factor for direct use.
+        _venueToDisplayScaleFactor = venueToDisplayScaleFactor;
     }
 
     /**
@@ -244,12 +251,51 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     }
 
     /**
+     * Set the grid color.
+     *
+     * @param gridColor The grid color.
+     */
+    public final void setGridColor( final Color gridColor ) {
+        // Cache the new Grid Color, so we can save it to User Preferences.
+        _gridColor = gridColor;
+
+        // Use the new Grid Color on the Horizontal and Vertical Grid Lines.
+        // NOTE: It is best not to also set the Zero Lines as this could
+        // obscure the Drawing Limits and Prediction Plane graphics.
+        // NOTE: We defer execution, to give CSS style sheets time to load
+        // first, as that happens before this method is called in many cases.
+        // TODO: Review whether we need runLater() here or not.
+        Platform.runLater( () -> {
+            _verticalGridLines.getChildren().forEach( verticalGridLine -> {
+                if ( verticalGridLine instanceof Shape ) {
+                    ( ( Shape ) verticalGridLine ).setStroke( gridColor );
+                }
+            } );
+
+            _horizontalGridLines.getChildren().forEach( horizontalGridLine -> {
+                if ( horizontalGridLine instanceof Shape ) {
+                    ( ( Shape ) horizontalGridLine ).setStroke( gridColor );
+                }
+            } );
+        } );
+    }
+
+    /**
      * This is a standard getter method for the Grid Resolution setting.
      *
      * @return The current Grid Resolution setting
      */
     public final GridResolution getGridResolution() {
         return _gridResolution;
+    }
+
+    /**
+     * Set the new Grid Resolution, and conditionally re-scale the grid.
+     *
+     * @param gridResolution The resolution of the grid lines
+     */
+    public final void setGridResolution( final GridResolution gridResolution ) {
+        _gridResolution = gridResolution;
     }
 
     /**
@@ -262,31 +308,12 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     }
 
     /**
-     * The scale of the current venue-to-display scale factor.
+     * Set the grid scale.
      *
-     * @return The last value used to create the venue-to-display scale
-     *         transform that is the primary function of this node.
+     * @param gridscale The grid scale.
      */
-    public final double getVenueToDisplayScaleFactor() {
-        return _venueToDisplayScaleFactor;
-    }
-
-    /**
-     * Set up the configuration of the Chart Overlay Group.
-     */
-    private final void initialize() {
-        final ObservableList< Node > nodes = getChildren();
-        nodes.addAll( _verticalGridLines,
-                      _horizontalGridLines,
-                      _verticalZeroLine,
-                      _horizontalZeroLine,
-                      _rightAxis,
-                      _topAxis );
-
-        // Initialize the persistent shared attributes of the Chart Overlay
-        // Group, which is application managed and is not directly interactive
-        // at this time.
-        GroupUtilities.initDecoratorNodeGroup( this );
+    public final void setGridScale( final double gridscale ) {
+        _gridScale = gridscale;
     }
 
     /**
@@ -299,12 +326,41 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     }
 
     /**
+     * Control whether the grid is drawn.
+     *
+     * @param gridOn If true, a grid is drawn.
+     */
+    public final void setGridOn( final boolean gridOn ) {
+        _gridOn = gridOn;
+
+        _verticalGridLines.setVisible( gridOn );
+        _horizontalGridLines.setVisible( gridOn );
+
+        // If we are turning the grid back on, need to reassert the grid color.
+        if ( gridOn ) {
+            setGridColor( _gridColor );
+        }
+    }
+
+    /**
      * Return whether the axis zero lines are drawn.
      *
      * @return True if the axis zero lines are drawn.
      */
     public final boolean isShowAxisZeroLines() {
         return _showAxisZeroLines;
+    }
+
+    /**
+     * Control whether the axis zero lines drawn.
+     *
+     * @param showAxisZeroLines If true, the axis zero lines are drawn.
+     */
+    public final void setShowAxisZeroLines( final boolean showAxisZeroLines ) {
+        _showAxisZeroLines = showAxisZeroLines;
+
+        _verticalZeroLine.setVisible( showAxisZeroLines );
+        _horizontalZeroLine.setVisible( showAxisZeroLines );
     }
 
     /*
@@ -328,12 +384,20 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         final boolean snapToPixel = region.isSnapToPixel();
 
         // Snap top and left to pixels.
-        final double topSnap = snapToPixel ? FastMath.round( top ) : top;
-        final double leftSnap = snapToPixel ? FastMath.round( left ) : left;
+        final double topSnap = snapToPixel
+                               ? FastMath.round( top )
+                               : top;
+        final double leftSnap = snapToPixel
+                                ? FastMath.round( left )
+                                : left;
 
         // Snap content width and content height to pixels.
-        final double contentWidthSnap = snapToPixel ? FastMath.ceil( contentWidth ) : contentWidth;
-        final double contentHeightSnap = snapToPixel ? FastMath.ceil( contentHeight ) : contentHeight;
+        final double contentWidthSnap = snapToPixel
+                                        ? FastMath.ceil( contentWidth )
+                                        : contentWidth;
+        final double contentHeightSnap = snapToPixel
+                                         ? FastMath.ceil( contentHeight )
+                                         : contentHeight;
 
         // Try and work out width and height of axes, making four passes.
         // NOTE: The multiple passes to stabilize, are probably no longer
@@ -345,7 +409,8 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         for ( int count = 0; count < 4; count++ ) {
             final double newYAxisWidth = yAxis.prefWidth( yAxisHeight );
             final double newXAxisHeight = xAxis.prefHeight( xAxisWidth );
-            if ( ( newYAxisWidth == yAxisWidth ) && ( newXAxisHeight == xAxisHeight ) ) {
+            if ( ( newYAxisWidth == yAxisWidth ) && ( newXAxisHeight
+                                                      == xAxisHeight ) ) {
                 break;
             }
 
@@ -390,11 +455,13 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         // It seems that the usage of this variable is in pixels vs. user
         // Distance Units and thus should need to be inverted vs. the cached
         // scale factor.
-        final double displayToVenueScaleFactor = 1.0d / _venueToDisplayScaleFactor;
+        final double displayToVenueScaleFactor = 1.0d
+                                                 / _venueToDisplayScaleFactor;
         final double strokeWidth = 0.75d * displayToVenueScaleFactor;
         final Double[] dashArray = new Double[] {
-                                                  0.75d * displayToVenueScaleFactor,
-                                                  1.5d * displayToVenueScaleFactor };
+                0.75d * displayToVenueScaleFactor,
+                1.5d * displayToVenueScaleFactor
+        };
 
         final double clipHeight = yAxisHeightSnap * displayToVenueScaleFactor;
         final double clipWidth = xAxisWidthSnap * displayToVenueScaleFactor;
@@ -408,10 +475,18 @@ public class XYChartOverlayGroup extends ChartContentGroup {
         clippingRectangle.setHeight( clipHeight + fudgeFactor );
 
         // Update the vertical zero line, in model space.
-        updateZeroLine( xAxis, yAxis, _verticalZeroLine, Orientation.VERTICAL, strokeWidth );
+        updateZeroLine( xAxis,
+                        yAxis,
+                        _verticalZeroLine,
+                        Orientation.VERTICAL,
+                        strokeWidth );
 
         // Update the horizontal zero line, in model space.
-        updateZeroLine( yAxis, xAxis, _horizontalZeroLine, Orientation.HORIZONTAL, strokeWidth );
+        updateZeroLine( yAxis,
+                        xAxis,
+                        _horizontalZeroLine,
+                        Orientation.HORIZONTAL,
+                        strokeWidth );
 
         // Update the vertical grid lines, in model space.
         updateGridLines( xAxis,
@@ -432,26 +507,171 @@ public class XYChartOverlayGroup extends ChartContentGroup {
                          dashArray );
     }
 
+    protected final void updateGridLines( final CartesianAxis referenceAxis,
+                                          final CartesianAxis otherAxis,
+                                          final Group gridLines,
+                                          final Line secondaryAxis,
+                                          final Orientation gridLineOrientation,
+                                          final double strokeWidth,
+                                          final Double[] dashArray ) {
+        // Update the axis grid lines, in model space.
+        final List< Line > gridLineElements = new ArrayList<>();
+        final List< Number > tickValues
+                = referenceAxis.getUnfilteredTickValues();
+        if ( _gridOn ) {
+            // Iterate the current zoomed range values for the reference axis.
+            tickValues.forEach( tick -> addGridLine( tick,
+                                                     otherAxis,
+                                                     gridLineOrientation,
+                                                     strokeWidth,
+                                                     dashArray,
+                                                     gridLineElements ) );
+        }
+        else {
+            // Generate a Grid Line for the final Tick mark, to use as the
+            // Secondary Axis location and dimensions.
+            final int numberOfTickMarks = tickValues.size();
+            if ( numberOfTickMarks > 0 ) {
+                final Number finalTick = tickValues.get(
+                        numberOfTickMarks - 1 );
+                addGridLine( finalTick,
+                             otherAxis,
+                             gridLineOrientation,
+                             strokeWidth,
+                             dashArray,
+                             gridLineElements );
+            }
+        }
+
+        // Special case for the final Grid Lines in each dimension, so we can
+        // customize them to look more like dual axes, sans tick marks and
+        // labels. This is a hack, as it is too hard to add decoupled axes.
+        // NOTE: These may not match the stroke width of the primary axes.
+        final int numberOfGridLines = gridLineElements.size();
+        if ( numberOfGridLines > 0 ) {
+            final Line finalLine = gridLineElements.remove(
+                    numberOfGridLines - 1 );
+            secondaryAxis.setStartX( finalLine.getStartX() );
+            secondaryAxis.setStartY( finalLine.getStartY() );
+            secondaryAxis.setEndX( finalLine.getEndX() );
+            secondaryAxis.setEndY( finalLine.getEndY() );
+
+            secondaryAxis.setStroke( _foreColor );
+            secondaryAxis.setStrokeWidth( 1.25d * strokeWidth );
+            secondaryAxis.setStrokeLineCap( StrokeLineCap.BUTT );
+            secondaryAxis.getStrokeDashArray().clear();
+            secondaryAxis.setVisible( true );
+        }
+
+        gridLines.getChildren().setAll( gridLineElements );
+
+        // Try to improve performance by setting grid lines to ignore the mouse.
+        gridLines.setMouseTransparent( true );
+
+        // TODO: Reconsider making an empty local Path Elements list, adding
+        //  MoveTo/LineTo pairs, then replacing the list in the query below.
+        //  This
+        //  is how Oracle implements XYChart, and perhaps this performs better
+        //  than what we are doing with a Group of Lines, as the Scene Graph has
+        //  fewer Nodes this way. But I think we switched due to poor
+        //  performance. We could also replace java calls with CSS style names.
+        // final Path path = new Path();
+        // final ObservableList<PathElement> pathElements = path.getElements();
+    }
+
+    protected final void addGridLine( final Number tickValue,
+                                      final CartesianAxis otherAxis,
+                                      final Orientation gridLineOrientation,
+                                      final double strokeWidth,
+                                      final Double[] dashArray,
+                                      final List< Line > gridLineElements ) {
+        final double tickValueDouble = tickValue.doubleValue();
+
+        // Make sure this isn't the Zero Line, if it is set to be visible.
+        if ( !_showAxisZeroLines || ( tickValueDouble != 0.0d ) ) {
+            final Line gridLine = new Line();
+            switch ( gridLineOrientation ) {
+                case HORIZONTAL:
+                    gridLine.setStartX( otherAxis.getLowerBound() );
+                    gridLine.setStartY( tickValueDouble );
+                    gridLine.setEndX( otherAxis.getUpperBound() );
+                    gridLine.setEndY( tickValueDouble );
+                    break;
+                case VERTICAL:
+                    gridLine.setStartX( tickValueDouble );
+                    gridLine.setStartY( otherAxis.getLowerBound() );
+                    gridLine.setEndX( tickValueDouble );
+                    gridLine.setEndY( otherAxis.getUpperBound() );
+                    break;
+                default:
+                    break;
+            }
+
+            gridLine.setStroke( _gridColor );
+            gridLine.setStrokeWidth( strokeWidth );
+            gridLine.setStrokeLineCap( StrokeLineCap.BUTT );
+            gridLine.getStrokeDashArray().setAll( dashArray );
+            gridLineElements.add( gridLine );
+        }
+    }
+
+    protected final void updateZeroLine( final ValueAxis< Number > referenceAxis,
+                                         final ValueAxis< Number > otherAxis,
+                                         final Line zeroLine,
+                                         final Orientation zeroLineOrientation,
+                                         final double strokeWidth ) {
+        if ( !_showAxisZeroLines
+             || Double.isNaN( referenceAxis.getZeroPosition() ) ) {
+            zeroLine.setVisible( false );
+        }
+        else {
+            // Update the axis zero line, in model space.
+            switch ( zeroLineOrientation ) {
+                case HORIZONTAL:
+                    zeroLine.setStartX( otherAxis.getLowerBound() );
+                    zeroLine.setStartY( 0.0d );
+                    zeroLine.setEndX( otherAxis.getUpperBound() );
+                    zeroLine.setEndY( 0.0d );
+                    break;
+                case VERTICAL:
+                    zeroLine.setStartX( 0.0d );
+                    zeroLine.setStartY( otherAxis.getLowerBound() );
+                    zeroLine.setEndX( 0.0d );
+                    zeroLine.setEndY( otherAxis.getUpperBound() );
+                    break;
+                default:
+                    break;
+            }
+
+            zeroLine.setStrokeWidth( strokeWidth );
+            zeroLine.setStrokeLineCap( StrokeLineCap.BUTT );
+            zeroLine.setVisible( true );
+        }
+
+        // Try to improve performance by setting Grid Lines to ignore the mouse.
+        zeroLine.setMouseTransparent( true );
+    }
+
     /**
      * Update the Grid Scale based on current Grid Resolution value.
      */
     public final void rescaleGrid() {
         switch ( _gridResolution ) {
-        case OFF:
-            setGridScale( 1.0d );
-            break;
-        case COARSE:
-            setGridScale( 2.0d );
-            break;
-        case MEDIUM:
-            setGridScale( 1.0d );
-            break;
-        case FINE:
-            setGridScale( 0.5d );
-            break;
-        default:
-            setGridScale( 1.0d );
-            break;
+            case OFF:
+                setGridScale( 1.0d );
+                break;
+            case COARSE:
+                setGridScale( 2.0d );
+                break;
+            case MEDIUM:
+                setGridScale( 1.0d );
+                break;
+            case FINE:
+                setGridScale( 0.5d );
+                break;
+            default:
+                setGridScale( 1.0d );
+                break;
         }
     }
 
@@ -473,218 +693,21 @@ public class XYChartOverlayGroup extends ChartContentGroup {
     }
 
     /**
-     * Set the grid color.
-     *
-     * @param gridColor
-     *            The grid color.
-     */
-    public final void setGridColor( final Color gridColor ) {
-        // Cache the new Grid Color, so we can save it to User Preferences.
-        _gridColor = gridColor;
-
-        // Use the new Grid Color on the Horizontal and Vertical Grid Lines.
-        // NOTE: It is best not to also set the Zero Lines as this could
-        // obscure the Drawing Limits and Prediction Plane graphics.
-        // NOTE: We defer execution, to give CSS style sheets time to load
-        // first, as that happens before this method is called in many cases.
-        // TODO: Review whether we need runLater() here or not.
-        Platform.runLater( () -> {
-            _verticalGridLines.getChildren().forEach( verticalGridLine -> {
-                if ( verticalGridLine instanceof Shape ) {
-                    ( ( Shape ) verticalGridLine ).setStroke( gridColor );
-                }
-            } );
-
-            _horizontalGridLines.getChildren().forEach( horizontalGridLine -> {
-                if ( horizontalGridLine instanceof Shape ) {
-                    ( ( Shape ) horizontalGridLine ).setStroke( gridColor );
-                }
-            } );
-        } );
-    }
-
-    /**
-     * Control whether the grid is drawn.
-     *
-     * @param gridOn
-     *            If true, a grid is drawn.
-     */
-    public final void setGridOn( final boolean gridOn ) {
-        _gridOn = gridOn;
-
-        _verticalGridLines.setVisible( gridOn );
-        _horizontalGridLines.setVisible( gridOn );
-
-        // If we are turning the grid back on, need to reassert the grid color.
-        if ( gridOn ) {
-            setGridColor( _gridColor );
-        }
-    }
-
-    /**
-     * Set the new Grid Resolution, and conditionally re-scale the grid.
-     *
-     * @param gridResolution
-     *            The resolution of the grid lines
-     */
-    public final void setGridResolution( final GridResolution gridResolution ) {
-        _gridResolution = gridResolution;
-    }
-
-    /**
-     * Set the grid scale.
-     *
-     * @param gridscale
-     *            The grid scale.
-     */
-    public final void setGridScale( final double gridscale ) {
-        _gridScale = gridscale;
-    }
-
-    /**
-     * Control whether the axis zero lines drawn.
-     *
-     * @param showAxisZeroLines
-     *            If true, the axis zero lines are drawn.
-     */
-    public final void setShowAxisZeroLines( final boolean showAxisZeroLines ) {
-        _showAxisZeroLines = showAxisZeroLines;
-
-        _verticalZeroLine.setVisible( showAxisZeroLines );
-        _horizontalZeroLine.setVisible( showAxisZeroLines );
-    }
-
-    /**
-     * Set the venue-to-display scale factor on this node.
-     *
-     * @param venueToDisplayScaleFactor
-     *            The new venue-to-display scale factor
-     */
-    public final void setVenueToDisplayScaleFactor( final double venueToDisplayScaleFactor ) {
-        // Cache the new venue-to-display scale factor for direct use.
-        _venueToDisplayScaleFactor = venueToDisplayScaleFactor;
-    }
-
-    protected final void updateGridLines( final CartesianAxis referenceAxis,
-                                          final CartesianAxis otherAxis,
-                                          final Group gridLines,
-                                          final Line secondaryAxis,
-                                          final Orientation gridLineOrientation,
-                                          final double strokeWidth,
-                                          final Double[] dashArray ) {
-        // Update the axis grid lines, in model space.
-        final List< Line > gridLineElements = new ArrayList<>();
-        final List< Number > tickValues = referenceAxis.getUnfilteredTickValues();
-        if ( _gridOn ) {
-            // Iterate the current zoomed range values for the reference axis.
-            tickValues.forEach( tick -> addGridLine( tick,
-                                                     otherAxis,
-                                                     gridLineOrientation,
-                                                     strokeWidth,
-                                                     dashArray,
-                                                     gridLineElements ) );
-        }
-        else {
-            // Generate a Grid Line for the final Tick mark, to use as the
-            // Secondary Axis location and dimensions.
-            final int numberOfTickMarks = tickValues.size();
-            if ( numberOfTickMarks > 0 ) {
-                final Number finalTick = tickValues.get( numberOfTickMarks - 1 );
-                addGridLine( finalTick,
-                             otherAxis,
-                             gridLineOrientation,
-                             strokeWidth,
-                             dashArray,
-                             gridLineElements );
-            }
-        }
-
-        // Special case for the final Grid Lines in each dimension, so we can
-        // customize them to look more like dual axes, sans tick marks and
-        // labels. This is a hack, as it is too hard to add decoupled axes.
-        // NOTE: These may not match the stroke width of the primary axes.
-        final int numberOfGridLines = gridLineElements.size();
-        if ( numberOfGridLines > 0 ) {
-            final Line finalLine = gridLineElements.remove( numberOfGridLines - 1 );
-            secondaryAxis.setStartX( finalLine.getStartX() );
-            secondaryAxis.setStartY( finalLine.getStartY() );
-            secondaryAxis.setEndX( finalLine.getEndX() );
-            secondaryAxis.setEndY( finalLine.getEndY() );
-
-            secondaryAxis.setStroke( _foreColor );
-            secondaryAxis.setStrokeWidth( 1.25d * strokeWidth );
-            secondaryAxis.setStrokeLineCap( StrokeLineCap.BUTT );
-            secondaryAxis.getStrokeDashArray().clear();
-            secondaryAxis.setVisible( true );
-        }
-
-        gridLines.getChildren().setAll( gridLineElements );
-
-        // Try to improve performance by setting grid lines to ignore the mouse.
-        gridLines.setMouseTransparent( true );
-
-        // TODO: Reconsider making an empty local Path Elements list, adding
-        //  MoveTo/LineTo pairs, then replacing the list in the query below. This
-        //  is how Oracle implements XYChart, and perhaps this performs better
-        //  than what we are doing with a Group of Lines, as the Scene Graph has
-        //  fewer Nodes this way. But I think we switched due to poor
-        //  performance. We could also replace java calls with CSS style names.
-        // final Path path = new Path();
-        // final ObservableList<PathElement> pathElements = path.getElements();
-    }
-
-    /**
      * Update the Grid On state based on current Grid Resolution value.
      */
     public final void updateGridOn() {
         switch ( _gridResolution ) {
-        case OFF:
-            setGridOn( false );
-            break;
-        case COARSE:
-        case MEDIUM:
-        case FINE:
-            setGridOn( true );
-            break;
-        default:
-            setGridOn( false );
-            break;
-        }
-    }
-
-    protected final void updateZeroLine( final ValueAxis< Number > referenceAxis,
-                                         final ValueAxis< Number > otherAxis,
-                                         final Line zeroLine,
-                                         final Orientation zeroLineOrientation,
-                                         final double strokeWidth ) {
-        if ( !_showAxisZeroLines || Double.isNaN( referenceAxis.getZeroPosition() ) ) {
-            zeroLine.setVisible( false );
-        }
-        else {
-            // Update the axis zero line, in model space.
-            switch ( zeroLineOrientation ) {
-            case HORIZONTAL:
-                zeroLine.setStartX( otherAxis.getLowerBound() );
-                zeroLine.setStartY( 0.0d );
-                zeroLine.setEndX( otherAxis.getUpperBound() );
-                zeroLine.setEndY( 0.0d );
+            case OFF:
+                setGridOn( false );
                 break;
-            case VERTICAL:
-                zeroLine.setStartX( 0.0d );
-                zeroLine.setStartY( otherAxis.getLowerBound() );
-                zeroLine.setEndX( 0.0d );
-                zeroLine.setEndY( otherAxis.getUpperBound() );
+            case COARSE:
+            case MEDIUM:
+            case FINE:
+                setGridOn( true );
                 break;
             default:
+                setGridOn( false );
                 break;
-            }
-
-            zeroLine.setStrokeWidth( strokeWidth );
-            zeroLine.setStrokeLineCap( StrokeLineCap.BUTT );
-            zeroLine.setVisible( true );
         }
-
-        // Try to improve performance by setting Grid Lines to ignore the mouse.
-        zeroLine.setMouseTransparent( true );
     }
 }

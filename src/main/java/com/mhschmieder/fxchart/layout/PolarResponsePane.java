@@ -37,6 +37,10 @@ import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jgraphics.util.GraphicsUtilities;
 import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
+
+import java.awt.EventQueue;
+import java.awt.RenderingHints;
+
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -46,24 +50,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
-import java.awt.EventQueue;
-import java.awt.RenderingHints;
-
 public final class PolarResponsePane extends BorderPane {
 
-    // Declare and instantiate all of the UI components.
-    protected SwingNode           _polarPlotHzSwingNode;
-    protected PolarAmplitudePlot _awtPolarPlotHz;
-    protected SwingNode           _polarPlotVtSwingNode;
-    protected PolarAmplitudePlot _awtPolarPlotVt;
-
-    /**
-     * Keep track of which window owns the context menu, for focus and dismissal
-     */
-    protected Window              _contextMenuOwner;
-
     // Cache the full Session Context (System Type, Locale, Client Type, etc.).
-    public ClientProperties       _clientProperties;
+    public ClientProperties _clientProperties;
+    // Declare and instantiate all of the UI components.
+    protected SwingNode _polarPlotHzSwingNode;
+    protected PolarAmplitudePlot _awtPolarPlotHz;
+    protected SwingNode _polarPlotVtSwingNode;
+    protected PolarAmplitudePlot _awtPolarPlotVt;
+    /**
+     * Keep track of which window owns the context menu, for focus and
+     * dismissal
+     */
+    protected Window _contextMenuOwner;
 
     public PolarResponsePane( final int polarResponseViewerWidth,
                               final int polarResponseViewerHeight,
@@ -78,51 +78,14 @@ public final class PolarResponsePane extends BorderPane {
         _contextMenuOwner = contextMenuOwner;
 
         try {
-            initPane( polarResponseViewerWidth, 
-                      polarResponseViewerHeight, 
-                      angleIncrementDegrees, 
+            initPane( polarResponseViewerWidth,
+                      polarResponseViewerHeight,
+                      angleIncrementDegrees,
                       polarResponseActions );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
         }
-    }
-
-    public void clearPlots() {
-        // Delegate this method to the subsidiary panels.
-        EventQueue.invokeLater( () -> _awtPolarPlotHz.clearPlot() );
-        EventQueue.invokeLater( () -> _awtPolarPlotVt.clearPlot() );
-    }
-    
-    public int getNumberOfPolarDataPoints() {
-        // NOTE: This number is always the same for horizontal and vertical.
-        return _awtPolarPlotHz.getNumberOfPolarDataPoints();
-    }
-
-    public float getGridRange() {
-        // NOTE: This number is always the same for horizontal and vertical.
-        return _awtPolarPlotHz.getGridRange();
-    }
-
-    public int getGridSpacing() {
-        // NOTE: This number is always the same for horizontal and vertical.
-        return _awtPolarPlotHz.getGridSpacing();
-    }
-
-    public double[] getHorizontalPolarAmplitudeData() {
-        return _awtPolarPlotHz.getPolarAmplitudeData();
-    }
-
-    public double[] getHorizontalPolarAngleData() {
-        return _awtPolarPlotHz.getPolarAngleData();
-    }
-
-    public double[] getVerticalPolarAmplitudeData() {
-        return _awtPolarPlotVt.getPolarAmplitudeData();
-    }
-
-    public double[] getVerticalPolarAngleData() {
-        return _awtPolarPlotVt.getPolarAngleData();
     }
 
     private void initPane( final int polarResponseViewerWidth,
@@ -135,16 +98,18 @@ public final class PolarResponsePane extends BorderPane {
             // Make the individual plots for horizontal and vertical polar
             // patterns.
             _awtPolarPlotHz = new PolarAmplitudePlot( polarResponseViewerWidth,
-                                                       polarResponseViewerHeight,
-                                                       "Horizontal", //$NON-NLS-1$
-                                                       angleIncrementDegrees );
+                                                      polarResponseViewerHeight,
+                                                      "Horizontal", //$NON
+                    // -NLS-1$
+                                                      angleIncrementDegrees );
             _awtPolarPlotVt = new PolarAmplitudePlot( polarResponseViewerWidth,
-                                                       polarResponseViewerHeight,
-                                                       "Vertical", //$NON-NLS-1$
-                                                       angleIncrementDegrees );
+                                                      polarResponseViewerHeight,
+                                                      "Vertical", //$NON-NLS-1$
+                                                      angleIncrementDegrees );
 
             // Get Rendering Hints that aim for quality rendering of geometry.
-            final RenderingHints renderingHints = GraphicsUtilities.getRenderingHintsForCharting();
+            final RenderingHints renderingHints
+                    = GraphicsUtilities.getRenderingHintsForCharting();
             _awtPolarPlotHz.setRenderingHints( renderingHints );
             _awtPolarPlotVt.setRenderingHints( renderingHints );
 
@@ -156,8 +121,10 @@ public final class PolarResponsePane extends BorderPane {
         setRight( _polarPlotVtSwingNode );
 
         // Build the contextual pop-up menu.
-        final ContextMenu contextMenu = PolarResponseMenuFactory
-                .getPolarResponseContextMenu( _clientProperties, polarResponseActions );
+        final ContextMenu contextMenu
+                = PolarResponseMenuFactory.getPolarResponseContextMenu(
+                _clientProperties,
+                polarResponseActions );
 
         // Register the pop-up menu and data tracker triggers.
         final Node contextMenuOwner = this;
@@ -170,8 +137,9 @@ public final class PolarResponsePane extends BorderPane {
                                          _awtPolarPlotHz );
             }
             else if ( MouseButton.SECONDARY.equals( button ) ) {
-                contextMenu
-                        .show( contextMenuOwner, mouseEvent.getScreenX(), mouseEvent.getScreenY() );
+                contextMenu.show( contextMenuOwner,
+                                  mouseEvent.getScreenX(),
+                                  mouseEvent.getScreenY() );
             }
         } );
         _polarPlotHzSwingNode.setOnMouseMoved( mouseEvent -> {
@@ -190,8 +158,9 @@ public final class PolarResponsePane extends BorderPane {
                                          _awtPolarPlotVt );
             }
             else if ( MouseButton.SECONDARY.equals( button ) ) {
-                contextMenu
-                        .show( contextMenuOwner, mouseEvent.getScreenX(), mouseEvent.getScreenY() );
+                contextMenu.show( contextMenuOwner,
+                                  mouseEvent.getScreenX(),
+                                  mouseEvent.getScreenY() );
             }
         } );
         _polarPlotVtSwingNode.setOnMouseMoved( mouseEvent -> {
@@ -202,24 +171,21 @@ public final class PolarResponsePane extends BorderPane {
         } );
     }
 
-    public void resetVisualizations() {
-        // Clear all the plots.
-        clearPlots();
+    protected void updateCursorCoordinates( final double cursorX,
+                                            final double cursorY,
+                                            final PolarAmplitudePlot polarAmplitudeChart ) {
+        // TODO: Implement this after we replace the AWT version of the Polar
+        // Chart, which has its own data tracking at the moment (using AWT).
     }
 
-    // This method sets the background color, and where appropriate, the
-    // foreground color is set to complement it for text-based components.
-    public void setForegroundFromBackground( final Color backColor ) {
-        // Set the new Background first, so it sets context for CSS derivations.
-        final Background background = RegionUtilities.makeRegionBackground( backColor );
-        setBackground( background );
+    public int getNumberOfPolarDataPoints() {
+        // NOTE: This number is always the same for horizontal and vertical.
+        return _awtPolarPlotHz.getNumberOfPolarDataPoints();
+    }
 
-        // Forward this method to the subcomponents.
-        final java.awt.Color awtBackColor = new java.awt.Color( ( float ) backColor.getRed(),
-                                                                ( float ) backColor.getGreen(),
-                                                                ( float ) backColor.getBlue() );
-        EventQueue.invokeLater( () -> _awtPolarPlotHz.setForegroundFromBackground( awtBackColor ) );
-        EventQueue.invokeLater( () -> _awtPolarPlotVt.setForegroundFromBackground( awtBackColor ) );
+    public float getGridRange() {
+        // NOTE: This number is always the same for horizontal and vertical.
+        return _awtPolarPlotHz.getGridRange();
     }
 
     public void setGridRange( final double gridRange ) {
@@ -229,17 +195,63 @@ public final class PolarResponsePane extends BorderPane {
         EventQueue.invokeLater( () -> _awtPolarPlotVt.setGridRange( awtGridRange ) );
     }
 
-    public void setGridSpacing( final int gridSpacing ) {
-        // Sync up the traces with the new radial Grid Spacing.
-        EventQueue.invokeLater( () -> _awtPolarPlotHz.setGridSpacing( gridSpacing ) );
-        EventQueue.invokeLater( () -> _awtPolarPlotVt.setGridSpacing( gridSpacing ) );
+    public int getGridSpacing() {
+        // NOTE: This number is always the same for horizontal and vertical.
+        return _awtPolarPlotHz.getGridSpacing();
     }
 
-    protected void updateCursorCoordinates( final double cursorX,
-                                            final double cursorY,
-                                            final PolarAmplitudePlot polarAmplitudeChart ) {
-        // TODO: Implement this after we replace the AWT version of the Polar
-        // Chart, which has its own data tracking at the moment (using AWT).
+    public void setGridSpacing( final int gridSpacing ) {
+        // Sync up the traces with the new radial Grid Spacing.
+        EventQueue.invokeLater( () -> _awtPolarPlotHz.setGridSpacing(
+                gridSpacing ) );
+        EventQueue.invokeLater( () -> _awtPolarPlotVt.setGridSpacing(
+                gridSpacing ) );
+    }
+
+    public double[] getHorizontalPolarAmplitudeData() {
+        return _awtPolarPlotHz.getPolarAmplitudeData();
+    }
+
+    public double[] getHorizontalPolarAngleData() {
+        return _awtPolarPlotHz.getPolarAngleData();
+    }
+
+    public double[] getVerticalPolarAmplitudeData() {
+        return _awtPolarPlotVt.getPolarAmplitudeData();
+    }
+
+    public double[] getVerticalPolarAngleData() {
+        return _awtPolarPlotVt.getPolarAngleData();
+    }
+
+    public void resetVisualizations() {
+        // Clear all the plots.
+        clearPlots();
+    }
+
+    public void clearPlots() {
+        // Delegate this method to the subsidiary panels.
+        EventQueue.invokeLater( () -> _awtPolarPlotHz.clearPlot() );
+        EventQueue.invokeLater( () -> _awtPolarPlotVt.clearPlot() );
+    }
+
+    // This method sets the background color, and where appropriate, the
+    // foreground color is set to complement it for text-based components.
+    public void setForegroundFromBackground( final Color backColor ) {
+        // Set the new Background first, so it sets context for CSS derivations.
+        final Background background = RegionUtilities.makeRegionBackground(
+                backColor );
+        setBackground( background );
+
+        // Forward this method to the subcomponents.
+        final java.awt.Color awtBackColor
+                = new java.awt.Color( ( float ) backColor.getRed(),
+                                      ( float ) backColor.getGreen(),
+                                      ( float ) backColor.getBlue() );
+        EventQueue.invokeLater( () -> _awtPolarPlotHz.setForegroundFromBackground(
+                awtBackColor ) );
+        EventQueue.invokeLater( () -> _awtPolarPlotVt.setForegroundFromBackground(
+                awtBackColor ) );
     }
 
     public void updateHorizontalPolarResponse( final double[] amplitude,

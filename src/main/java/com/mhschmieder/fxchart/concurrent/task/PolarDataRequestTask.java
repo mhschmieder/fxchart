@@ -49,22 +49,22 @@ public final class PolarDataRequestTask extends DataRequestTask {
                pDataRequestParameters,
                pClientProperties );
     }
-    
+
     @Override
     public String getTaskTitle() {
         String taskTitle = "";
-        
+
         final DataUpdateType dataUpdateType = getDataUpdateType();
         switch ( dataUpdateType ) {
-        case DYNAMIC_UPDATE:
-            break;
-        case FULL_UPDATE:
-            taskTitle = "Polar Response Update";
-            break;
-        default:
-            break;
+            case DYNAMIC_UPDATE:
+                break;
+            case FULL_UPDATE:
+                taskTitle = "Polar Response Update";
+                break;
+            default:
+                break;
         }
-        
+
         return taskTitle;
     }
 }

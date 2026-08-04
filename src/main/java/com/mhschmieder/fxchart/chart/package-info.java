@@ -29,11 +29,6 @@
  * Project: https://github.com/mhschmieder/fxchart
  */
 /**
- * This package contains the fxchart Library's utilities for core
- * charting.
- *
- * @version 0.1
- *
- * @author Mark Schmieder
+ * This package contains the fxchart Library's utilities for core charting.
  */
 package com.mhschmieder.fxchart.chart;

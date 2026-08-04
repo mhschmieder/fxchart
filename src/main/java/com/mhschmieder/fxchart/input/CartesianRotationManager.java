@@ -35,28 +35,37 @@ import com.mhschmieder.fxgraphics.input.RotationManager;
 import com.mhschmieder.jgraphics.input.MouseToolMode;
 import com.mhschmieder.jphysics.measure.DistanceUnit;
 import com.mhschmieder.jphysics.measure.UnitConversion;
+import org.apache.commons.math3.util.FastMath;
+
 import javafx.geometry.Point2D;
 import javafx.scene.chart.ValueAxis;
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * A specialization of the Rotation Manager, for Cartesian Space, which is the
- * most general case that covers most applications other than cartographic ones.
+ * most general case that covers most applications other than cartographic
+ * ones.
  */
 public class CartesianRotationManager extends RotationManager {
 
     /**
-     * Declare a variable to keep track of the rotation center point location (meters).
+     * Declare a variable to keep track of the rotation center point location
+     * (meters).
      */
     public Point2D _centerOfRotationMeters;
-    
-    /** Cache a local copy of the Mouse Tool Manager to check Rotation context. */
+
+    /**
+     * Cache a local copy of the Mouse Tool Manager to check Rotation context.
+     */
     public MouseToolManager _mouseToolManager;
 
-    /** Cache a local copy of the x-axis so we can apply proper scaling. */
+    /**
+     * Cache a local copy of the x-axis so we can apply proper scaling.
+     */
     protected ValueAxis< Number > _xAxis;
 
-    /** Cache a local copy of the y-axis so we can apply proper scaling. */
+    /**
+     * Cache a local copy of the y-axis so we can apply proper scaling.
+     */
     protected ValueAxis< Number > _yAxis;
 
     public CartesianRotationManager( final MouseToolManager mouseToolManager,
@@ -64,18 +73,18 @@ public class CartesianRotationManager extends RotationManager {
                                      final ValueAxis< Number > yAxis ) {
         // Always call the superclass constructor first!
         super();
-        
+
         _mouseToolManager = mouseToolManager;
         _xAxis = xAxis;
         _yAxis = yAxis;
-        
+
         _centerOfRotationMeters = new Point2D( 10.0d, 10.0d );
     }
-    
+
     public void reset() {
         _centerOfRotationMeters = new Point2D( 10.0d, 10.0d );
     }
-    
+
     public void initRotation( final Point2D clickPointMeters ) {
         // Find the initial angle between the mouse and the point of
         // rotation, so that we can use the atan2 method for the most
@@ -83,16 +92,16 @@ public class CartesianRotationManager extends RotationManager {
         // Dragged event.
         // NOTE: Due to switching from pixels to meters, we need to invert
         //  the y-axis offsets or else we get the wrong angle direction.
-        final double rotateTheta = FastMath.atan2( 
+        final double rotateTheta = FastMath.atan2(
                 _centerOfRotationMeters.getY() - clickPointMeters.getY(),
                 clickPointMeters.getX() - _centerOfRotationMeters.getX() );
-        
+
         // Pass this pre-calculated value to the Rotation Manager. It cannot
         // do the calculation itself, as the formula requires local units.
         super.initRotation( rotateTheta );
     }
 
-    public void updateCenterOfRotationLocation( final double centerX, 
+    public void updateCenterOfRotationLocation( final double centerX,
                                                 final double centerY,
                                                 final DistanceUnit distanceUnit ) {
         // Update the cached location for the Center of Rotation, in Meters.
@@ -111,23 +120,23 @@ public class CartesianRotationManager extends RotationManager {
         if ( MouseToolMode.ROTATE != _mouseToolManager._activeMouseTool ) {
             return;
         }
-        
+
         // Position the Center of Rotation at the mouse click, in the current
         // user Distance Unit.
-        final double centerOfRotationLocalX = UnitConversion
-                .convertDistance( _centerOfRotationMeters.getX(),
-                                  DistanceUnit.METERS,
-                                  distanceUnit );
-        final double centerOfRotationLocalY = UnitConversion
-                .convertDistance( _centerOfRotationMeters.getY(),
-                                  DistanceUnit.METERS,
-                                  distanceUnit );
+        final double centerOfRotationLocalX = UnitConversion.convertDistance(
+                _centerOfRotationMeters.getX(),
+                DistanceUnit.METERS,
+                distanceUnit );
+        final double centerOfRotationLocalY = UnitConversion.convertDistance(
+                _centerOfRotationMeters.getY(),
+                DistanceUnit.METERS,
+                distanceUnit );
         final double centerOfRotationXPx = _xAxis.getDisplayPosition(
                 centerOfRotationLocalX );
         final double centerOfRotationYPx = _yAxis.getDisplayPosition(
                 centerOfRotationLocalY );
-        
-        super.updateCenterOfRotationGraphics( centerOfRotationXPx, 
+
+        super.updateCenterOfRotationGraphics( centerOfRotationXPx,
                                               centerOfRotationYPx );
     }
 }

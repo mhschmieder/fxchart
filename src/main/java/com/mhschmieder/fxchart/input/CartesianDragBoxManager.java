@@ -32,17 +32,19 @@ package com.mhschmieder.fxchart.input;
 
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgraphics.input.DragBoxManager;
+import org.apache.commons.math3.util.FastMath;
+
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * A specialization of the Drag Box Manager, for Cartesian Space, which is the
- * most general case that covers most applications other than cartographic ones.
+ * most general case that covers most applications other than cartographic
+ * ones.
  */
 public class CartesianDragBoxManager extends DragBoxManager {
-    
+
     /**
      * Declare a variable to keep track of the Drag Box origin (initial click).
      */
@@ -52,13 +54,13 @@ public class CartesianDragBoxManager extends DragBoxManager {
      * Declare a Bounds for the Drag Box, for efficient containment tests.
      */
     public Bounds _dragBoxMeters;
-    
+
     public CartesianDragBoxManager() {
         // Always call the superclass constructor first!
         super();
-        
+
         _dragBoxOriginMeters = new Point2D( 0.0d, 0.0d );
-        _dragBoxMeters = new BoundingBox( 0.0d, 0.0d, 0.0d, 0.0d );        
+        _dragBoxMeters = new BoundingBox( 0.0d, 0.0d, 0.0d, 0.0d );
     }
 
     // TODO: Switch to JavaFX gesture-based Drag Boxes from this old AWT way?
@@ -79,10 +81,14 @@ public class CartesianDragBoxManager extends DragBoxManager {
         // NOTE: Due to the possibility of dynamically swapping the vertices
         //  based on drag direction, we have to take both min and max to be
         //  quadrant sensitive, but stay aware of the API's upper left bias.
-        final double ulx = FastMath.min( _dragBoxOriginMeters.getX(), mouseLocationMeters.getX() );
-        final double uly = FastMath.min( _dragBoxOriginMeters.getY(), mouseLocationMeters.getY() );
-        final double lrx = FastMath.max( _dragBoxOriginMeters.getX(), mouseLocationMeters.getX() );
-        final double lry = FastMath.max( _dragBoxOriginMeters.getY(), mouseLocationMeters.getY() );
+        final double ulx = FastMath.min( _dragBoxOriginMeters.getX(),
+                                         mouseLocationMeters.getX() );
+        final double uly = FastMath.min( _dragBoxOriginMeters.getY(),
+                                         mouseLocationMeters.getY() );
+        final double lrx = FastMath.max( _dragBoxOriginMeters.getX(),
+                                         mouseLocationMeters.getX() );
+        final double lry = FastMath.max( _dragBoxOriginMeters.getY(),
+                                         mouseLocationMeters.getY() );
 
         final double width = FastMath.abs( ulx - lrx );
         final double height = FastMath.abs( uly - lry );

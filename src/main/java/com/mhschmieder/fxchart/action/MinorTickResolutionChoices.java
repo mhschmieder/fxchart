@@ -53,54 +53,58 @@ public final class MinorTickResolutionChoices {
 
     // Default constructor
     public MinorTickResolutionChoices( final ClientProperties clientProperties ) {
-        _minorTicksOffChoice = ChartLabeledActionFactory.getMinorTicksOffChoice( clientProperties );
-        _minorTicksCoarseChoice = ChartLabeledActionFactory
-                .getMinorTicksCoarseChoice( clientProperties );
-        _minorTicksMediumChoice = ChartLabeledActionFactory
-                .getMinorTicksMediumChoice( clientProperties );
-        _minorTicksFineChoice =
-                              ChartLabeledActionFactory.getMinorTicksFineChoice( clientProperties );
+        _minorTicksOffChoice = ChartLabeledActionFactory.getMinorTicksOffChoice(
+                clientProperties );
+        _minorTicksCoarseChoice
+                = ChartLabeledActionFactory.getMinorTicksCoarseChoice(
+                clientProperties );
+        _minorTicksMediumChoice
+                = ChartLabeledActionFactory.getMinorTicksMediumChoice(
+                clientProperties );
+        _minorTicksFineChoice
+                = ChartLabeledActionFactory.getMinorTicksFineChoice(
+                clientProperties );
     }
 
     public GridResolution getMinorTickResolution() {
-        final GridResolution minorTickResolution = _minorTicksOffChoice.isSelected()
-            ? GridResolution.OFF
-            : _minorTicksCoarseChoice.isSelected()
-                ? GridResolution.COARSE
-                : _minorTicksMediumChoice.isSelected()
-                    ? GridResolution.MEDIUM
-                    : _minorTicksFineChoice.isSelected()
+        final GridResolution minorTickResolution
+                = _minorTicksOffChoice.isSelected()
+                  ? GridResolution.OFF
+                  : _minorTicksCoarseChoice.isSelected()
+                    ? GridResolution.COARSE
+                    : _minorTicksMediumChoice.isSelected()
+                      ? GridResolution.MEDIUM
+                      : _minorTicksFineChoice.isSelected()
                         ? GridResolution.FINE
                         : GridResolution.defaultValue();
         return minorTickResolution;
     }
 
-    public Collection< Action > getMinorTickResolutionChoiceCollection() {
-        final Collection< Action > minorTickResolutionChoiceCollection = Arrays
-                .asList( _minorTicksOffChoice,
-                         _minorTicksCoarseChoice,
-                         _minorTicksMediumChoice,
-                         _minorTicksFineChoice );
-        return minorTickResolutionChoiceCollection;
-    }
-
     public void setMinorTickResolution( final GridResolution minorTickResolution ) {
         switch ( minorTickResolution ) {
-        case OFF:
-            _minorTicksOffChoice.setSelected( true );
-            break;
-        case COARSE:
-            _minorTicksCoarseChoice.setSelected( true );
-            break;
-        case MEDIUM:
-            _minorTicksMediumChoice.setSelected( true );
-            break;
-        case FINE:
-            _minorTicksFineChoice.setSelected( true );
-            break;
-        default:
-            break;
+            case OFF:
+                _minorTicksOffChoice.setSelected( true );
+                break;
+            case COARSE:
+                _minorTicksCoarseChoice.setSelected( true );
+                break;
+            case MEDIUM:
+                _minorTicksMediumChoice.setSelected( true );
+                break;
+            case FINE:
+                _minorTicksFineChoice.setSelected( true );
+                break;
+            default:
+                break;
         }
     }
 
+    public Collection< Action > getMinorTickResolutionChoiceCollection() {
+        final Collection< Action > minorTickResolutionChoiceCollection
+                = Arrays.asList( _minorTicksOffChoice,
+                                 _minorTicksCoarseChoice,
+                                 _minorTicksMediumChoice,
+                                 _minorTicksFineChoice );
+        return minorTickResolutionChoiceCollection;
+    }
 }

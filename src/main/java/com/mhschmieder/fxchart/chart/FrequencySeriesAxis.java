@@ -80,13 +80,17 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
             // assign a new variable each time as a ratio of the major tick's
             // center frequency using the numerator/denominator formula vs.
             // applying a cached ratio to the previous minor tick's frequency.
-            final double fractionalOctaveRatio = FastMath.pow( 2.0d, 1.0d / minorTickMarkCount );
+            final double fractionalOctaveRatio = FastMath.pow( 2.0d,
+                                                               1.0d
+                                                               / minorTickMarkCount );
             for ( final double centerFrequency : _centerFrequencies ) {
-                if ( !Double.isNaN( centerFrequency ) && ( centerFrequency >= lowerBoundValue )
-                        && ( centerFrequency <= upperBoundValue ) ) {
+                if ( !Double.isNaN( centerFrequency ) && ( centerFrequency
+                                                           >= lowerBoundValue )
+                     && ( centerFrequency <= upperBoundValue ) ) {
                     double closestFractionalOctave = centerFrequency;
-                    for ( int minorTickNumber =
-                                              1; minorTickNumber <= minorTickMarkCountAdjusted; minorTickNumber++ ) {
+                    for ( int minorTickNumber = 1;
+                          minorTickNumber <= minorTickMarkCountAdjusted;
+                          minorTickNumber++ ) {
                         closestFractionalOctave *= fractionalOctaveRatio;
                         minorTickMarksPositions.add( closestFractionalOctave );
                     }
@@ -100,10 +104,12 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
     /**
      * This method is used to calculate a list of all the data values for each
      * tick mark in range, represented by the second parameter. We explicitly
-     * cache the desired major tick center frequencies as references in advance.
+     * cache the desired major tick center frequencies as references in
+     * advance.
      */
     @Override
-    protected List< Number > calculateTickValues( final double length, final Object range ) {
+    protected List< Number > calculateTickValues( final double length,
+                                                  final Object range ) {
         final List< Number > tickValues = new ArrayList<>();
 
         if ( range != null ) {
@@ -113,8 +119,9 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
             final double upperBoundValue = upperBound.doubleValue();
 
             for ( final double centerFrequency : _centerFrequencies ) {
-                if ( !Double.isNaN( centerFrequency ) && ( centerFrequency >= lowerBoundValue )
-                        && ( centerFrequency <= upperBoundValue ) ) {
+                if ( !Double.isNaN( centerFrequency ) && ( centerFrequency
+                                                           >= lowerBoundValue )
+                     && ( centerFrequency <= upperBoundValue ) ) {
                     tickValues.add( centerFrequency );
                 }
             }
@@ -126,14 +133,15 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
     // This method is only used to convert the number value to a string that
     // will be displayed under the tick mark. Here we use a number formatter, to
     // make sure the label is localized, but also deal with kHz vs. Hz.
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     @Override
     protected String getTickMarkLabel( final Number value ) {
         final double frequencyHz = value.doubleValue();
 
         final String formattedFrequency = ( frequencyHz >= 1000d )
-            ? _numberFormat.format( 0.001d * frequencyHz ) + "k"
-            : _numberFormat.format( frequencyHz );
+                                          ? _numberFormat.format(
+                0.001d * frequencyHz ) + "k"
+                                          : _numberFormat.format( frequencyHz );
 
         return formattedFrequency;
     }
@@ -143,11 +151,10 @@ public class FrequencySeriesAxis extends LogarithmicAxis {
      * marks. Note that it is not required that they be evenly spaced, but
      * usually they will be.
      *
-     * @param centerFrequencies
-     *            The center frequencies to use at the major tick marks
+     * @param centerFrequencies The center frequencies to use at the major tick
+     *                          marks
      */
     public final void setCenterFrequencies( final double[] centerFrequencies ) {
         _centerFrequencies = centerFrequencies;
     }
-
 }

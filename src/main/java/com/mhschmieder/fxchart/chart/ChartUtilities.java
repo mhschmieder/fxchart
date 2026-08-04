@@ -35,6 +35,10 @@ import com.mhschmieder.fxgui.util.GuiUtilities;
 import com.mhschmieder.jcommons.lang.StringConstants;
 import com.mhschmieder.jcommons.text.TextUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
+import org.apache.commons.math3.util.FastMath;
+
+import java.text.NumberFormat;
+
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.chart.Axis;
@@ -43,9 +47,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import org.apache.commons.math3.util.FastMath;
-
-import java.text.NumberFormat;
 
 /**
  * This is a utility class for common chart methods, agnostic to chart type.
@@ -53,25 +54,27 @@ import java.text.NumberFormat;
 public final class ChartUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private ChartUtilities() {}
-    
+    private ChartUtilities() {
+    }
+
     /**
-     * A method to find the lower bound of an axis given its upper bound, long 
-     * edge dimension, and a conversion from its dimension to local coordinates.
+     * A method to find the lower bound of an axis given its upper bound, long
+     * edge dimension, and a conversion from its dimension to local
+     * coordinates.
      * <p>
      * As long as you treat the display's x-axis separately from its y-axis,
-     * this method should apply to any arbitrary local units, even when they
-     * are different both in type and in scale for the two axes.
+     * this method should apply to any arbitrary local units, even when they are
+     * different both in type and in scale for the two axes.
      *
-     * @param dimensionPx
-     *            The long dimension of the axis in terms of its layout bounds
-     * @param upperBound
-     *            The maximum value the axis may represent in local coordinates
-     * @param displayToLocalScaleFactor
-     *            The multiplier to convert from display coordinates to local
-     *            coordinates
+     * @param dimensionPx               The long dimension of the axis in terms
+     *                                  of its layout bounds
+     * @param upperBound                The maximum value the axis may represent
+     *                                  in local coordinates
+     * @param displayToLocalScaleFactor The multiplier to convert from display
+     *                                  coordinates to local coordinates
      * @return The lower bound for the axis
      */
     public static double calculateLowerBound( final double dimensionPx,
@@ -79,7 +82,7 @@ public final class ChartUtilities {
                                               final double displayToLocalScaleFactor ) {
         // Check edge cases.
         if ( ( displayToLocalScaleFactor <= 0.0d ) || ( dimensionPx <= 0.0d )
-                || ( upperBound >= Double.POSITIVE_INFINITY ) ) {
+             || ( upperBound >= Double.POSITIVE_INFINITY ) ) {
             return 0.0d;
         }
 
@@ -90,20 +93,20 @@ public final class ChartUtilities {
     }
 
     /**
-     * A method to find the upper bound of an axis given its lower bound, long 
-     * edge dimension, and a conversion from its dimension to local coordinates.
+     * A method to find the upper bound of an axis given its lower bound, long
+     * edge dimension, and a conversion from its dimension to local
+     * coordinates.
      * <p>
      * As long as you treat the display's x-axis separately from its y-axis,
-     * this method should apply to any arbitrary local units, even when they
-     * are different both in type and in scale for the two axes.
+     * this method should apply to any arbitrary local units, even when they are
+     * different both in type and in scale for the two axes.
      *
-     * @param dimensionPx
-     *            The long dimension of the axis in terms of its layout bounds
-     * @param lowerBound
-     *            The minimum value the axis may represent in local coordinates
-     * @param displayToLocalScaleFactor
-     *            The multiplier to convert from display coordinates to local
-     *            coordinates
+     * @param dimensionPx               The long dimension of the axis in terms
+     *                                  of its layout bounds
+     * @param lowerBound                The minimum value the axis may represent
+     *                                  in local coordinates
+     * @param displayToLocalScaleFactor The multiplier to convert from display
+     *                                  coordinates to local coordinates
      * @return The upper bound for the axis
      */
     public static double calculateUpperBound( final double dimensionPx,
@@ -111,7 +114,7 @@ public final class ChartUtilities {
                                               final double displayToLocalScaleFactor ) {
         // Check edge cases.
         if ( ( displayToLocalScaleFactor <= 0.0d ) || ( dimensionPx <= 0.0d )
-                || ( lowerBound <= Double.NEGATIVE_INFINITY ) ) {
+             || ( lowerBound <= Double.NEGATIVE_INFINITY ) ) {
             return 0.0d;
         }
 
@@ -122,7 +125,8 @@ public final class ChartUtilities {
     }
 
     // Apply standardized attributes to all number-based charts.
-    public static void applyNumberChartAttributes( final XYChart< Number, Number > chart,
+    public static void applyNumberChartAttributes( final XYChart< Number,
+                                                           Number > chart,
                                                    final boolean isOverlayChart,
                                                    final boolean showLegend,
                                                    final Side legendSide ) {
@@ -151,19 +155,21 @@ public final class ChartUtilities {
             xAxis.setTickLabelsVisible( false );
             xAxis.setTickMarkVisible( false );
 
-            GuiUtilities.addStylesheetAsJarResource( chart, "/css/overlay-chart.css" );
+            GuiUtilities.addStylesheetAsJarResource( chart,
+                                                     "/css/overlay-chart.css" );
         }
     }
 
     public static NumberAxis getFrequencyDomainAmplitudeAxis( final double lowerBound,
                                                               final double upperBound,
                                                               final double tickUnit ) {
-        final NumberAxis frequencyAmplitudeAxis =
-                                                new NumberAxis( lowerBound, upperBound, tickUnit );
+        final NumberAxis frequencyAmplitudeAxis = new NumberAxis( lowerBound,
+                                                                  upperBound,
+                                                                  tickUnit );
         frequencyAmplitudeAxis.setLabel( "Amplitude (dB)" ); //$NON-NLS-1$
 
-        frequencyAmplitudeAxis
-                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyAmplitudeAxis ) );
+        frequencyAmplitudeAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter(
+                frequencyAmplitudeAxis ) );
 
         return frequencyAmplitudeAxis;
     }
@@ -171,18 +177,22 @@ public final class ChartUtilities {
     public static NumberAxis getFrequencyDomainGainAxis( final double lowerBound,
                                                          final double upperBound,
                                                          final double tickUnit ) {
-        final NumberAxis frequencyGainAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        final NumberAxis frequencyGainAxis = new NumberAxis( lowerBound,
+                                                             upperBound,
+                                                             tickUnit );
         frequencyGainAxis.setLabel( "Gain (dB)" ); //$NON-NLS-1$
 
-        frequencyGainAxis
-                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyGainAxis ) );
+        frequencyGainAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter(
+                frequencyGainAxis ) );
 
         return frequencyGainAxis;
     }
 
     public static NumberAxis getFrequencyDomainPhaseAxis( final double tickUnit,
                                                           final int minorTickCount ) {
-        final NumberAxis frequencyPhaseAxis = new NumberAxis( -180d, 180d, tickUnit );
+        final NumberAxis frequencyPhaseAxis = new NumberAxis( -180d,
+                                                              180d,
+                                                              tickUnit );
 
         frequencyPhaseAxis.setTickMarkVisible( true );
         frequencyPhaseAxis.setTickLabelsVisible( true );
@@ -192,31 +202,35 @@ public final class ChartUtilities {
         frequencyPhaseAxis.setLabel( "Phase (degrees)" ); //$NON-NLS-1$
 
         // NOTE: We might have to support other angle formats at some point.
-        frequencyPhaseAxis
-                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencyPhaseAxis,
-                                                                         null,
-                                                                         StringConstants.DEGREES_SYMBOL ) );
+        frequencyPhaseAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter(
+                frequencyPhaseAxis,
+                null,
+                StringConstants.DEGREES_SYMBOL ) );
 
         return frequencyPhaseAxis;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static NumberAxis getFrequencyDomainSplAxis( final double lowerBound,
                                                         final double upperBound,
                                                         final double tickUnit ) {
-        final NumberAxis frequencySplAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        final NumberAxis frequencySplAxis = new NumberAxis( lowerBound,
+                                                            upperBound,
+                                                            tickUnit );
         frequencySplAxis.setLabel( "SPL (dBSPL)" );
 
-        frequencySplAxis
-                .setTickLabelFormatter( new NumberAxis.DefaultFormatter( frequencySplAxis ) );
+        frequencySplAxis.setTickLabelFormatter( new NumberAxis.DefaultFormatter(
+                frequencySplAxis ) );
 
         return frequencySplAxis;
-
     }
 
     public static NumberAxis getNormalizedAmplitudeAxis() {
-        final NumberAxis normalizedAmplitudeAxis = new NumberAxis( -1d, 1.0d, 0.25d );
-        normalizedAmplitudeAxis.setLabel( "Amplitude (Normalized)" ); //$NON-NLS-1$
+        final NumberAxis normalizedAmplitudeAxis = new NumberAxis( -1d,
+                                                                   1.0d,
+                                                                   0.25d );
+        normalizedAmplitudeAxis.setLabel( "Amplitude (Normalized)" ); //$NON
+        // -NLS-1$
 
         return normalizedAmplitudeAxis;
     }
@@ -225,12 +239,11 @@ public final class ChartUtilities {
                                                               final double upperBound,
                                                               final double[] centerFrequencies,
                                                               final ClientProperties pClientProperties ) {
-        final FrequencySeriesAxis frequencySeriesAxis =
-                                                      new FrequencySeriesAxis( FastMath
-                                                              .round( lowerBound ),
-                                                              FastMath.round( upperBound ),
-                                                                               centerFrequencies,
-                                                                               pClientProperties );
+        final FrequencySeriesAxis frequencySeriesAxis = new FrequencySeriesAxis(
+                FastMath.round( lowerBound ),
+                FastMath.round( upperBound ),
+                centerFrequencies,
+                pClientProperties );
 
         return frequencySeriesAxis;
     }
@@ -240,8 +253,11 @@ public final class ChartUtilities {
                                                 final double tickUnit,
                                                 final String timeUnit,
                                                 final boolean rotateTickLabels ) {
-        final NumberAxis timeSeriesAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
-        timeSeriesAxis.setLabel( "Time (" + timeUnit + ")" ); //$NON-NLS-1$ //$NON-NLS-2$
+        final NumberAxis timeSeriesAxis = new NumberAxis( lowerBound,
+                                                          upperBound,
+                                                          tickUnit );
+        timeSeriesAxis.setLabel(
+                "Time (" + timeUnit + ")" ); //$NON-NLS-1$ //$NON-NLS-2$
 
         // Conditionally use rotated tick labels, as they tend to cram into each
         // other due to most time increments being more than just a couple of
@@ -258,7 +274,9 @@ public final class ChartUtilities {
     public static NumberAxis getSplAxis( final double lowerBound,
                                          final double upperBound,
                                          final double tickUnit ) {
-        final NumberAxis splAxis = new NumberAxis( lowerBound, upperBound, tickUnit );
+        final NumberAxis splAxis = new NumberAxis( lowerBound,
+                                                   upperBound,
+                                                   tickUnit );
 
         // Can't auto-range as there are no actual data sets to plot in an SPL
         // Raster Image overlay for a Cartesian Space graphics canvas, and minor
@@ -271,53 +289,67 @@ public final class ChartUtilities {
         return splAxis;
     }
 
-    public static String getDataPointValue( final double xValueShared,
-                                            final double yValueBottom,
-                                            final double yValueTop,
-                                            final NumberFormat xValueSharedNumberFormat,
-                                            final NumberFormat yValueBottomNumberFormat,
-                                            final NumberFormat yValueTopNumberFormat,
-                                            final String xUnitLabelShared,
-                                            final String yUnitLabelBottom,
-                                            final String yUnitLabelTop ) {
-        final String dataPointValue = Double.isNaN( yValueTop )
-            ? TextUtilities.getFormattedQuantityPair( xValueShared,
-                                                      yValueBottom,
-                                                      xValueSharedNumberFormat,
-                                                      yValueBottomNumberFormat,
-                                                      xUnitLabelShared,
-                                                      yUnitLabelBottom )
-            : TextUtilities.getFormattedQuantityTriplet( xValueShared,
-                                                         yValueBottom,
-                                                         yValueTop,
-                                                         xValueSharedNumberFormat,
-                                                         yValueBottomNumberFormat,
-                                                         yValueTopNumberFormat,
-                                                         xUnitLabelShared,
-                                                         yUnitLabelBottom,
-                                                         yUnitLabelTop );
-        return dataPointValue;
-    }
-
     public static double[] getDataSetXValues( final XYChart< Number, Number > xyChart,
                                               final int dataSetIndex ) {
         if ( !isDataSetValid( xyChart, dataSetIndex ) ) {
             return new double[ 0 ];
         }
 
-        final ObservableList< Series< Number, Number > > chartSeriesList = xyChart.getData();
-        final XYChart.Series< Number, Number > chartSeries = chartSeriesList.get( dataSetIndex );
-        final ObservableList< Data< Number, Number > > chartSeriesData = chartSeries.getData();
+        final ObservableList< Series< Number, Number > > chartSeriesList
+                = xyChart.getData();
+        final XYChart.Series< Number, Number > chartSeries
+                = chartSeriesList.get( dataSetIndex );
+        final ObservableList< Data< Number, Number > > chartSeriesData
+                = chartSeries.getData();
 
         final int numberOfDataPoints = chartSeriesData.size();
         final double[] xValues = new double[ numberOfDataPoints ];
-        for ( int dataPointIndex = 0; dataPointIndex < numberOfDataPoints; dataPointIndex++ ) {
-            final Data< Number, Number > chartSeriesDataPoint =
-                                                              chartSeriesData.get( dataPointIndex );
-            xValues[ dataPointIndex ] = chartSeriesDataPoint.getXValue().doubleValue();
+        for ( int dataPointIndex = 0;
+              dataPointIndex < numberOfDataPoints;
+              dataPointIndex++ ) {
+            final Data< Number, Number > chartSeriesDataPoint
+                    = chartSeriesData.get( dataPointIndex );
+            xValues[ dataPointIndex ] = chartSeriesDataPoint.getXValue()
+                                                            .doubleValue();
         }
 
         return xValues;
+    }
+
+    /**
+     * Return whether the specified data set is valid or not. Check the argument
+     * to ensure that it is a valid data set index. If it is less than zero,
+     * does not refer to an existing data set, or the data set is empty, return
+     * false. Do not throw exceptions as this overly restricts calling
+     * contexts.
+     *
+     * @param xyChart      The chart whose data sets must be validated
+     * @param dataSetIndex The data set index.
+     * @return True if the specified data set is valid; false if not.
+     */
+    public static boolean isDataSetValid( final XYChart< Number, Number > xyChart,
+                                          final int dataSetIndex ) {
+        if ( ( xyChart == null ) || ( dataSetIndex < 0 ) ) {
+            return false;
+        }
+
+        final ObservableList< Series< Number, Number > > chartSeriesList
+                = xyChart.getData();
+        if ( ( chartSeriesList == null ) || ( dataSetIndex
+                                              >= chartSeriesList.size() ) ) {
+            return false;
+        }
+
+        final XYChart.Series< Number, Number > chartSeries
+                = chartSeriesList.get( dataSetIndex );
+        if ( chartSeries == null ) {
+            return false;
+        }
+
+        final ObservableList< Data< Number, Number > > chartSeriesData
+                = chartSeries.getData();
+
+        return ( ( chartSeriesData != null ) && !chartSeriesData.isEmpty() );
     }
 
     public static double[] getDataSetYValues( final XYChart< Number, Number > xyChart,
@@ -326,23 +358,30 @@ public final class ChartUtilities {
             return new double[ 0 ];
         }
 
-        final ObservableList< Series< Number, Number > > chartSeriesList = xyChart.getData();
-        final XYChart.Series< Number, Number > chartSeries = chartSeriesList.get( dataSetIndex );
-        final ObservableList< Data< Number, Number > > chartSeriesData = chartSeries.getData();
+        final ObservableList< Series< Number, Number > > chartSeriesList
+                = xyChart.getData();
+        final XYChart.Series< Number, Number > chartSeries
+                = chartSeriesList.get( dataSetIndex );
+        final ObservableList< Data< Number, Number > > chartSeriesData
+                = chartSeries.getData();
 
         final int numberOfDataPoints = chartSeriesData.size();
         final double[] yValues = new double[ numberOfDataPoints ];
-        for ( int dataPointIndex = 0; dataPointIndex < numberOfDataPoints; dataPointIndex++ ) {
-            final Data< Number, Number > chartSeriesDataPoint =
-                                                              chartSeriesData.get( dataPointIndex );
-            yValues[ dataPointIndex ] = chartSeriesDataPoint.getYValue().doubleValue();
+        for ( int dataPointIndex = 0;
+              dataPointIndex < numberOfDataPoints;
+              dataPointIndex++ ) {
+            final Data< Number, Number > chartSeriesDataPoint
+                    = chartSeriesData.get( dataPointIndex );
+            yValues[ dataPointIndex ] = chartSeriesDataPoint.getYValue()
+                                                            .doubleValue();
         }
 
         return yValues;
     }
 
-    @SuppressWarnings("nls")
-    public static String getFormattedDataPoint( final Series< Number, Number > chartSeries,
+    @SuppressWarnings( "nls" )
+    public static String getFormattedDataPoint( final Series< Number,
+                                                            Number > chartSeries,
                                                 final double xValueShared,
                                                 final double yValueBottom,
                                                 final double yValueTop,
@@ -370,6 +409,37 @@ public final class ChartUtilities {
         return formattedDataPoint.toString();
     }
 
+    public static String getDataPointValue( final double xValueShared,
+                                            final double yValueBottom,
+                                            final double yValueTop,
+                                            final NumberFormat xValueSharedNumberFormat,
+                                            final NumberFormat yValueBottomNumberFormat,
+                                            final NumberFormat yValueTopNumberFormat,
+                                            final String xUnitLabelShared,
+                                            final String yUnitLabelBottom,
+                                            final String yUnitLabelTop ) {
+        final String dataPointValue = Double.isNaN( yValueTop )
+                                      ? TextUtilities.getFormattedQuantityPair(
+                xValueShared,
+                yValueBottom,
+                xValueSharedNumberFormat,
+                yValueBottomNumberFormat,
+                xUnitLabelShared,
+                yUnitLabelBottom )
+                                      :
+                                      TextUtilities.getFormattedQuantityTriplet(
+                                              xValueShared,
+                                              yValueBottom,
+                                              yValueTop,
+                                              xValueSharedNumberFormat,
+                                              yValueBottomNumberFormat,
+                                              yValueTopNumberFormat,
+                                              xUnitLabelShared,
+                                              yUnitLabelBottom,
+                                              yUnitLabelTop );
+        return dataPointValue;
+    }
+
     public static boolean isChartEmpty( final XYChart< Number, Number > xyChart ) {
         // First, check first for null charts (i.e. not initialized).
         if ( xyChart == null ) {
@@ -377,7 +447,8 @@ public final class ChartUtilities {
         }
 
         // Next, check first for empty charts (i.e. no data sets).
-        final ObservableList< Series< Number, Number > > chartSeriesList = xyChart.getData();
+        final ObservableList< Series< Number, Number > > chartSeriesList
+                = xyChart.getData();
         if ( ( chartSeriesList == null ) || chartSeriesList.isEmpty() ) {
             return true;
         }
@@ -385,7 +456,8 @@ public final class ChartUtilities {
         // Finally, check for all-empty data sets within the chart.
         boolean chartEmpty = true;
         for ( final Series< Number, Number > series : chartSeriesList ) {
-            final ObservableList< Data< Number, Number > > data = series.getData();
+            final ObservableList< Data< Number, Number > > data
+                    = series.getData();
             if ( ( data != null ) && !data.isEmpty() ) {
                 chartEmpty = false;
                 break;
@@ -395,52 +467,28 @@ public final class ChartUtilities {
         return chartEmpty;
     }
 
-    /**
-     * Return whether the specified data set is valid or not. Check the argument
-     * to ensure that it is a valid data set index. If it is less than zero,
-     * does not refer to an existing data set, or the data set is empty, return
-     * false. Do not throw exceptions as this overly restricts calling contexts.
-     *
-     * @param xyChart
-     *            The chart whose data sets must be validated
-     * @param dataSetIndex
-     *            The data set index.
-     * @return True if the specified data set is valid; false if not.
-     */
-    public static boolean isDataSetValid( final XYChart< Number, Number > xyChart,
-                                          final int dataSetIndex ) {
-        if ( ( xyChart == null ) || ( dataSetIndex < 0 ) ) {
-            return false;
-        }
-
-        final ObservableList< Series< Number, Number > > chartSeriesList = xyChart.getData();
-        if ( ( chartSeriesList == null ) || ( dataSetIndex >= chartSeriesList.size() ) ) {
-            return false;
-        }
-
-        final XYChart.Series< Number, Number > chartSeries = chartSeriesList.get( dataSetIndex );
-        if ( chartSeries == null ) {
-            return false;
-        }
-
-        final ObservableList< Data< Number, Number > > chartSeriesData = chartSeries.getData();
-
-        return ( ( chartSeriesData != null ) && !chartSeriesData.isEmpty() );
-    }
-
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static void updateDataSeriesLegend( final ChartLegend legend,
-                                               final XYChart< Number, Number > chart ) {
+                                               final XYChart< Number,
+                                                       Number > chart ) {
         final ObservableList< ChartLegendItem > legendItems = legend.getItems();
         legendItems.clear();
 
-        final ObservableList< Series< Number, Number > > dataSeries = chart.getData();
+        final ObservableList< Series< Number, Number > > dataSeries
+                = chart.getData();
         if ( ( dataSeries != null ) && !dataSeries.isEmpty() ) {
-            for ( int seriesIndex = 0; seriesIndex < dataSeries.size(); seriesIndex++ ) {
-                final Series< Number, Number > series = dataSeries.get( seriesIndex );
-                final ChartLegendItem legenditem = new ChartLegendItem( series.getName() );
-                legenditem.getSymbol().getStyleClass()
-                        .addAll( "chart-line-symbol", "series" + seriesIndex, "default-color" );
+            for ( int seriesIndex = 0;
+                  seriesIndex < dataSeries.size();
+                  seriesIndex++ ) {
+                final Series< Number, Number > series = dataSeries.get(
+                        seriesIndex );
+                final ChartLegendItem legenditem
+                        = new ChartLegendItem( series.getName() );
+                legenditem.getSymbol()
+                          .getStyleClass()
+                          .addAll( "chart-line-symbol",
+                                   "series" + seriesIndex,
+                                   "default-color" );
                 legendItems.add( legenditem );
             }
         }
@@ -453,21 +501,20 @@ public final class ChartUtilities {
         return axisLabelBasis + " (" + unit + ")";
     }
 
-    public static NumberAxis createNumberAxis(final double min,
-                                              final double max,
-                                              final double step,
-                                              final String label ) {
-        final NumberAxis axis = new NumberAxis(min, max, step);
-        axis.setLabel(label);
+    public static NumberAxis createNumberAxis( final double min,
+                                               final double max,
+                                               final double step,
+                                               final String label ) {
+        final NumberAxis axis = new NumberAxis( min, max, step );
+        axis.setLabel( label );
 
         return axis;
     }
 
-    public static CategoryAxis createCategoryAxis(
-            final ObservableList<String> categories,
-            final String label ) {
-        final CategoryAxis axis = new CategoryAxis(categories);
-        axis.setLabel(label);
+    public static CategoryAxis createCategoryAxis( final ObservableList< String > categories,
+                                                   final String label ) {
+        final CategoryAxis axis = new CategoryAxis( categories );
+        axis.setLabel( label );
 
         return axis;
     }

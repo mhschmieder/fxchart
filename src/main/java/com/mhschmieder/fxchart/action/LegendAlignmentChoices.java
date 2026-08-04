@@ -46,44 +46,49 @@ import java.util.Collection;
 public final class LegendAlignmentChoices {
 
     // Declare all of the Legend Alignment choices.
-    public XAction      _legendAlignmentBelowChoice;
-    public XAction      _legendAlignmentAboveChoice;
-    public XAction      _legendAlignmentBetweenChoice;
-    public XAction      _legendAlignmentLeftChoice;
-    public XAction      _legendAlignmentRightChoice;
+    public XAction _legendAlignmentBelowChoice;
+    public XAction _legendAlignmentAboveChoice;
+    public XAction _legendAlignmentBetweenChoice;
+    public XAction _legendAlignmentLeftChoice;
+    public XAction _legendAlignmentRightChoice;
 
     // Cache the associated choice group, for ease of overall enablement.
     public XActionGroup _legendAlignmentChoiceGroup;
 
     // Default constructor
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public LegendAlignmentChoices( final ClientProperties clientProperties ) {
-        _legendAlignmentBelowChoice = ChartLabeledActionFactory
-                .getLegendAlignmentBelowChoice( clientProperties );
-        _legendAlignmentAboveChoice = ChartLabeledActionFactory
-                .getLegendAlignmentAboveChoice( clientProperties );
-        _legendAlignmentBetweenChoice = ChartLabeledActionFactory
-                .getLegendAlignmentBetweenChoice( clientProperties );
-        _legendAlignmentLeftChoice = ChartLabeledActionFactory
-                .getLegendAlignmentLeftChoice( clientProperties );
-        _legendAlignmentRightChoice = ChartLabeledActionFactory
-                .getLegendAlignmentRightChoice( clientProperties );
+        _legendAlignmentBelowChoice
+                = ChartLabeledActionFactory.getLegendAlignmentBelowChoice(
+                clientProperties );
+        _legendAlignmentAboveChoice
+                = ChartLabeledActionFactory.getLegendAlignmentAboveChoice(
+                clientProperties );
+        _legendAlignmentBetweenChoice
+                = ChartLabeledActionFactory.getLegendAlignmentBetweenChoice(
+                clientProperties );
+        _legendAlignmentLeftChoice
+                = ChartLabeledActionFactory.getLegendAlignmentLeftChoice(
+                clientProperties );
+        _legendAlignmentRightChoice
+                = ChartLabeledActionFactory.getLegendAlignmentRightChoice(
+                clientProperties );
 
         // Get the collection pertinent to shared vs. individual legend context.
-        final Collection< Action > legendAlignmentChoiceCollection = Arrays
-                .asList( _legendAlignmentBelowChoice,
-                         _legendAlignmentAboveChoice,
-                         _legendAlignmentBetweenChoice,
-                         _legendAlignmentLeftChoice,
-                         _legendAlignmentRightChoice );
+        final Collection< Action > legendAlignmentChoiceCollection
+                = Arrays.asList( _legendAlignmentBelowChoice,
+                                 _legendAlignmentAboveChoice,
+                                 _legendAlignmentBetweenChoice,
+                                 _legendAlignmentLeftChoice,
+                                 _legendAlignmentRightChoice );
 
-        _legendAlignmentChoiceGroup = ActionFactory
-                .makeChoiceGroup( clientProperties,
-                                  legendAlignmentChoiceCollection,
-                                  ChartLabeledActionFactory.BUNDLE_NAME,
-                                  "legendAlignment",
-                                  null,
-                                  true );
+        _legendAlignmentChoiceGroup = ActionFactory.makeChoiceGroup(
+                clientProperties,
+                legendAlignmentChoiceCollection,
+                ChartLabeledActionFactory.BUNDLE_NAME,
+                "legendAlignment",
+                null,
+                true );
     }
 
     public LegendAlignment getLegendAlignment() {
@@ -107,6 +112,30 @@ public final class LegendAlignmentChoices {
         }
     }
 
+    public void setLegendAlignment( final LegendAlignment legendAlignment ) {
+        // Sync up the Radio Button Menu Items with the current Legend
+        // Alignment.
+        switch ( legendAlignment ) {
+            case BELOW:
+                _legendAlignmentBelowChoice.setSelected( true );
+                break;
+            case ABOVE:
+                _legendAlignmentAboveChoice.setSelected( true );
+                break;
+            case BETWEEN:
+                _legendAlignmentBetweenChoice.setSelected( true );
+                break;
+            case LEFT:
+                _legendAlignmentLeftChoice.setSelected( true );
+                break;
+            case RIGHT:
+                _legendAlignmentRightChoice.setSelected( true );
+                break;
+            default:
+                break;
+        }
+    }
+
     public XActionGroup getLegendAlignmentChoiceGroup() {
         return _legendAlignmentChoiceGroup;
     }
@@ -114,29 +143,4 @@ public final class LegendAlignmentChoices {
     public void setDisabled( final boolean disabled ) {
         _legendAlignmentChoiceGroup.setDisabled( disabled );
     }
-
-    public void setLegendAlignment( final LegendAlignment legendAlignment ) {
-        // Sync up the Radio Button Menu Items with the current Legend
-        // Alignment.
-        switch ( legendAlignment ) {
-        case BELOW:
-            _legendAlignmentBelowChoice.setSelected( true );
-            break;
-        case ABOVE:
-            _legendAlignmentAboveChoice.setSelected( true );
-            break;
-        case BETWEEN:
-            _legendAlignmentBetweenChoice.setSelected( true );
-            break;
-        case LEFT:
-            _legendAlignmentLeftChoice.setSelected( true );
-            break;
-        case RIGHT:
-            _legendAlignmentRightChoice.setSelected( true );
-            break;
-        default:
-            break;
-        }
-    }
-
 }

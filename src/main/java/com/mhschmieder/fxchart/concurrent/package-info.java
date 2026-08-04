@@ -29,10 +29,7 @@
  * Project: https://github.com/mhschmieder/fxchart
  */
 /**
- * This package contains concurrency classes that depend on JavaFX GUI elements.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
+ * This package contains concurrency classes that depend on JavaFX GUI
+ * elements.
  */
 package com.mhschmieder.fxchart.concurrent;

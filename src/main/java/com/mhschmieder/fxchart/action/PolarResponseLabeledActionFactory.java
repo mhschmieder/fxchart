@@ -45,70 +45,79 @@ import java.util.Collection;
 public class PolarResponseLabeledActionFactory {
 
     // NOTE: We must substitute "." for resource directory tree delimiters.
-    public static final String BUNDLE_NAME = "properties.PolarResponseActionLabels";
+    public static final String BUNDLE_NAME
+            = "properties.PolarResponseActionLabels";
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static final XActionGroup getScaleChoiceGroup( final ClientProperties pClientProperties,
                                                           final PolarResponseAmplitudeScaleChoices polarResponseAmplitudeScaleChoices ) {
-        final Collection< Action > scaleChoiceCollection = polarResponseAmplitudeScaleChoices.getScaleChoiceCollection();
+        final Collection< Action > scaleChoiceCollection
+                = polarResponseAmplitudeScaleChoices.getScaleChoiceCollection();
 
-        final XActionGroup scaleChoiceGroup = ActionFactory.makeChoiceGroup( pClientProperties,
-                                                                             scaleChoiceCollection,
-                                                                             BUNDLE_NAME,
-                                                                             "scale",
-                                                                             null );
+        final XActionGroup scaleChoiceGroup = ActionFactory.makeChoiceGroup(
+                pClientProperties,
+                scaleChoiceCollection,
+                BUNDLE_NAME,
+                "scale",
+                null );
 
         return scaleChoiceGroup;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static final XAction getScaleDiv10dbChoice( final ClientProperties pClientProperties ) {
         return getScaleDivChoice( pClientProperties, "div10db" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
+    private static final XAction getScaleDivChoice( final ClientProperties pClientProperties,
+                                                    final String itemName ) {
+        return ActionFactory.makeChoice( pClientProperties,
+                                         BUNDLE_NAME,
+                                         "scale",
+                                         itemName,
+                                         null );
+    }
+
+    @SuppressWarnings( "nls" )
     public static final XAction getScaleDiv5dbChoice( final ClientProperties pClientProperties ) {
         return getScaleDivChoice( pClientProperties, "div5db" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static final XAction getScaleDiv6dbChoice( final ClientProperties pClientProperties ) {
         return getScaleDivChoice( pClientProperties, "div6db" );
     }
 
-    @SuppressWarnings("nls")
-    private static final XAction getScaleDivChoice( final ClientProperties pClientProperties,
-                                                    final String itemName ) {
-        return ActionFactory.makeChoice( pClientProperties, BUNDLE_NAME, "scale", itemName, null );
-    }
-
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static final XActionGroup getTestActionGroup( final ClientProperties pClientProperties,
                                                          final TestActions testActions ) {
-        final Collection< Action > testActionCollection = testActions.getTestActionCollection();
+        final Collection< Action > testActionCollection
+                = testActions.getTestActionCollection();
 
-        final XActionGroup testActionGroup = ActionFactory
-                .makeActionGroup( pClientProperties,
-                                  testActionCollection,
-                                  LabeledActionFactory.BUNDLE_NAME,
-                                  "test",
-                                  null );
+        final XActionGroup testActionGroup = ActionFactory.makeActionGroup(
+                pClientProperties,
+                testActionCollection,
+                LabeledActionFactory.BUNDLE_NAME,
+                "test",
+                null );
 
         return testActionGroup;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static final XActionGroup getViewActionGroup( final ClientProperties pClientProperties,
                                                          final PolarResponseViewActions polarResponseViewActions ) {
-        final Collection< Action > viewActionCollection = polarResponseViewActions
-                .getViewActionCollection( pClientProperties );
+        final Collection< Action > viewActionCollection
+                = polarResponseViewActions.getViewActionCollection(
+                pClientProperties );
 
-        final XActionGroup viewActionGroup = ActionFactory
-                .makeActionGroup( pClientProperties,
-                                  viewActionCollection,
-                                  LabeledActionFactory.BUNDLE_NAME,
-                                  "view",
-                                  null );
+        final XActionGroup viewActionGroup = ActionFactory.makeActionGroup(
+                pClientProperties,
+                viewActionCollection,
+                LabeledActionFactory.BUNDLE_NAME,
+                "view",
+                null );
 
         return viewActionGroup;
     }

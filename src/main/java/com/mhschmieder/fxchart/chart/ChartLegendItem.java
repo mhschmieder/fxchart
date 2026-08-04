@@ -48,8 +48,10 @@ import javafx.scene.layout.Region;
  */
 public class ChartLegendItem {
 
-    /** Label used to represent the Legend Item */
-    public final Label                   label;
+    /**
+     * Label used to represent the Legend Item
+     */
+    public final Label label;
 
     /**
      * The symbol to use next to the item text, set to null for no symbol.
@@ -58,10 +60,19 @@ public class ChartLegendItem {
      */
     private final ObjectProperty< Node > symbol;
 
-    /** The item text */
-    private final StringProperty         text;
+    /**
+     * The item text
+     */
+    private final StringProperty text;
 
-    @SuppressWarnings("nls")
+    public ChartLegendItem( final String textValue,
+                            final Node symbolValue ) {
+        this( textValue );
+
+        setSymbol( symbolValue );
+    }
+
+    @SuppressWarnings( "nls" )
     public ChartLegendItem( final String textValue ) {
         label = new Label();
 
@@ -80,7 +91,8 @@ public class ChartLegendItem {
             protected void invalidated() {
                 final Node symbolValue = get();
                 if ( symbolValue != null ) {
-                    symbolValue.getStyleClass().setAll( "chart-legend-item-symbol" );
+                    symbolValue.getStyleClass()
+                               .setAll( "chart-legend-item-symbol" );
                 }
                 label.setGraphic( symbolValue );
             }
@@ -114,22 +126,16 @@ public class ChartLegendItem {
         label.setGraphic( symbolValue );
     }
 
-    public ChartLegendItem( final String textValue, final Node symbolValue ) {
-        this( textValue );
-
-        setSymbol( symbolValue );
-    }
-
     public final Node getSymbol() {
         return symbol.getValue();
     }
 
-    public final String getText() {
-        return text.getValue();
-    }
-
     public final void setSymbol( final Node symbolValue ) {
         symbol.setValue( symbolValue );
+    }
+
+    public final String getText() {
+        return text.getValue();
     }
 
     public final void setText( final String textValue ) {
@@ -143,5 +149,4 @@ public class ChartLegendItem {
     public final StringProperty textProperty() {
         return text;
     }
-
 }

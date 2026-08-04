@@ -43,12 +43,12 @@ public final class PolarDataRequestService extends TrackableDataRequestService {
                                     final ClientProperties pClientProperties,
                                     final DataRequestStatusViewer pDataRequestStatusViewer ) {
         // Always call the superclass constructor first!
-        super( pServerRequestProperties, 
+        super( pServerRequestProperties,
                pClientProperties,
                pDataRequestStatusViewer );
     }
-    
-    @Override 
+
+    @Override
     protected DataRequestTask makeDataRequestTask() {
         return new PolarDataRequestTask( httpServletRequestProperties,
                                          dataRequestParameters,

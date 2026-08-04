@@ -30,10 +30,7 @@
  */
 /**
  * This package contains network classes that work in conjunction with other
- * classes that are already in this library but do not have specific dependencies.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
+ * classes that are already in this library but do not have specific
+ * dependencies.
  */
 package com.mhschmieder.fxchart.net;

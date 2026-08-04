@@ -30,10 +30,7 @@
  */
 /**
  * This package contains stages that represent full-blown windows for hosting
- * charts defined in this library. More commonly, this library's charts are
- * used in smaller layout regions and do not constitute the entire content pane.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
- */package com.mhschmieder.fxchart.stage;
+ * charts defined in this library. More commonly, this library's charts are used
+ * in smaller layout regions and do not constitute the entire content pane.
+ */
+package com.mhschmieder.fxchart.stage;

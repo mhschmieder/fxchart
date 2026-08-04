@@ -45,7 +45,8 @@ public final class PolarResponseViewActions {
     public PolarResponseAmplitudeScaleChoices _scaleChoices;
 
     public PolarResponseViewActions( final ClientProperties pClientProperties ) {
-        _scaleChoices = new PolarResponseAmplitudeScaleChoices( pClientProperties );
+        _scaleChoices = new PolarResponseAmplitudeScaleChoices(
+                pClientProperties );
     }
 
     public Collection< Action > getScaleChoiceCollection() {
@@ -54,10 +55,13 @@ public final class PolarResponseViewActions {
     }
 
     public Collection< Action > getViewActionCollection( final ClientProperties pClientProperties ) {
-        final XActionGroup scaleChoiceGroup = PolarResponseLabeledActionFactory
-                .getScaleChoiceGroup( pClientProperties, _scaleChoices );
+        final XActionGroup scaleChoiceGroup
+                = PolarResponseLabeledActionFactory.getScaleChoiceGroup(
+                pClientProperties,
+                _scaleChoices );
 
-        final Collection< Action > viewActionCollection = Arrays.asList( scaleChoiceGroup );
+        final Collection< Action > viewActionCollection = Arrays.asList(
+                scaleChoiceGroup );
 
         return viewActionCollection;
     }

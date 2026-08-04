@@ -35,9 +35,10 @@ import com.mhschmieder.fxcontrols.control.TextSelector;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jphysics.acoustics.FrequencyRange;
 import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
-import javafx.scene.control.ToolBar;
 
 import java.text.NumberFormat;
+
+import javafx.scene.control.ToolBar;
 
 public final class PolarResponseToolBar extends ToolBar {
 
@@ -55,7 +56,7 @@ public final class PolarResponseToolBar extends ToolBar {
                                  final boolean useExtendedRange ) {
         // Always call the superclass constructor first!
         super();
-        
+
         acousticSourceModelSelector = pAcousticSourceModelSelector;
 
         try {
@@ -66,30 +67,17 @@ public final class PolarResponseToolBar extends ToolBar {
         }
     }
 
-    public String getCenterFrequency() {
-        return frequencyRangeControls.getCenterFrequency();
-    }
-
-    public String getAcousticalSourceModel() {
-        // return acousticSourceModelSelector.getTextValue();
-        return acousticSourceModelSelector.getValue();
-    }
-
-    public String getOctaveRange() {
-        return frequencyRangeControls.getOctaveRange();
-    }
-
-    public RelativeBandwidth getRelativeBandwidth() {
-        return frequencyRangeControls.getRelativeBandwidth();
-    }
-
     private void initToolBar( final NumberFormat numberFormat,
                               final ClientProperties pClientProperties,
                               final boolean useExtendedRange ) {
-        final int startIndexForOneOctave = useExtendedRange ? 4 : 5;
-        final int startIndexForThirdOctave = useExtendedRange ? 10 : 13;
-        frequencyRangeControls = new FrequencyRangeControls( numberFormat, 
-                                                             pClientProperties, 
+        final int startIndexForOneOctave = useExtendedRange
+                                           ? 4
+                                           : 5;
+        final int startIndexForThirdOctave = useExtendedRange
+                                             ? 10
+                                             : 13;
+        frequencyRangeControls = new FrequencyRangeControls( numberFormat,
+                                                             pClientProperties,
                                                              false,
                                                              useExtendedRange,
                                                              startIndexForOneOctave,
@@ -105,12 +93,38 @@ public final class PolarResponseToolBar extends ToolBar {
         // SearchableComboBox, we need to assert a uniform height within the
         // Tool Bar. Otherwise, the Searchable Filter field makes it too tall.
         acousticSourceModelSelector.maxHeightProperty()
-                .bind( frequencyRangeControls._relativeBandwidthSelector.heightProperty() );
+                                   .bind( frequencyRangeControls._relativeBandwidthSelector.heightProperty() );
     }
 
-    public void setCenterFrequency( final String sOctaveRange, 
+    public String getCenterFrequency() {
+        return frequencyRangeControls.getCenterFrequency();
+    }
+
+    public String getAcousticalSourceModel() {
+        // return acousticSourceModelSelector.getTextValue();
+        return acousticSourceModelSelector.getValue();
+    }
+
+    public String getOctaveRange() {
+        return frequencyRangeControls.getOctaveRange();
+    }
+
+    public void setOctaveRange( final String sOctaveRange ) {
+        frequencyRangeControls.setOctaveRange( sOctaveRange );
+    }
+
+    public RelativeBandwidth getRelativeBandwidth() {
+        return frequencyRangeControls.getRelativeBandwidth();
+    }
+
+    public void setRelativeBandwidth( final RelativeBandwidth relativeBandwidth ) {
+        frequencyRangeControls.setRelativeBandwidth( relativeBandwidth );
+    }
+
+    public void setCenterFrequency( final String sOctaveRange,
                                     final double centerFrequency ) {
-        frequencyRangeControls.setCenterFrequency( sOctaveRange, centerFrequency );
+        frequencyRangeControls.setCenterFrequency( sOctaveRange,
+                                                   centerFrequency );
     }
 
     public void setAcousticSourceModel( final String acousticSourceModel ) {
@@ -118,19 +132,10 @@ public final class PolarResponseToolBar extends ToolBar {
         acousticSourceModelSelector.setValue( acousticSourceModel );
     }
 
-    public void setOctaveRange( final String sOctaveRange ) {
-        frequencyRangeControls.setOctaveRange( sOctaveRange );
-    }
-
-    public void setRelativeBandwidth( final RelativeBandwidth relativeBandwidth ) {
-        frequencyRangeControls.setRelativeBandwidth( relativeBandwidth );
-    }
-
-    public void updateCenterFrequencyForBandwidthAndOctave(
-            final RelativeBandwidth relativeBandwidth,
-            final String sOctaveRange,
-            final double centerFrequency,
-            final boolean preserveSelection ) {
+    public void updateCenterFrequencyForBandwidthAndOctave( final RelativeBandwidth relativeBandwidth,
+                                                            final String sOctaveRange,
+                                                            final double centerFrequency,
+                                                            final boolean preserveSelection ) {
         frequencyRangeControls.updateCenterFrequencyForBandwidthAndOctave(
                 relativeBandwidth,
                 sOctaveRange,
@@ -145,8 +150,9 @@ public final class PolarResponseToolBar extends ToolBar {
     public void updateOctaveRangeForBandwidthAndFrequency( final RelativeBandwidth relativeBandwidth,
                                                            final String sOctaveRange,
                                                            final double centerFrequency ) {
-        frequencyRangeControls.updateOctaveRangeForBandwidthAndFrequency( relativeBandwidth,
-                                                                          sOctaveRange,
-                                                                          centerFrequency );
+        frequencyRangeControls.updateOctaveRangeForBandwidthAndFrequency(
+                relativeBandwidth,
+                sOctaveRange,
+                centerFrequency );
     }
 }

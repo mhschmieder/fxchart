@@ -46,13 +46,14 @@ public final class TestActions {
     public XAction _saveServerResponseAction;
 
     public TestActions( final ClientProperties pClientProperties ) {
-        _saveServerResponseAction = LabeledActionFactory
-                .getTestSaveServerResponseAction( pClientProperties );
+        _saveServerResponseAction
+                = LabeledActionFactory.getTestSaveServerResponseAction(
+                pClientProperties );
     }
 
     public Collection< Action > getTestActionCollection() {
-        final Collection<Action> testActionCollection =
-                                                        Arrays.asList( _saveServerResponseAction );
+        final Collection< Action > testActionCollection = Arrays.asList(
+                _saveServerResponseAction );
 
         return testActionCollection;
     }

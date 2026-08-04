@@ -35,33 +35,38 @@ import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 import com.mhschmieder.jphysics.acoustics.RelativeBandwidth;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.io.Serial;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 public final class PolarResponseTitledVectorizationPanel
         extends RenderedGraphicsTitledVectorizationPanel {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
-    private static final long  serialVersionUID = 8938733992377167662L;
+    @Serial
+    private static final long serialVersionUID = 8938733992377167662L;
 
-    // Declare and instantiate all the UI components.
-    private JPanel             _polarPlotGraphicsPanel;
     public PolarAmplitudePlot _polarPlotHz;
     public PolarAmplitudePlot _polarPlotVt;
 
-    public PolarResponseTitledVectorizationPanel(final int polarResponseViewerWidth,
-                                                 final int polarResponseViewerHeight,
-                                                 final double angleIncrementDegrees ) {
+    // Declare and instantiate all the UI components.
+    private JPanel _polarPlotGraphicsPanel;
+
+    public PolarResponseTitledVectorizationPanel( final int polarResponseViewerWidth,
+                                                  final int polarResponseViewerHeight,
+                                                  final double angleIncrementDegrees ) {
         // Always call the superclass constructor first!
         super();
 
         try {
-            initPanel( polarResponseViewerWidth, 
+            initPanel( polarResponseViewerWidth,
                        polarResponseViewerHeight,
                        angleIncrementDegrees );
         }
@@ -70,14 +75,48 @@ public final class PolarResponseTitledVectorizationPanel
         }
     }
 
+    private void initPanel( final int polarResponseViewerWidth,
+                            final int polarResponseViewerHeight,
+                            final double angleIncrementDegrees )
+            throws Exception {
+        // Make the individual plots for horizontal and vertical polar patterns.
+        _polarPlotHz = new PolarAmplitudePlot( polarResponseViewerWidth,
+                                               polarResponseViewerHeight,
+                                               "Horizontal", //$NON-NLS-1$
+                                               angleIncrementDegrees );
+        _polarPlotVt = new PolarAmplitudePlot( polarResponseViewerWidth,
+                                               polarResponseViewerHeight,
+                                               "Vertical",//$NON-NLS-1$
+                                               angleIncrementDegrees );
+
+        // Use the default box layout in the horizontal orientation to get the
+        // horizontal and vertical polar response plots to line up next to each
+        // other.
+        _polarPlotGraphicsPanel = new JPanel();
+        _polarPlotGraphicsPanel.setLayout( new BoxLayout(
+                _polarPlotGraphicsPanel,
+                BoxLayout.LINE_AXIS ) );
+        _polarPlotGraphicsPanel.setBorder( BorderFactory.createEmptyBorder( 0,
+                                                                            0,
+                                                                            0,
+                                                                            0 ) );
+        _polarPlotGraphicsPanel.add( _polarPlotHz );
+        _polarPlotGraphicsPanel.add( _polarPlotVt );
+
+        // Add the main graphics panel to the top of the main panel's container.
+        setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
+        setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 0 ) );
+        add( _polarPlotGraphicsPanel );
+    }
+
     /**
      * Vectorize this panel to a specific Vector Graphics output format.
      * <p>
-     * NOTE: This is an override implementation, which avoids multiple
-     * titles due to there being multiple sub-panels to export.
+     * NOTE: This is an override implementation, which avoids multiple titles
+     * due to there being multiple sub-panels to export.
      *
-     * @param graphicsContent
-     *            The wrapped Graphics Context to vectorize the content to
+     * @param graphicsContent The wrapped Graphics Context to vectorize the
+     *                        content to
      * @return The status of whether this export succeeded or not
      */
     @Override
@@ -106,62 +145,16 @@ public final class PolarResponseTitledVectorizationPanel
         return _polarPlotHz.getGridSpacing();
     }
 
-    private void initPanel( final int polarResponseViewerWidth,
-                            final int polarResponseViewerHeight,
-                            final double angleIncrementDegrees )
-            throws Exception {
-        // Make the individual plots for horizontal and vertical polar patterns.
-        _polarPlotHz = new PolarAmplitudePlot( polarResponseViewerWidth,
-                                                polarResponseViewerHeight,
-                                                "Horizontal", //$NON-NLS-1$
-                                                angleIncrementDegrees );
-        _polarPlotVt = new PolarAmplitudePlot( polarResponseViewerWidth,
-                                                polarResponseViewerHeight,
-                                                "Vertical",//$NON-NLS-1$
-                                                angleIncrementDegrees );
-
-        // Use the default box layout in the horizontal orientation to get the
-        // horizontal and vertical polar response plots to line up next to each
-        // other.
-        _polarPlotGraphicsPanel = new JPanel();
-        _polarPlotGraphicsPanel
-                .setLayout( new BoxLayout( _polarPlotGraphicsPanel, BoxLayout.LINE_AXIS ) );
-        _polarPlotGraphicsPanel.setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 0 ) );
-        _polarPlotGraphicsPanel.add( _polarPlotHz );
-        _polarPlotGraphicsPanel.add( _polarPlotVt );
-
-        // Add the main graphics panel to the top of the main panel's container.
-        setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
-        setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 0 ) );
-        add( _polarPlotGraphicsPanel );
-    }
-
-    // This method sets the background color, and where appropriate, the
-    // foreground color is set to complement it for text-based components.
-    @Override
-    public void setForegroundFromBackground( final Color backColor ) {
-        super.setForegroundFromBackground( backColor );
-
-        // Forward this method to the subcomponents.
-        final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );
-
-        _polarPlotGraphicsPanel.setBackground( backColor );
-        _polarPlotGraphicsPanel.setForeground( foreColor );
-
-        _polarPlotHz.setForegroundFromBackground( backColor );
-        _polarPlotVt.setForegroundFromBackground( backColor );
+    public void setGridSpacing( final int gridSpacing ) {
+        // Sync up the traces with the new grid spacing.
+        _polarPlotHz.setGridSpacing( gridSpacing );
+        _polarPlotVt.setGridSpacing( gridSpacing );
     }
 
     public void setGridRange( final float gridRange ) {
         // Sync up the traces with the new grid range.
         _polarPlotHz.setGridRange( gridRange );
         _polarPlotVt.setGridRange( gridRange );
-    }
-
-    public void setGridSpacing( final int gridSpacing ) {
-        // Sync up the traces with the new grid spacing.
-        _polarPlotHz.setGridSpacing( gridSpacing );
-        _polarPlotVt.setGridSpacing( gridSpacing );
     }
 
     @Override
@@ -172,6 +165,23 @@ public final class PolarResponseTitledVectorizationPanel
         // Forward the global rendering hints to all top-level components.
         _polarPlotHz.setRenderingHints( renderingHints );
         _polarPlotVt.setRenderingHints( renderingHints );
+    }
+
+    // This method sets the background color, and where appropriate, the
+    // foreground color is set to complement it for text-based components.
+    @Override
+    public void setForegroundFromBackground( final Color backColor ) {
+        super.setForegroundFromBackground( backColor );
+
+        // Forward this method to the subcomponents.
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
+
+        _polarPlotGraphicsPanel.setBackground( backColor );
+        _polarPlotGraphicsPanel.setForeground( foreColor );
+
+        _polarPlotHz.setForegroundFromBackground( backColor );
+        _polarPlotVt.setForegroundFromBackground( backColor );
     }
 
     public void updateHorizontalPolarResponse( final double[] amplitude,
@@ -193,5 +203,4 @@ public final class PolarResponseTitledVectorizationPanel
                                                 relativeBandwidth,
                                                 centerFrequency );
     }
-
 }

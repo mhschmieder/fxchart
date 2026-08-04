@@ -51,49 +51,69 @@ public class ChartLabeledActionFactory {
     /**
      * The default constructor is disabled, as this is a static factory class.
      */
-    private ChartLabeledActionFactory() {}
+    private ChartLabeledActionFactory() {
+    }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XActionGroup getMinorTickResolutionChoiceGroup( final ClientProperties clientProperties,
                                                                   final MinorTickResolutionChoices minorTickResolutionChoices ) {
-        final Collection< Action > minorTickResolutionChoiceCollection = minorTickResolutionChoices
-                .getMinorTickResolutionChoiceCollection();
+        final Collection< Action > minorTickResolutionChoiceCollection
+                =
+                minorTickResolutionChoices.getMinorTickResolutionChoiceCollection();
 
-        final XActionGroup minorTickResolutionChoiceGroup = ActionFactory
-                .makeChoiceGroup( clientProperties,
-                                  minorTickResolutionChoiceCollection,
-                                  BUNDLE_NAME,
-                                  "minorTickResolution",
-                                  "/icons/fatCow/HorizontalRuler16.png" );
+        final XActionGroup minorTickResolutionChoiceGroup
+                = ActionFactory.makeChoiceGroup( clientProperties,
+                                                 minorTickResolutionChoiceCollection,
+                                                 BUNDLE_NAME,
+                                                 "minorTickResolution",
+                                                 "/icons/fatCow"
+                                                 + "/HorizontalRuler16.png" );
 
         return minorTickResolutionChoiceGroup;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getMinorTicksOffChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "minorTickResolution", "off", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "minorTickResolution",
+                                         "off",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getMinorTicksCoarseChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "minorTickResolution", "coarse", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "minorTickResolution",
+                                         "coarse",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getMinorTicksMediumChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "minorTickResolution", "medium", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "minorTickResolution",
+                                         "medium",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getMinorTicksFineChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "minorTickResolution", "fine", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "minorTickResolution",
+                                         "fine",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
+    public static XAction getLegendAlignmentLeftChoice( final ClientProperties clientProperties ) {
+        return getLegendAlignmentChoice( clientProperties, "left" );
+    }
+
+    @SuppressWarnings( "nls" )
     public static XAction getLegendAlignmentChoice( final ClientProperties clientProperties,
                                                     final String itemName ) {
         return ActionFactory.makeChoice( clientProperties,
@@ -104,72 +124,79 @@ public class ChartLabeledActionFactory {
                                          true );
     }
 
-    @SuppressWarnings("nls")
-    public static XAction getLegendAlignmentLeftChoice( final ClientProperties clientProperties ) {
-        return getLegendAlignmentChoice( clientProperties, "left" );
-    }
-
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getLegendAlignmentRightChoice( final ClientProperties clientProperties ) {
         return getLegendAlignmentChoice( clientProperties, "right" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getLegendAlignmentAboveChoice( final ClientProperties clientProperties ) {
         return getLegendAlignmentChoice( clientProperties, "above" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getLegendAlignmentBelowChoice( final ClientProperties clientProperties ) {
         return getLegendAlignmentChoice( clientProperties, "below" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getLegendAlignmentBetweenChoice( final ClientProperties clientProperties ) {
         return getLegendAlignmentChoice( clientProperties, "between" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XActionGroup getGridResolutionChoiceGroup( final ClientProperties clientProperties,
                                                              final GridResolutionChoices gridResolutionChoices ) {
-        final Collection< Action > gridResolutionChoiceCollection = gridResolutionChoices
-                .getGridResolutionChoiceCollection();
+        final Collection< Action > gridResolutionChoiceCollection
+                = gridResolutionChoices.getGridResolutionChoiceCollection();
 
-        final XActionGroup gridResolutionChoiceGroup = ActionFactory
-                .makeChoiceGroup( clientProperties,
-                                  gridResolutionChoiceCollection,
-                                  BUNDLE_NAME,
-                                  "gridResolution",
-                                  "/icons/led24/Grid16.png" );
+        final XActionGroup gridResolutionChoiceGroup
+                = ActionFactory.makeChoiceGroup( clientProperties,
+                                                 gridResolutionChoiceCollection,
+                                                 BUNDLE_NAME,
+                                                 "gridResolution",
+                                                 "/icons/led24/Grid16.png" );
 
         return gridResolutionChoiceGroup;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getGridCoarseChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "gridResolution", "coarse", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "gridResolution",
+                                         "coarse",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getGridOffChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "gridResolution", "off", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "gridResolution",
+                                         "off",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getGridMediumChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "gridResolution", "medium", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "gridResolution",
+                                         "medium",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getGridFineChoice( final ClientProperties clientProperties ) {
-        return ActionFactory
-                .makeChoice( clientProperties, BUNDLE_NAME, "gridResolution", "fine", null );
+        return ActionFactory.makeChoice( clientProperties,
+                                         BUNDLE_NAME,
+                                         "gridResolution",
+                                         "fine",
+                                         null );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getGridColorAction( final ClientProperties clientProperties ) {
         return ActionFactory.makeAction( clientProperties,
                                          BUNDLE_NAME,
@@ -178,12 +205,13 @@ public class ChartLabeledActionFactory {
                                          "/icons/ahaSoft/Grid16.png" );
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static XAction getDataTrackerColorAction( final ClientProperties clientProperties ) {
         return ActionFactory.makeAction( clientProperties,
                                          BUNDLE_NAME,
                                          "settings",
                                          "dataTrackerColor",
-                                         "/icons/yusukeKamiyamane/fugue/ColorSwatch16.png" );
+                                         "/icons/yusukeKamiyamane/fugue"
+                                         + "/ColorSwatch16.png" );
     }
 }

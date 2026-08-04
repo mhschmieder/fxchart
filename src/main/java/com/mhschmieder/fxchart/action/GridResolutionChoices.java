@@ -53,48 +53,55 @@ public final class GridResolutionChoices {
 
     // Default constructor
     public GridResolutionChoices( final ClientProperties clientProperties ) {
-        _gridOffChoice = ChartLabeledActionFactory.getGridOffChoice( clientProperties );
-        _gridCoarseChoice = ChartLabeledActionFactory.getGridCoarseChoice( clientProperties );
-        _gridMediumChoice = ChartLabeledActionFactory.getGridMediumChoice( clientProperties );
-        _gridFineChoice = ChartLabeledActionFactory.getGridFineChoice( clientProperties );
+        _gridOffChoice = ChartLabeledActionFactory.getGridOffChoice(
+                clientProperties );
+        _gridCoarseChoice = ChartLabeledActionFactory.getGridCoarseChoice(
+                clientProperties );
+        _gridMediumChoice = ChartLabeledActionFactory.getGridMediumChoice(
+                clientProperties );
+        _gridFineChoice = ChartLabeledActionFactory.getGridFineChoice(
+                clientProperties );
     }
 
     public GridResolution getGridResolution() {
         final GridResolution gridResolution = _gridOffChoice.isSelected()
-            ? GridResolution.OFF
-            : _gridCoarseChoice.isSelected()
-                ? GridResolution.COARSE
-                : _gridMediumChoice.isSelected()
-                    ? GridResolution.MEDIUM
-                    : _gridFineChoice.isSelected()
-                        ? GridResolution.FINE
-                        : GridResolution.defaultValue();
+                                              ? GridResolution.OFF
+                                              : _gridCoarseChoice.isSelected()
+                                                ? GridResolution.COARSE
+                                                : _gridMediumChoice.isSelected()
+                                                  ? GridResolution.MEDIUM
+                                                  : _gridFineChoice.isSelected()
+                                                    ? GridResolution.FINE
+                                                    :
+                                                    GridResolution.defaultValue();
         return gridResolution;
-    }
-
-    public Collection< Action > getGridResolutionChoiceCollection() {
-        final Collection< Action > gridResolutionChoiceCollection = Arrays
-                .asList( _gridOffChoice, _gridCoarseChoice, _gridMediumChoice, _gridFineChoice );
-        return gridResolutionChoiceCollection;
     }
 
     public void setGridResolution( final GridResolution gridResolution ) {
         switch ( gridResolution ) {
-        case OFF:
-            _gridOffChoice.setSelected( true );
-            break;
-        case COARSE:
-            _gridCoarseChoice.setSelected( true );
-            break;
-        case MEDIUM:
-            _gridMediumChoice.setSelected( true );
-            break;
-        case FINE:
-            _gridFineChoice.setSelected( true );
-            break;
-        default:
-            break;
+            case OFF:
+                _gridOffChoice.setSelected( true );
+                break;
+            case COARSE:
+                _gridCoarseChoice.setSelected( true );
+                break;
+            case MEDIUM:
+                _gridMediumChoice.setSelected( true );
+                break;
+            case FINE:
+                _gridFineChoice.setSelected( true );
+                break;
+            default:
+                break;
         }
     }
 
+    public Collection< Action > getGridResolutionChoiceCollection() {
+        final Collection< Action > gridResolutionChoiceCollection
+                = Arrays.asList( _gridOffChoice,
+                                 _gridCoarseChoice,
+                                 _gridMediumChoice,
+                                 _gridFineChoice );
+        return gridResolutionChoiceCollection;
+    }
 }

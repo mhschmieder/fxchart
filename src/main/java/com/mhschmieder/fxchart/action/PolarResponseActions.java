@@ -35,21 +35,22 @@ import com.mhschmieder.fxcontrols.action.LabeledActionFactory;
 import com.mhschmieder.fxcontrols.action.SettingsActions;
 import com.mhschmieder.fxcontrols.action.XActionGroup;
 import com.mhschmieder.jcommons.util.ClientProperties;
-import javafx.scene.paint.Color;
 import org.controlsfx.control.action.Action;
 
 import java.util.Arrays;
 import java.util.Collection;
+
+import javafx.scene.paint.Color;
 
 /**
  * This is a struct-like container for actions used by Polar Response.
  */
 public final class PolarResponseActions {
 
-    public FileActions     _fileActions;
-    public PolarResponseViewActions     _viewActions;
+    public FileActions _fileActions;
+    public PolarResponseViewActions _viewActions;
     public SettingsActions _settingsActions;
-    public TestActions     _testActions;
+    public TestActions _testActions;
 
     public PolarResponseActions( final ClientProperties pClientProperties ) {
         _fileActions = new FileActions( pClientProperties );
@@ -70,31 +71,46 @@ public final class PolarResponseActions {
 
     public Collection< Action > getFileActionCollection( final ClientProperties pClientProperties ) {
         // Forward this method to the File actions container.
-        return _fileActions.getFileActionCollection( pClientProperties, true, true );
+        return _fileActions.getFileActionCollection( pClientProperties,
+                                                     true,
+                                                     true );
     }
 
     public Collection< Action > getPolarResponseContextMenuActionCollection( final ClientProperties pClientProperties ) {
-        final Collection< Action > polarResponseContextMenuActionCollection = _viewActions
-                .getViewActionCollection( pClientProperties );
+        final Collection< Action > polarResponseContextMenuActionCollection
+                = _viewActions.getViewActionCollection( pClientProperties );
 
         return polarResponseContextMenuActionCollection;
     }
 
     public Collection< Action > getPolarResponseMenuBarActionCollection( final ClientProperties pClientProperties ) {
-        final XActionGroup fileActionGroup = LabeledActionFactory
-                .getFileActionGroup( pClientProperties, _fileActions, true, true );
+        final XActionGroup fileActionGroup
+                = LabeledActionFactory.getFileActionGroup( pClientProperties,
+                                                           _fileActions,
+                                                           true,
+                                                           true );
 
-        final XActionGroup viewActionGroup = PolarResponseLabeledActionFactory
-                .getViewActionGroup( pClientProperties, _viewActions );
+        final XActionGroup viewActionGroup
+                = PolarResponseLabeledActionFactory.getViewActionGroup(
+                pClientProperties,
+                _viewActions );
 
-        final XActionGroup settingsActionGroup = LabeledActionFactory
-                .getSettingsActionGroup( pClientProperties, _settingsActions, true );
+        final XActionGroup settingsActionGroup
+                =
+                LabeledActionFactory.getSettingsActionGroup( pClientProperties,
+                                                               _settingsActions,
+                                                               true );
 
-        final XActionGroup testActionGroup = PolarResponseLabeledActionFactory
-                .getTestActionGroup( pClientProperties, _testActions );
+        final XActionGroup testActionGroup
+                = PolarResponseLabeledActionFactory.getTestActionGroup(
+                pClientProperties,
+                _testActions );
 
-        final Collection< Action > polarResponseMenuBarActionCollection = Arrays
-                .asList( fileActionGroup, viewActionGroup, settingsActionGroup, testActionGroup );
+        final Collection< Action > polarResponseMenuBarActionCollection
+                = Arrays.asList( fileActionGroup,
+                                 viewActionGroup,
+                                 settingsActionGroup,
+                                 testActionGroup );
 
         return polarResponseMenuBarActionCollection;
     }
@@ -111,7 +127,8 @@ public final class PolarResponseActions {
 
     public Collection< Action > getSettingsActionCollection( final ClientProperties pClientProperties ) {
         // Forward this method to the File actions container.
-        return _settingsActions.getSettingsActionCollection( pClientProperties, true );
+        return _settingsActions.getSettingsActionCollection( pClientProperties,
+                                                             true );
     }
 
     public Collection< Action > getTestActionCollection() {

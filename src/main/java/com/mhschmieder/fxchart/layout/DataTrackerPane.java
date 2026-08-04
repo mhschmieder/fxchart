@@ -33,6 +33,7 @@ package com.mhschmieder.fxchart.layout;
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.jcommons.util.ClientProperties;
+
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -51,21 +52,19 @@ public abstract class DataTrackerPane extends StackPane {
     /**
      * Declare the contextual pop-up menu.
      */
-    public ContextMenu      _contextMenu;
-
-    /**
-     * Keep track of which window owns the context menu, for focus and dismissal
-     */
-    protected Window        _contextMenuOwner;
-
-    // Cache the last Click Location so we can use it to update after window
-    // resizing events.
-    protected ClickLocation _clickLocation;
-
+    public ContextMenu _contextMenu;
     /**
      * Cache the Client Properties (System Type, Locale, etc.).
      */
     public ClientProperties clientProperties;
+    /**
+     * Keep track of which window owns the context menu, for focus and
+     * dismissal
+     */
+    protected Window _contextMenuOwner;
+    // Cache the last Click Location so we can use it to update after window
+    // resizing events.
+    protected ClickLocation _clickLocation;
 
     public DataTrackerPane( final ClientProperties pClientProperties,
                             final ContextMenu contextMenu,
@@ -83,26 +82,6 @@ public abstract class DataTrackerPane extends StackPane {
         catch ( final Exception ex ) {
             ex.printStackTrace();
         }
-    }
-
-    // Register all of the mouse event handlers (e.g. data tracker triggers and
-    // updaters). Pop-up menu triggers are now handled via Context Menu Events.
-    protected final void addMouseEventHandlers() {
-        // NOTE: Triggered when the mouse clicks within this layout pane.
-        setOnMouseClicked( mouseEvent -> {
-            // NOTE: Different platforms handle pop-up triggers differently.
-            if ( !mouseEvent.isPopupTrigger() && !_contextMenu.isShowing() ) {
-                updateDataTracking( mouseEvent, true );
-            }
-        } );
-
-        // NOTE: Triggered when the mouse drags within this layout pane.
-        setOnMouseDragged( mouseEvent -> {
-            final MouseButton button = mouseEvent.getButton();
-            if ( MouseButton.PRIMARY.equals( button ) ) {
-                updateDataTracking( mouseEvent, false );
-            }
-        } );
     }
 
     private final void initPane() {
@@ -126,28 +105,25 @@ public abstract class DataTrackerPane extends StackPane {
         } );
     }
 
-    public final boolean isContextMenuActive() {
-        return _contextMenu.isShowing();
+    // Register all of the mouse event handlers (e.g. data tracker triggers and
+    // updaters). Pop-up menu triggers are now handled via Context Menu Events.
+    protected final void addMouseEventHandlers() {
+        // NOTE: Triggered when the mouse clicks within this layout pane.
+        setOnMouseClicked( mouseEvent -> {
+            // NOTE: Different platforms handle pop-up triggers differently.
+            if ( !mouseEvent.isPopupTrigger() && !_contextMenu.isShowing() ) {
+                updateDataTracking( mouseEvent, true );
+            }
+        } );
+
+        // NOTE: Triggered when the mouse drags within this layout pane.
+        setOnMouseDragged( mouseEvent -> {
+            final MouseButton button = mouseEvent.getButton();
+            if ( MouseButton.PRIMARY.equals( button ) ) {
+                updateDataTracking( mouseEvent, false );
+            }
+        } );
     }
-
-    public abstract void setDataTrackerColor( final Color gridColor );
-
-    public abstract void setForegroundFromBackground( final Color backColor );
-
-    protected final void setForegroundFromBackground( final Color backColor,
-                                                      final String jarRelativeStylesheetFilenameDark,
-                                                      final String jarRelativeStylesheetFilenameLight ) {
-        // Set the new Background first, so it sets context for CSS derivations.
-        final Background background = RegionUtilities.makeRegionBackground( backColor );
-        setBackground( background );
-    }
-
-    public final void updateDataTracking() {
-        updateDataTracking( _clickLocation, false );
-    }
-
-    protected abstract void updateDataTracking( final ClickLocation clickLocation,
-                                                final boolean mouseClicked );
 
     protected final void updateDataTracking( final MouseEvent mouseEvent,
                                              final boolean mouseClicked ) {
@@ -161,4 +137,27 @@ public abstract class DataTrackerPane extends StackPane {
         updateDataTracking( _clickLocation, mouseClicked );
     }
 
+    protected abstract void updateDataTracking( final ClickLocation clickLocation,
+                                                final boolean mouseClicked );
+
+    public final boolean isContextMenuActive() {
+        return _contextMenu.isShowing();
+    }
+
+    public abstract void setDataTrackerColor( final Color gridColor );
+
+    public abstract void setForegroundFromBackground( final Color backColor );
+
+    protected final void setForegroundFromBackground( final Color backColor,
+                                                      final String jarRelativeStylesheetFilenameDark,
+                                                      final String jarRelativeStylesheetFilenameLight ) {
+        // Set the new Background first, so it sets context for CSS derivations.
+        final Background background = RegionUtilities.makeRegionBackground(
+                backColor );
+        setBackground( background );
+    }
+
+    public final void updateDataTracking() {
+        updateDataTracking( _clickLocation, false );
+    }
 }

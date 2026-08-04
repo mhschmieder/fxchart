@@ -47,17 +47,22 @@ public final class PolarResponseAmplitudeScaleChoices {
     public XAction _scaleDiv10dbChoice;
 
     public PolarResponseAmplitudeScaleChoices( final ClientProperties pClientProperties ) {
-        _scaleDiv5dbChoice =
-                           PolarResponseLabeledActionFactory.getScaleDiv5dbChoice( pClientProperties );
-        _scaleDiv6dbChoice =
-                           PolarResponseLabeledActionFactory.getScaleDiv6dbChoice( pClientProperties );
-        _scaleDiv10dbChoice = PolarResponseLabeledActionFactory
-                .getScaleDiv10dbChoice( pClientProperties );
+        _scaleDiv5dbChoice
+                = PolarResponseLabeledActionFactory.getScaleDiv5dbChoice(
+                pClientProperties );
+        _scaleDiv6dbChoice
+                = PolarResponseLabeledActionFactory.getScaleDiv6dbChoice(
+                pClientProperties );
+        _scaleDiv10dbChoice
+                = PolarResponseLabeledActionFactory.getScaleDiv10dbChoice(
+                pClientProperties );
     }
 
     public Collection< Action > getScaleChoiceCollection() {
-        final Collection< Action > scaleChoiceCollection = Arrays
-                .asList( _scaleDiv5dbChoice, _scaleDiv6dbChoice, _scaleDiv10dbChoice );
+        final Collection< Action > scaleChoiceCollection = Arrays.asList(
+                _scaleDiv5dbChoice,
+                _scaleDiv6dbChoice,
+                _scaleDiv10dbChoice );
         return scaleChoiceCollection;
     }
 
@@ -65,18 +70,18 @@ public final class PolarResponseAmplitudeScaleChoices {
         // Sync up the status of all associated controls with the current radial
         // Grid Spacing value by setting the appropriate action selected status.
         switch ( gridSpacing ) {
-        case 5:
-            _scaleDiv5dbChoice.setSelected( true );
-            break;
-        case 6:
-            _scaleDiv6dbChoice.setSelected( true );
-            break;
-        case 10:
-            _scaleDiv10dbChoice.setSelected( true );
-            break;
-        default:
-            _scaleDiv6dbChoice.setSelected( true );
-            break;
+            case 5:
+                _scaleDiv5dbChoice.setSelected( true );
+                break;
+            case 6:
+                _scaleDiv6dbChoice.setSelected( true );
+                break;
+            case 10:
+                _scaleDiv10dbChoice.setSelected( true );
+                break;
+            default:
+                _scaleDiv6dbChoice.setSelected( true );
+                break;
         }
     }
 }
