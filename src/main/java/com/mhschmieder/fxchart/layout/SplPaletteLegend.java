@@ -42,7 +42,7 @@ import javafx.geometry.Side;
  * Title, Dynamic Range, and tick marks/labels for the SPL units and divisions.
  * <p>
  * TODO: Make an enumeration of palette types; there are several popular ones,
- * but the most common one is NASA's Jet Palette, so we use that by default.
+ *  but the most common one is NASA's Jet Palette, so we use that by default.
  */
 public class SplPaletteLegend extends ColorPaletteLegend {
 
@@ -93,6 +93,6 @@ public class SplPaletteLegend extends ColorPaletteLegend {
               ? ( dynamicRange <= 27.0d )
                 ? 3.0d
                 : 6.0d
-              : 12d;
+              : 12.0d;
     }
 }
