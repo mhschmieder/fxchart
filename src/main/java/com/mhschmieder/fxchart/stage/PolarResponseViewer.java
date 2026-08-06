@@ -742,9 +742,9 @@ public class PolarResponseViewer extends XStage {
                                                          acousticSourceModel,
                                                          _frequencyRange.getRelativeBandwidth(),
                                                          _frequencyRange.getCenterFrequency() ) ) {
-                        statusMessage
-                                = "Missing, Incomplete, or Invalid Horizontal"
-                                  + " Polar Response."; //$NON-NLS-1$
+                        statusMessage =
+                                "Missing, Incomplete, or Invalid Horizontal"
+                                + " Polar Response."; //$NON-NLS-1$
                     }
                 }
                 else if ( "PolarResponseVt.bin".equalsIgnoreCase( name ) ) {
@@ -767,9 +767,9 @@ public class PolarResponseViewer extends XStage {
                                                        acousticSourceModel,
                                                        _frequencyRange.getRelativeBandwidth(),
                                                        _frequencyRange.getCenterFrequency() ) ) {
-                        statusMessage
-                                = "Missing, Incomplete, or Invalid Vertical "
-                                  + "Polar Response."; //$NON-NLS-1$
+                        statusMessage =
+                                "Missing, Incomplete, or Invalid Vertical "
+                                + "Polar Response."; //$NON-NLS-1$
                     }
                 }
 
@@ -779,8 +779,7 @@ public class PolarResponseViewer extends XStage {
         }
         catch ( final NullPointerException npe ) {
             npe.printStackTrace();
-            statusMessage
-                    = "Missing, Incomplete, or Invalid Response Data.";
+            statusMessage = "Missing, Incomplete, or Invalid Response Data.";
             //$NON-NLS-1$
         }
         catch ( final ZipException ze ) {

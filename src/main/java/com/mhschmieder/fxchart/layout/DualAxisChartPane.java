@@ -885,7 +885,7 @@ public abstract class DualAxisChartPane extends StackPane {
 
     protected final void setBottomDataSet( final int dataSetIndex,
                                            final XYChart.Series< Number,
-                                                   Number > dataSet ) {
+                                                                       Number > dataSet ) {
         setDataSet( _xyChartBottom, dataSetIndex, dataSet );
     }
 
@@ -971,7 +971,7 @@ public abstract class DualAxisChartPane extends StackPane {
 
     protected final void setTopDataSet( final int dataSetIndex,
                                         final XYChart.Series< Number,
-                                                Number > dataSet ) {
+                                                                    Number > dataSet ) {
         setDataSet( _xyChartTop, dataSetIndex, dataSet );
     }
 }

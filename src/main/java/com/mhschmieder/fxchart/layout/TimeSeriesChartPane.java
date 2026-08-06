@@ -234,8 +234,7 @@ public abstract class TimeSeriesChartPane extends DualAxisChartPane {
     protected final void makeXAxes( final String xUnitLabel ) {
         // Strip the spaces from the unit label as we format in parentheses
         // here.
-        final String timeUnit = xUnitLabel.replaceAll( " ",
-                                                       "" ); //$NON-NLS-1$
+        final String timeUnit = xUnitLabel.replaceAll( " ", "" ); //$NON-NLS-1$
         // $NON-NLS-2$
 
         // The x-axis can be zoomed/scaled but is set to its max range.

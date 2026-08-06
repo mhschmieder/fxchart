@@ -598,6 +598,7 @@ public class CartesianAxis extends ValueAxis< Number > {
      * @since JavaFX 2.0
      */
     public static class DefaultFormatter extends StringConverter< Number > {
+
         private final NumberFormat formatter;
         private String prefix = null;
         private String suffix = null;
@@ -704,6 +705,7 @@ public class CartesianAxis extends ValueAxis< Number > {
      * TODO: Find a non-private way to do this, as it breaks in JavaFX 11.
      */
     protected static class StyleableProperties {
+
         protected static final CssMetaData< CartesianAxis, Number > TICK_UNIT
                 = new CssMetaData< CartesianAxis, Number >( "-fx-tick-unit",
                                                             SizeConverter.getInstance(),

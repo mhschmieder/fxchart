@@ -103,7 +103,7 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
     /**
      * This is the full constructor, when all parameters are known.
      *
-     * @param pUseWatermark                 Flag that indicates if the Watermark
+     * @param pUseWatermark                Flag that indicates if the Watermark
      *                                     should be visible
      * @param jarRelativeWatermarkFilename The JAR-relative file name for the
      *                                     Watermark Image file
@@ -202,11 +202,11 @@ public class VisualizationOverlayGroup extends ChartContentGroup {
                               .bind( mainOverlayImageView.layoutXProperty() );
             watermarkImageView.layoutYProperty()
                               .bind( mainOverlayImageView.layoutYProperty()
-                                                          .add( ( mainOverlayImageView.fitHeightProperty()
-                                                                                      .subtract(
-                                                                                              watermarkImageView.fitHeightProperty() )
-                                                                                      .multiply(
-                                                                                                0.5d ) ) ) );
+                                                         .add( ( mainOverlayImageView.fitHeightProperty()
+                                                                                     .subtract(
+                                                                                             watermarkImageView.fitHeightProperty() )
+                                                                                     .multiply(
+                                                                                             0.5d ) ) ) );
         } );
     }
 

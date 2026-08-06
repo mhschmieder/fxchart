@@ -126,7 +126,7 @@ public final class ChartUtilities {
 
     // Apply standardized attributes to all number-based charts.
     public static void applyNumberChartAttributes( final XYChart< Number,
-                                                           Number > chart,
+                                                                        Number > chart,
                                                    final boolean isOverlayChart,
                                                    final boolean showLegend,
                                                    final Side legendSide ) {
@@ -380,8 +380,7 @@ public final class ChartUtilities {
     }
 
     @SuppressWarnings( "nls" )
-    public static String getFormattedDataPoint( final Series< Number,
-                                                            Number > chartSeries,
+    public static String getFormattedDataPoint( final Series< Number, Number > chartSeries,
                                                 final double xValueShared,
                                                 final double yValueBottom,
                                                 final double yValueTop,
@@ -470,7 +469,7 @@ public final class ChartUtilities {
     @SuppressWarnings( "nls" )
     public static void updateDataSeriesLegend( final ChartLegend legend,
                                                final XYChart< Number,
-                                                       Number > chart ) {
+                                                                    Number > chart ) {
         final ObservableList< ChartLegendItem > legendItems = legend.getItems();
         legendItems.clear();
 

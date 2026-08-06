@@ -46,6 +46,7 @@ import javax.swing.JPanel;
 
 public final class PolarResponseTitledVectorizationPanel
         extends RenderedGraphicsTitledVectorizationPanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.
