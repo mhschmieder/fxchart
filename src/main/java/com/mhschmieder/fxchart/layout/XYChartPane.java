@@ -34,6 +34,7 @@ import com.mhschmieder.fxchart.chart.ChartUtilities;
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgraphics.paint.ColorConstants;
+import com.mhschmieder.fxgraphics.paint.ForegroundManager;
 import com.mhschmieder.jcommons.text.TextUtilities;
 import com.mhschmieder.jcommons.util.ClientProperties;
 
@@ -61,31 +62,39 @@ import javafx.scene.shape.Line;
  * hosting panes, such as supplying a specific stylized Data Tracker and the
  * event model to handle it.
  */
-public abstract class XYChartPane extends StackPane {
+public abstract class XYChartPane extends StackPane implements
+                                                    ForegroundManager {
 
     // Declare a generic XY Chart, so we can customize it on-the-fly.
     public ValueAxis< Number > _xAxis;
     public ValueAxis< Number > _yAxis;
     public XYChart< Number, Number > _xyChart;
+
     /**
      * Cache the Client Properties (System Type, Locale, etc.).
      */
     public ClientProperties clientProperties;
+
     // Declare unit labels for both axes, for data tracking.
     protected String _xUnitLabel;
     protected String _yUnitLabel;
+
     // Declare the Data Tracking marker display as a Line, so can stylize it.
     protected Group _dataTrackingMarkerGroup;
     protected Line _dataTrackingMarker;
+
     // Declare the Data Tracking data display labels and containers.
     protected Group _dataTrackingLabelGroup;
     protected VBox _dataTrackingLabelBox;
     protected ObservableList< Label > _dataTrackingLabels;
+
     // Keep track of the color to be used for Data Tracking.
     protected Color _dataTrackerColor;
+
     // Cache the last Click Location so we can use it to update after data
     // loads from new predictions.
     protected ClickLocation _clickLocation;
+
     // Number format cache used for locale-specific number formatting.
     protected NumberFormat _numberFormat;
 
@@ -220,7 +229,6 @@ public abstract class XYChartPane extends StackPane {
      *                      Chart
      * @param mouseClicked  Flag for whether the mouse was clicked or dragged
      */
-    @SuppressWarnings( "nls" )
     public final void updateDataTracking( final ClickLocation clickLocation,
                                           final boolean mouseClicked ) {
         // If the click location is not present, the calling context may not
@@ -299,11 +307,11 @@ public abstract class XYChartPane extends StackPane {
         // For all valid data sets, show the data values at the data value index
         // closest to the x-axis click location, starting from a clean slate.
         // TODO: Make a method for this, once the details are implemented and
-        // fully verified as correct and in the right presentation style.
+        //  fully verified as correct and in the right presentation style.
         // NOTE: We separately track the current data tracking label index, to
-        // make sure we only use vertically consecutive labels vs. leaving gaps.
+        //  make sure we only use vertically consecutive labels vs. leaving gaps.
         // NOTE: We also separately track the data set index, as we use an
-        // iterator form of the "for" loop to cycle the data sets.
+        //  iterator form of the "for" loop to cycle the data sets.
         int dataTrackingLabelIndex = 0;
         // int dataSetIndex = 0;
         boolean validData = false;
@@ -350,14 +358,14 @@ public abstract class XYChartPane extends StackPane {
             dataPoint.append( ": " );
             dataPoint.append( dataPointValue );
 
-            // Use the CSS tag to lookup the text fill color per data set.
+            // Use the CSS tag to look up the text fill color per data set.
             // NOTE: Commented out, as the stroke color settings for the
-            // referenced CSS tags do not appear to affect text fill color, and
-            // this means we would have to resort to the Reflection API for CSS
-            // attributes, which is non-trivial so should be deferred for now.
+            //  referenced CSS tags do not appear to affect text fill color, and
+            //  this means we would have to resort to the Reflection API for CSS
+            //  attributes, which is non-trivial so should be deferred for now.
             // NOTE: Unfortunately, as we can have holes in the data groups for
-            // unused chart indices, the label list might sometimes be smaller
-            // than the chart series list. Therefore we check against list size.
+            //  unused chart indices, the label list might sometimes be smaller
+            //  than the chart series list. Therefore we check against list size.
             if ( dataTrackingLabelIndex < _dataTrackingLabels.size() ) {
                 final Label dataTrackingLabel = _dataTrackingLabels.get(
                         dataTrackingLabelIndex++ );
@@ -398,18 +406,18 @@ public abstract class XYChartPane extends StackPane {
     protected final void adjustDataTrackingLocation( final ClickLocation clickLocation ) {
         // Update the data tracking marker location and "X" data point markers.
         // TODO: Draw the "X", but that needs to happen inside the data set
-        // looper, so we need to have this path element reference available for
-        // use inside that loop and to remember the x-axis tracker location.
+        //  looper, so we need to have this path element reference available for
+        //  use inside that loop and to remember the x-axis tracker location.
         // NOTE: As the vertical line is centered in the shared layout parent,
-        // mouse coordinates must subtract half the layout width to accommodate.
+        //  mouse coordinates must subtract half the layout width to accommodate.
         // NOTE: Similarly, we need to adjust vertically by half the difference
-        // between the overall layout height and the actual chart height.
+        //  between the overall layout height and the actual chart height.
         // NOTE: We add a fudge factor of 4 pixels to account for stroke width.
         // NOTE: The vertical offset is conditionally faked out, as it's too
-        // tricky to figure out how to account for the legend when at the top.
+        //  tricky to figure out how to account for the legend when at the top.
         // TODO: Get this worked out better, even though it's perfect now, as
-        // otherwise future changes could break it, and take note that the mid
-        // position is exactly half of the height so cancels out that part.
+        //  otherwise future changes could break it, and take note that the mid
+        //  position is exactly half of the height so cancels out that part.
         // NOTE: This will break if a chart has both a title and a legend.
         final int numberOfDataSets = _xyChart.getData().size();
         final String title = _xyChart.getTitle();
@@ -440,8 +448,8 @@ public abstract class XYChartPane extends StackPane {
                                   ? 3.0d
                                   : 4.0d
                                 : hasTitle
-                                  ? -10d
-                                  : -12d
+                                  ? -10.0d
+                                  : -12.0d
                               : 8.0d;
         final double lineY = midY + offsetY + fudgeY;
         _dataTrackingMarkerGroup.setTranslateY( lineY );
@@ -465,8 +473,8 @@ public abstract class XYChartPane extends StackPane {
                                : lineX + ( 0.55d
                                            * _dataTrackingLabelBox.getWidth() );
         final double labelsY = ( legendVisible
-                                 && Side.TOP.equals( legendSide ) )
-                               ? 40d
+                                 && legendSide == Side.TOP )
+                               ? 40.0d
                                : 0.0d;
         if ( beyondRightEdge ) {
             _dataTrackingLabelBox.setAlignment( Pos.CENTER_LEFT );
@@ -781,6 +789,7 @@ public abstract class XYChartPane extends StackPane {
         }
     }
 
+    @Override
     public final void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
         final Background background = RegionUtilities.makeRegionBackground(
@@ -797,7 +806,7 @@ public abstract class XYChartPane extends StackPane {
 
         // Update the data tracking marker location and "X" data point markers.
         // NOTE: This is run on a deferred thread, as the chart needs some time
-        // to internally update everything affected by changing the legend side.
+        //  to internally update everything affected by changing the legend side.
         // NOTE: That helped but not quite enough, so now we run it twice.
         if ( _clickLocation != null ) {
             Platform.runLater( () -> {

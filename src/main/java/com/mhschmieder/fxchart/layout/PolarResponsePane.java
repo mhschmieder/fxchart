@@ -33,6 +33,7 @@ package com.mhschmieder.fxchart.layout;
 import com.mhschmieder.fxchart.action.PolarResponseActions;
 import com.mhschmieder.fxchart.control.PolarResponseMenuFactory;
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
+import com.mhschmieder.fxgraphics.paint.ForegroundManager;
 import com.mhschmieder.jchart.layout.PolarAmplitudePlot;
 import com.mhschmieder.jcommons.util.ClientProperties;
 import com.mhschmieder.jgraphics.util.GraphicsUtilities;
@@ -50,15 +51,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
-public final class PolarResponsePane extends BorderPane {
+public final class PolarResponsePane extends BorderPane implements
+                                                        ForegroundManager {
 
     // Cache the full Session Context (System Type, Locale, Client Type, etc.).
     public ClientProperties _clientProperties;
+
     // Declare and instantiate all of the UI components.
     protected SwingNode _polarPlotHzSwingNode;
     protected PolarAmplitudePlot _awtPolarPlotHz;
     protected SwingNode _polarPlotVtSwingNode;
     protected PolarAmplitudePlot _awtPolarPlotVt;
+
     /**
      * Keep track of which window owns the context menu, for focus and
      * dismissal
@@ -130,13 +134,13 @@ public final class PolarResponsePane extends BorderPane {
         final Node contextMenuOwner = this;
         _polarPlotHzSwingNode.setOnMouseClicked( mouseEvent -> {
             final MouseButton button = mouseEvent.getButton();
-            if ( MouseButton.PRIMARY.equals( button ) ) {
+            if ( MouseButton.PRIMARY == button ) {
                 // Update the cursor coordinates.
                 updateCursorCoordinates( mouseEvent.getScreenX(),
                                          mouseEvent.getScreenY(),
                                          _awtPolarPlotHz );
             }
-            else if ( MouseButton.SECONDARY.equals( button ) ) {
+            else if ( MouseButton.SECONDARY == button ) {
                 contextMenu.show( contextMenuOwner,
                                   mouseEvent.getScreenX(),
                                   mouseEvent.getScreenY() );
@@ -151,13 +155,13 @@ public final class PolarResponsePane extends BorderPane {
 
         _polarPlotVtSwingNode.setOnMouseClicked( mouseEvent -> {
             final MouseButton button = mouseEvent.getButton();
-            if ( MouseButton.PRIMARY.equals( button ) ) {
+            if ( MouseButton.PRIMARY == button ) {
                 // Update the cursor coordinates.
                 updateCursorCoordinates( mouseEvent.getScreenX(),
                                          mouseEvent.getScreenY(),
                                          _awtPolarPlotVt );
             }
-            else if ( MouseButton.SECONDARY.equals( button ) ) {
+            else if ( MouseButton.SECONDARY == button ) {
                 contextMenu.show( contextMenuOwner,
                                   mouseEvent.getScreenX(),
                                   mouseEvent.getScreenY() );
@@ -237,6 +241,7 @@ public final class PolarResponsePane extends BorderPane {
 
     // This method sets the background color, and where appropriate, the
     // foreground color is set to complement it for text-based components.
+    @Override
     public void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
         final Background background = RegionUtilities.makeRegionBackground(

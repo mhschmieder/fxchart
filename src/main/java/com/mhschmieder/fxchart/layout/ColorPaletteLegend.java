@@ -32,6 +32,7 @@ package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.paint.ColorUtilities;
+import com.mhschmieder.fxgraphics.paint.ForegroundManager;
 import com.mhschmieder.jgraphics.color.ColorPalette;
 import com.mhschmieder.jgraphics.color.PaletteUtilities;
 import org.apache.commons.math3.util.FastMath;
@@ -75,14 +76,16 @@ import javafx.scene.text.FontWeight;
  * the user of this layout and is decoupled from all of the logic here.
  * <p>
  * TODO: support horizontal orientation of the Palette Legend, which would
- * require flipping all of the x-axis and y-axis contexts everywhere?
+ *  require flipping all of the x-axis and y-axis contexts everywhere?
  */
-public abstract class ColorPaletteLegend extends StackPane {
+public abstract class ColorPaletteLegend extends StackPane implements
+                                                           ForegroundManager {
 
     /**
      * Cache the flag for whether to normalize Dynamic Range max to Zero.
      */
     private final boolean normalizeMaxToZero;
+
     /**
      * Cache the Aspect Ratio desired for the bounding box of this layout pane.
      */
@@ -151,7 +154,6 @@ public abstract class ColorPaletteLegend extends StackPane {
         }
     }
 
-    @SuppressWarnings( "nls" )
     private void initLegend( final String label ) {
         // Use a derived font that is bold and large like an HTML header.
         paletteLabel = new Label( label );
@@ -225,7 +227,7 @@ public abstract class ColorPaletteLegend extends StackPane {
     }
 
     /**
-     * Makes the y axis for the Palette Legend labels. Delegated to the derived
+     * Makes the y-axis for the Palette Legend labels. Delegated to the derived
      * classes as y-axis choices vary wildly across different use cases, which
      * might be SPL's, a normalized range, percentages, or anything else.
      */
@@ -257,6 +259,7 @@ public abstract class ColorPaletteLegend extends StackPane {
      *
      * @param backColor The background color to use for this layout pane
      */
+    @Override
     public void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
         final Background background = RegionUtilities.makeRegionBackground(

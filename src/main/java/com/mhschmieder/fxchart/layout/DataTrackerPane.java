@@ -32,6 +32,7 @@ package com.mhschmieder.fxchart.layout;
 
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
+import com.mhschmieder.fxgraphics.paint.ForegroundManager;
 import com.mhschmieder.jcommons.util.ClientProperties;
 
 import javafx.scene.control.ContextMenu;
@@ -47,21 +48,25 @@ import javafx.stage.Window;
  * capabilities. By using a Stack Pane as the basis, we can avoid a lot of
  * layout issues that otherwise would develop in complex layout hierarchies.
  */
-public abstract class DataTrackerPane extends StackPane {
+public abstract class DataTrackerPane extends StackPane implements
+                                                        ForegroundManager {
 
     /**
      * Declare the contextual pop-up menu.
      */
     public ContextMenu _contextMenu;
+
     /**
      * Cache the Client Properties (System Type, Locale, etc.).
      */
     public ClientProperties clientProperties;
+
     /**
      * Keep track of which window owns the context menu, for focus and
      * dismissal
      */
     protected Window _contextMenuOwner;
+
     // Cache the last Click Location so we can use it to update after window
     // resizing events.
     protected ClickLocation _clickLocation;
@@ -119,7 +124,7 @@ public abstract class DataTrackerPane extends StackPane {
         // NOTE: Triggered when the mouse drags within this layout pane.
         setOnMouseDragged( mouseEvent -> {
             final MouseButton button = mouseEvent.getButton();
-            if ( MouseButton.PRIMARY.equals( button ) ) {
+            if ( MouseButton.PRIMARY == button ) {
                 updateDataTracking( mouseEvent, false );
             }
         } );
@@ -145,8 +150,6 @@ public abstract class DataTrackerPane extends StackPane {
     }
 
     public abstract void setDataTrackerColor( final Color gridColor );
-
-    public abstract void setForegroundFromBackground( final Color backColor );
 
     protected final void setForegroundFromBackground( final Color backColor,
                                                       final String jarRelativeStylesheetFilenameDark,

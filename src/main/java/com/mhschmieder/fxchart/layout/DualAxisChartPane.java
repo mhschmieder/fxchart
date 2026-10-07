@@ -34,6 +34,7 @@ import com.mhschmieder.fxchart.chart.ChartUtilities;
 import com.mhschmieder.fxcontrols.util.RegionUtilities;
 import com.mhschmieder.fxgraphics.input.ClickLocation;
 import com.mhschmieder.fxgraphics.paint.ColorConstants;
+import com.mhschmieder.fxgraphics.paint.ForegroundManager;
 import com.mhschmieder.jcommons.util.ClientProperties;
 
 import java.text.NumberFormat;
@@ -62,7 +63,8 @@ import javafx.scene.shape.Line;
  * Chart hosting panes, such as supplying a specific stylized Data Tracker and
  * the event model to handle it.
  */
-public abstract class DualAxisChartPane extends StackPane {
+public abstract class DualAxisChartPane extends StackPane implements
+                                                          ForegroundManager {
 
     // Declare a generic XY Bottom Chart, so we can customize it on-the-fly.
     public ValueAxis< Number > _xAxisBottom;
@@ -73,26 +75,33 @@ public abstract class DualAxisChartPane extends StackPane {
     public ValueAxis< Number > _xAxisTop;
     public ValueAxis< Number > _yAxisTop;
     public XYChart< Number, Number > _xyChartTop;
+
     /**
      * Cache the Client Properties (System Type, Locale, etc.).
      */
     public ClientProperties clientProperties;
+
     // Declare unit labels for both axes, for data tracking.
     protected String _xUnitLabelShared;
     protected String _yUnitLabelBottom;
     protected String _yUnitLabelTop;
+
     // Declare the Data Tracking marker display as a Line, so we can stylize it.
     protected Group _dataTrackingMarkerGroup;
     protected Line _dataTrackingMarker;
+
     // Declare the Data Tracking data display labels and containers.
     protected Group _dataTrackingLabelGroup;
     protected VBox _dataTrackingLabelBox;
     protected ObservableList< Label > _dataTrackingLabels;
+
     // Keep track of the color to be used for Data Tracking.
     protected Color _dataTrackerColor;
+
     // Cache the last Click Location so we can use it to update after data loads
     // from new sources or from visualization updates.
     protected ClickLocation _clickLocation;
+
     // Number format cache used for locale-specific number formatting.
     protected NumberFormat _numberFormat;
 
@@ -212,7 +221,7 @@ public abstract class DualAxisChartPane extends StackPane {
                 = chartSeriesList.get( dataSetIndex );
 
         // TODO: Improve performance by treating hide/show as simple visibility
-        // on/off rather than clearing the series and filling it again later on.
+        //  on/off rather than clearing the series and filling it again later.
         // chartSeries.getNode().setVisible( false );
 
         final ObservableList< Data< Number, Number > > chartSeriesData
@@ -241,7 +250,6 @@ public abstract class DualAxisChartPane extends StackPane {
      *                      Chart
      * @param mouseClicked  Flag for whether the mouse was clicked or dragged
      */
-    @SuppressWarnings( "nls" )
     public final void updateDataTracking( final ClickLocation clickLocation,
                                           final boolean mouseClicked ) {
         // If the click location is not present, the calling context may not
@@ -331,13 +339,13 @@ public abstract class DualAxisChartPane extends StackPane {
             // index closest to the x-axis click location, starting from a clean
             // slate.
             // TODO: Make a method for this, once the details are implemented
-            // and fully verified as correct and in the right presentation
-            // style.
+            //  and fully verified as correct and in the right presentation
+            //  style.
             // NOTE: We separately track the current Data Tracking label index,
-            // to make sure we only use vertically consecutive labels vs.
-            // leaving gaps.
+            //  to make sure we only use vertically consecutive labels vs.
+            //  leaving gaps.
             // NOTE: We also separately track the Data Set index, as we use an
-            // iterator form of the "for" loop to cycle the data sets.
+            //  iterator form of the "for" loop to cycle the data sets.
             for ( int dataSetIndex = firstBottomDatasetIndex;
                   dataSetIndex <= lastBottomDataSetIndex;
                   dataSetIndex++ ) {
@@ -363,9 +371,9 @@ public abstract class DualAxisChartPane extends StackPane {
 
                 // Add a new line in the text area for this data point, by name.
                 // NOTE: Unfortunately, as we can have holes in the data groups
-                // for unused chart indices, the label list might sometimes be
-                // smaller than the chart series list. Therefore we check
-                // against list size.
+                //  for unused chart indices, the label list might sometimes be
+                //  smaller than the chart series list. Therefore, we check
+                //  against list size.
                 if ( dataTrackingLabelIndex < _dataTrackingLabels.size() ) {
                     final Data< Number, Number > chartSeriesBottomDataPoint
                             =
@@ -418,13 +426,13 @@ public abstract class DualAxisChartPane extends StackPane {
                             dataTrackingLabelIndex++ );
                     dataTrackingLabel.setText( formattedDataPoint );
 
-                    // Use the CSS tag to lookup the text fill color per data
+                    // Use the CSS tag to look up the text fill color per data
                     // set.
                     // NOTE: Commented out, as the stroke color settings for
-                    // the referenced CSS tags do not appear to affect text fill
-                    // color, and this means we would have to resort to the
-                    // Reflection API for CSS attributes, which is non-trivial
-                    // so should be deferred for now.
+                    //  the referenced CSS tags do not appear to affect text
+                    //  fill color, and this means we would have to resort to
+                    //  the Reflection API for CSS attributes, which is
+                    //  non-trivial so should be deferred for now.
                     // final String lineChartColorTag =
                     // ".chart-series-line.series" + Integer.toString(
                     // dataSetIndex );
@@ -510,8 +518,8 @@ public abstract class DualAxisChartPane extends StackPane {
                                   ? 3.0d
                                   : 4.0d
                                 : hasTitle
-                                  ? -10d
-                                  : -12d
+                                  ? -10.0d
+                                  : -12.0d
                               : 8.0d;
         final double lineY = midY + offsetY + fudgeY;
         _dataTrackingMarkerGroup.setTranslateY( lineY );
@@ -535,11 +543,11 @@ public abstract class DualAxisChartPane extends StackPane {
                                : lineX + ( 0.55d
                                            * _dataTrackingLabelBox.getWidth() );
         final double labelsY = ( legendVisible
-                                 && Side.TOP.equals( legendSide ) )
-                               ? 50d
+                                 && Side.TOP == legendSide )
+                               ? 50.0d
                                : hasTitle
                                  ? 0.0d
-                                 : -10d;
+                                 : -10.0d;
         if ( beyondRightEdge ) {
             _dataTrackingLabelBox.setAlignment( Pos.CENTER_LEFT );
         }
@@ -935,6 +943,7 @@ public abstract class DualAxisChartPane extends StackPane {
         }
     }
 
+    @Override
     public void setForegroundFromBackground( final Color backColor ) {
         // Set the new Background first, so it sets context for CSS derivations.
         final Background background = RegionUtilities.makeRegionBackground(
