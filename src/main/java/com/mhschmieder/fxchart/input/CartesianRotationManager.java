@@ -33,8 +33,8 @@ package com.mhschmieder.fxchart.input;
 import com.mhschmieder.fxgraphics.input.MouseToolManager;
 import com.mhschmieder.fxgraphics.input.RotationManager;
 import com.mhschmieder.jgraphics.input.MouseToolMode;
+import com.mhschmieder.jphysics.measure.DistanceConversion;
 import com.mhschmieder.jphysics.measure.DistanceUnit;
-import com.mhschmieder.jphysics.measure.UnitConversion;
 import org.apache.commons.math3.util.FastMath;
 
 import javafx.geometry.Point2D;
@@ -123,11 +123,11 @@ public class CartesianRotationManager extends RotationManager {
 
         // Position the Center of Rotation at the mouse click, in the current
         // user Distance Unit.
-        final double centerOfRotationLocalX = UnitConversion.convertDistance(
+        final double centerOfRotationLocalX = DistanceConversion.convertDistance(
                 _centerOfRotationMeters.getX(),
                 DistanceUnit.METERS,
                 distanceUnit );
-        final double centerOfRotationLocalY = UnitConversion.convertDistance(
+        final double centerOfRotationLocalY = DistanceConversion.convertDistance(
                 _centerOfRotationMeters.getY(),
                 DistanceUnit.METERS,
                 distanceUnit );
